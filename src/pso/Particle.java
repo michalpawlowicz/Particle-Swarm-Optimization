@@ -11,20 +11,12 @@ public class Particle {
 
     private Vector bestKnownPosition;
 
-    private Particle() {}
-
     /**
      * Current particle's position
      * @return Returns copy of vector representing particles's position
      */
     public Vector getPosition() {
         return new Vector(this.position);
-    }
-
-    private void initRandom(int dimension, int min, int max) {
-        this.position = Vector.random(dimension, min, max);
-        this.velocity = Vector.random(dimension, (-1) * Math.abs(max - min), Math.abs(max - min));
-        this.bestKnownPosition = new Vector(this.position);
     }
 
     /**
@@ -72,6 +64,14 @@ public class Particle {
     }
 
     public void updateBestPosition() {
+        this.bestKnownPosition = new Vector(this.position);
+    }
+
+    private Particle() {}
+
+    private void initRandom(int dimension, int min, int max) {
+        this.position = Vector.random(dimension, min, max);
+        this.velocity = Vector.random(dimension, (-1) * Math.abs(max - min), Math.abs(max - min));
         this.bestKnownPosition = new Vector(this.position);
     }
 }

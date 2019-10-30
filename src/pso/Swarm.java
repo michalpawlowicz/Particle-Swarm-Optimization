@@ -15,30 +15,6 @@ public class Swarm {
 
     private Vector globalBestKnowPosition;
 
-    private Swarm() {}
-
-    /**
-     * Swarm initialization
-     * @param particlesCount Number of particles in swarm
-     * @param dimension dimension of input vector to function fn
-     * @param fn Function to be optimised
-     */
-    private void initSwarm(Integer particlesCount, Integer dimension, Function<Vector, Double> fn) {
-        this.fn = fn;
-        this.particleList = new LinkedList<>();
-        this.globalBestKnowFitness = Double.MAX_VALUE;
-        this.globalBestKnowPosition = Vector.random(dimension, -10000, 1000);
-        IntStream.range(0, particlesCount).forEach(i -> {
-            var particle = Particle.createRandomParticle(dimension, -1000, 1000);
-            this.particleList.add(particle);
-            var particleFintess = particle.apply(fn);
-            if(particleFintess < globalBestKnowFitness) {
-                globalBestKnowFitness = particleFintess;
-                globalBestKnowPosition = particle.getPosition(); // TODO copy?
-            }
-        });
-    }
-
     /**
      * Create swarm
      * @param fn Function to be optimized
@@ -71,4 +47,28 @@ public class Swarm {
             }
         }
     }
+
+    /**
+     * Swarm initialization
+     * @param particlesCount Number of particles in swarm
+     * @param dimension dimension of input vector to function fn
+     * @param fn Function to be optimised
+     */
+    private void initSwarm(Integer particlesCount, Integer dimension, Function<Vector, Double> fn) {
+        this.fn = fn;
+        this.particleList = new LinkedList<>();
+        this.globalBestKnowFitness = Double.MAX_VALUE;
+        this.globalBestKnowPosition = Vector.random(dimension, -10000, 1000);
+        IntStream.range(0, particlesCount).forEach(i -> {
+            var particle = Particle.createRandomParticle(dimension, -1000, 1000);
+            this.particleList.add(particle);
+            var particleFintess = particle.apply(fn);
+            if(particleFintess < globalBestKnowFitness) {
+                globalBestKnowFitness = particleFintess;
+                globalBestKnowPosition = particle.getPosition(); // TODO copy?
+            }
+        });
+    }
+
+    private Swarm() {}
 }
