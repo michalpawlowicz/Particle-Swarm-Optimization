@@ -41,7 +41,7 @@ public class Swarm {
 
     /**
      * Create swarm
-     * @param fn Function to be optymalsed
+     * @param fn Function to be optimized
      * @param size Size of swarm (particles count)
      * @param dimension Dimension of fn's input vector
      * @return Initialized Swarm instance
