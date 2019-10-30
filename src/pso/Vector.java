@@ -2,7 +2,10 @@ package pso;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.DoubleBinaryOperator;
 import java.util.stream.IntStream;
 
 public class Vector {
@@ -31,6 +34,10 @@ public class Vector {
         });
     }
 
+    public double reduce(DoubleBinaryOperator fn, double start) {
+        return Arrays.stream(this.xs).reduce(start, fn);
+    }
+
     /**
      * Returns ith element
      * @param i element's index
@@ -51,6 +58,10 @@ public class Vector {
         var v = new Vector(size);
         v.initRandom(min, max);
         return v;
+    }
+
+    public int length() {
+        return this.size;
     }
 
     private void initRandom(int min, int max) {

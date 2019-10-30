@@ -41,12 +41,12 @@ public class Particle {
         return fn.apply(position);
     }
 
-    public void updateVelocity(double omega, double psi, Vector gBest) {
+    public void updateVelocity(double omega, double phi_p, double phi_g, Vector gBest) {
         Random random = new Random();
         this.velocity.map((i, vi) -> {
             var rp = random.nextDouble();
             var rg = random.nextDouble();
-            return omega * vi + psi * rp * (this.bestKnownPosition.get(i) - this.position.get(i)) + omega * rg * (gBest.get(i)  - this.position.get(i));
+            return omega * vi + phi_p * rp * (this.bestKnownPosition.get(i) - this.position.get(i)) + phi_g * rg * (gBest.get(i)  - this.position.get(i));
         });
     }
 

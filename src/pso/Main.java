@@ -4,12 +4,13 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        Function<Vector, Double> fn2 = v -> {
-            return (v.get(0) - 71) * (v.get(0) - 71) + (v.get(1) + 21) * (v.get(1) + 21);
+        var dimension = 200;
+        Function<Vector, Double> schwefel_function = v -> {
+            return v.length() * 418.9829 - v.reduce((acc, xi) -> { return acc + xi*Math.sin(Math.sqrt(Math.abs(xi))); }, 0.0);
         };
-        var swarm = Swarm.createSwarm(fn2, 1000000, 2);
+        var swarm = Swarm.createSwarm(schwefel_function, 1000, dimension);
         swarm.run(f -> {
-            return f < 1e-6;
+            return Math.abs(f) < 1e-6;
         });
     }
 }
