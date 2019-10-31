@@ -1,4 +1,4 @@
-package pso;
+package pl.edu.agh.pso;
 
 import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
