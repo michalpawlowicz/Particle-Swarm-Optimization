@@ -7,9 +7,16 @@
     <groupId>pl.edu.agh</groupId>
     <artifactId>pso</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
