@@ -8,12 +8,20 @@ import java.util.function.Function;
 
 public class Particle extends AbstractActor {
 
-    static class BestPositionMessage {
+    static class Response {
         Vector position;
         double fitness;
-        BestPositionMessage(Vector v, double fitness) {
+        Response(Vector v, double fitness) {
             this.position = v;
             this.fitness = fitness;
+        }
+
+        @Override
+        public String toString() {
+            return "Response{" +
+                    "position=" + position +
+                    ", fitness=" + fitness +
+                    '}';
         }
     }
 
@@ -26,6 +34,8 @@ public class Particle extends AbstractActor {
         }
     }
 
+    static class State {}
+
     private Vector position;
     private Vector velocity;
 
@@ -33,21 +43,6 @@ public class Particle extends AbstractActor {
     private double bestKnownFitness;
 
     private Function<Vector, Double> fn;
-
-    @Override
-    public void preStart() throws Exception {
-        super.preStart();
-        getContext().parent().tell(new Particle.BestPositionMessage(this.position, this.bestKnownFitness), self());
-    }
-
-    @Override
-    public void postRestart(Throwable reason) throws Exception {
-        // BIG FAT WARNING
-        // super.postRestart() calls preStart after every restart by default
-        // preStart must be called only once at agent creation
-        // do not call super.postRestart in this method
-        // leaving empty on purpose
-    }
 
     /**
      * Apply fitness function fn to current particle position in the given domain
@@ -58,7 +53,7 @@ public class Particle extends AbstractActor {
     }
 
     private void updateVelocity(double omega, double psi, Vector gBest) {
-        Random random = new Random();
+        Random random = new Random(); // TODO as member?
         this.velocity.map((i, vi) -> {
             var rp = random.nextDouble();
             var rg = random.nextDouble();
@@ -79,20 +74,23 @@ public class Particle extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(StartIteration.class, this::iterate)
+                .match(State.class, msg -> {
+                    context().sender().tell(new Response(bestKnownPosition, bestKnownFitness), self());
+                })
                 .build();
     }
 
     private void iterate(StartIteration msg) {
-        var omega = 0.1;
+        var omega = 0.5;
         var psi = 0.1;
         updateVelocity(omega, psi, msg.gBest);
         updatePosition();
         var fitness = this.apply();
         if(fitness < this.bestKnownFitness) {
             this.bestKnownFitness = fitness;
-            this.bestKnownPosition = new Vector(this.position); // TODO copy?
+            this.bestKnownPosition = new Vector(this.position);
         }
-        context().parent().tell(new BestPositionMessage(bestKnownPosition, bestKnownFitness), self());
+        context().sender().tell(new Response(bestKnownPosition, bestKnownFitness), self());
     }
 
     /**

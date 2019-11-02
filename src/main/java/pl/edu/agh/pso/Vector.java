@@ -1,13 +1,14 @@
 package pl.edu.agh.pso;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
 import java.util.stream.IntStream;
 
 public class Vector {
 
-    private int size;
+    private final int size;
 
     private double[] xs;
 
@@ -54,7 +55,8 @@ public class Vector {
     }
 
     private void initRandom(int min, int max) {
-        IntStream.range(0, this.size).forEach(i -> { this.xs[i] = ThreadLocalRandom.current().nextDouble(min, max); });
+        var random = new Random();
+        IntStream.range(0, this.size).forEach(i -> { this.xs[i] = min + random.nextDouble() * (max - min); });
     }
 
     private Vector(int size) {
