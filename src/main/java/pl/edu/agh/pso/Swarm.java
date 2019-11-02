@@ -4,6 +4,7 @@ import akka.actor.AbstractActor;
 import akka.actor.Props;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
+import pl.edu.agh.pso.messages.Start;
 import scala.concurrent.Await;
 
 import java.time.Duration;
@@ -12,9 +13,6 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 
 public class Swarm extends AbstractActor {
-
-    static class RunMessage {
-    }
 
     private BiFunction<Integer, Double, Boolean> predicate;
 
@@ -26,7 +24,8 @@ public class Swarm extends AbstractActor {
 
     private int iter;
 
-    private void run(RunMessage m) {
+    private void run(Start m) {
+        /*
         final Timeout timeout = Timeout.create(Duration.ofSeconds(10));
         context().children().iterator().map(cRef -> Patterns.ask(cRef,
                 new Particle.State(),
@@ -62,12 +61,14 @@ public class Swarm extends AbstractActor {
             });
             iter++;
         }
+        
+         */
     }
 
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(RunMessage.class, this::run)
+                .match(Start.class, this::run)
                 .build();
     }
 

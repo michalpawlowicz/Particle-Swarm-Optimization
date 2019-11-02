@@ -2,39 +2,15 @@ package pl.edu.agh.pso;
 
 import akka.actor.AbstractActor;
 import akka.actor.Props;
+import pl.edu.agh.pso.messages.Activate;
+import pl.edu.agh.pso.messages.Complete;
+import pl.edu.agh.pso.messages.ImmutableComplete;
+import pl.edu.agh.pso.messages.Terminate;
 
 import java.util.Random;
 import java.util.function.Function;
 
 public class Particle extends AbstractActor {
-
-    static class Response {
-        Vector position;
-        double fitness;
-        Response(Vector v, double fitness) {
-            this.position = v;
-            this.fitness = fitness;
-        }
-
-        @Override
-        public String toString() {
-            return "Response{" +
-                    "position=" + position +
-                    ", fitness=" + fitness +
-                    '}';
-        }
-    }
-
-    static class StartIteration {
-        Vector gBest;
-        Integer iter;
-        public StartIteration(Vector gBest, Integer iter) {
-            this.gBest = gBest;
-            this.iter = iter;
-        }
-    }
-
-    static class State {}
 
     private Vector position;
     private Vector velocity;
@@ -46,6 +22,7 @@ public class Particle extends AbstractActor {
 
     /**
      * Apply fitness function fn to current particle position in the given domain
+     *
      * @return Double which represents current fitness of particle
      */
     private Double apply() {
@@ -57,7 +34,7 @@ public class Particle extends AbstractActor {
         this.velocity.map((i, vi) -> {
             var rp = random.nextDouble();
             var rg = random.nextDouble();
-            return omega * vi + psi * rp * (this.bestKnownPosition.get(i) - this.position.get(i)) + omega * rg * (gBest.get(i)  - this.position.get(i));
+            return omega * vi + psi * rp * (this.bestKnownPosition.get(i) - this.position.get(i)) + omega * rg * (gBest.get(i) - this.position.get(i));
         });
     }
 
@@ -73,31 +50,38 @@ public class Particle extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(StartIteration.class, this::iterate)
-                .match(State.class, msg -> {
-                    context().sender().tell(new Response(bestKnownPosition, bestKnownFitness), self());
-                })
+                .match(Activate.class, this::iterate)
+                .match(Terminate.class, this::terminate)
                 .build();
     }
 
-    private void iterate(StartIteration msg) {
+    private void terminate(Terminate msg) {
+        return;
+    }
+
+    private void iterate(Activate msg) {
         var omega = 0.5;
         var psi = 0.1;
-        updateVelocity(omega, psi, msg.gBest);
+        updateVelocity(omega, psi, msg.getBestPosition());
         updatePosition();
         var fitness = this.apply();
-        if(fitness < this.bestKnownFitness) {
+        if (fitness < this.bestKnownFitness) {
             this.bestKnownFitness = fitness;
             this.bestKnownPosition = new Vector(this.position);
         }
-        context().sender().tell(new Response(bestKnownPosition, bestKnownFitness), self());
+        context().sender()
+                .tell(ImmutableComplete.builder()
+                        .fitness(this.bestKnownFitness)
+                        .position(this.bestKnownPosition)
+                        .build(), self());
     }
 
     /**
      * Create particle with random position and velocity
+     *
      * @param dimension dimension in which particle exists, for instance dimension of fitness function
-     * @param lbount lower bound of domain
-     * @param hbound higher bound of domain
+     * @param lbount    lower bound of domain
+     * @param hbound    higher bound of domain
      * @return instance of particle
      */
     public Particle(int dimension, int lbount, int hbound, Function<Vector, Double> fn) {
