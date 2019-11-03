@@ -1,8 +1,9 @@
 package pl.edu.agh.pso;
 
 import java.util.Arrays;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 import java.util.function.BiFunction;
+import java.util.function.DoubleBinaryOperator;
 import java.util.stream.IntStream;
 
 public class Vector {
@@ -31,6 +32,10 @@ public class Vector {
         });
     }
 
+    public double reduce(DoubleBinaryOperator fn) {
+        return Arrays.stream(this.xs).reduce(0, fn);
+    }
+
     /**
      * Returns ith element
      * @param i element's index
@@ -54,7 +59,8 @@ public class Vector {
     }
 
     private void initRandom(int min, int max) {
-        IntStream.range(0, this.size).forEach(i -> { this.xs[i] = ThreadLocalRandom.current().nextDouble(min, max); });
+        var random = new Random();
+        IntStream.range(0, this.size).forEach(i -> { this.xs[i] = min + (max - min) * random.nextDouble(); });
     }
 
     private Vector(int size) {
