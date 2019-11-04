@@ -17,17 +17,20 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
 
     private Vector bestKnowSwarmPosition;
 
-    private Function<Vector, Double> ff;
+    private final Function<Vector, Double> ff;
 
-    private Domain searchDomain;
+    private final Domain searchDomain;
+
 
     public Optional<Tuple2<Vector, Double>> iterate() {
-        final var omega = 0.8;
-        final var psi = 1.8;
-        this.updateVelocity(omega, psi, this.bestKnowSwarmPosition);
+        // @see https://pdfs.semanticscholar.org/a4ad/7500b64d70a2ec84bf57cfc2fedfdf770433.pdf
+        final var omega = -0.2089;
+        final var phi_1 = -0.0787;
+        final var phi_2 = 3.7637;
+        this.updateVelocity(omega, phi_1, phi_2, this.bestKnowSwarmPosition);
         this.updatePosition();
         final var fitness = this.apply();
-        if(fitness < this.bestKnownFitness) {
+        if (fitness < this.bestKnownFitness) {
             this.bestKnownFitness = fitness;
             this.bestKnownPosition = new Vector(this.position);
             return Optional.of(this.getSolution());
@@ -47,17 +50,17 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
         return this.ff.apply(this.position);
     }
 
-    private void updateVelocity(final double omega, final double psi, final Vector gBest) {
+    private void updateVelocity(final double omega, final double phi_1, final double phi_2, final Vector gBest) {
         Random random = new Random();
         this.velocity.map((i, vi) -> {
             var rp = random.nextDouble();
             var rg = random.nextDouble();
-            return omega * vi + psi * rp * (this.bestKnownPosition.get(i) - this.position.get(i)) + omega * rg * (gBest.get(i)  - this.position.get(i));
+            return omega * vi + phi_1 * rp * (this.bestKnownPosition.get(i) - this.position.get(i)) + phi_2 * rg * (gBest.get(i) - this.position.get(i));
         });
     }
 
     private void updatePosition() {
-        this.position.map((i, xi) -> this.searchDomain.correct(xi + this.velocity.get(i)));
+        this.position.map((i, xi) -> xi + this.velocity.get(i));
     }
 
     private Particle(Vector position, Vector velocity, Function<Vector, Double> ff, Domain searchDomain) {
@@ -79,21 +82,26 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
         private Vector velocity;
         private Function<Vector, Double> ff;
         private Domain domain;
+
         public Particle build() {
             return new Particle(position, velocity, ff, domain);
         }
+
         public builder setPosition(Vector v) {
             this.position = v;
             return this;
         }
+
         public builder setVelocity(Vector v) {
             this.velocity = v;
             return this;
         }
+
         public builder setFf(Function<Vector, Double> ff) {
             this.ff = ff;
             return this;
         }
+
         public builder setDomain(Domain domain) {
             this.domain = domain;
             return this;
