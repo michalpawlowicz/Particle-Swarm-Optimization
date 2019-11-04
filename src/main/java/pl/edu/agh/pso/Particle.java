@@ -29,11 +29,13 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
         final var phi_2 = 3.7637;
         this.updateVelocity(omega, phi_1, phi_2, this.bestKnowSwarmPosition);
         this.updatePosition();
-        final var fitness = this.apply();
-        if (fitness < this.bestKnownFitness) {
-            this.bestKnownFitness = fitness;
-            this.bestKnownPosition = new Vector(this.position);
-            return Optional.of(this.getSolution());
+        if(this.searchDomain.feasible(this.position)) {
+            final var fitness = this.apply();
+            if (fitness < this.bestKnownFitness) {
+                this.bestKnownFitness = fitness;
+                this.bestKnownPosition = new Vector(this.position);
+                return Optional.of(this.getSolution());
+            }
         }
         return Optional.empty();
     }
@@ -52,6 +54,9 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
 
     private void updateVelocity(final double omega, final double phi_1, final double phi_2, final Vector gBest) {
         Random random = new Random();
+        if(!this.position.allMatch(searchDomain::feasible)) {
+            this.velocity.map(d -> 0.004);
+        }
         this.velocity.map((i, vi) -> {
             var rp = random.nextDouble();
             var rg = random.nextDouble();

@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.function.BiFunction;
 import java.util.function.DoubleBinaryOperator;
+import java.util.function.DoublePredicate;
+import java.util.function.Function;
 import java.util.stream.IntStream;
 
 public class Vector {
@@ -30,6 +32,16 @@ public class Vector {
         IntStream.range(0, this.size).forEach(i -> {
             this.xs[i] = fn.apply(i, this.xs[i]);
         });
+    }
+
+    public void map(Function<Double, Double> fn) {
+        IntStream.range(0, this.size).forEach(i -> {
+            this.xs[i] = fn.apply(this.xs[i]);
+        });
+    }
+
+    public boolean allMatch(DoublePredicate pp) {
+        return Arrays.stream(this.xs).allMatch(pp);
     }
 
     public double reduce(DoubleBinaryOperator fn) {
