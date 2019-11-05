@@ -5,6 +5,7 @@ import scala.Tuple2;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
 
 public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
@@ -24,7 +25,8 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
 
     public Optional<Tuple2<Vector, Double>> iterate() {
         // @see https://pdfs.semanticscholar.org/a4ad/7500b64d70a2ec84bf57cfc2fedfdf770433.pdf
-        final var omega = -0.2089;
+        //final var omega = -0.2089;
+        final var omega = 0.8089;
         final var phi_1 = -0.0787;
         final var phi_2 = 3.7637;
         this.updateVelocity(omega, phi_1, phi_2, this.bestKnowSwarmPosition);
@@ -53,13 +55,12 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
     }
 
     private void updateVelocity(final double omega, final double phi_1, final double phi_2, final Vector gBest) {
-        Random random = new Random();
         if(!this.position.allMatch(searchDomain::feasible)) {
             this.velocity.map(d -> 0.004);
         }
         this.velocity.map((i, vi) -> {
-            var rp = random.nextDouble();
-            var rg = random.nextDouble();
+            var rp = ThreadLocalRandom.current().nextDouble();
+            var rg = ThreadLocalRandom.current().nextDouble();
             return omega * vi + phi_1 * rp * (this.bestKnownPosition.get(i) - this.position.get(i)) + phi_2 * rg * (gBest.get(i) - this.position.get(i));
         });
     }

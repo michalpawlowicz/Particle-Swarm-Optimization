@@ -1,5 +1,6 @@
 package pl.edu.agh.pso;
 
+import scala.Int;
 import scala.Tuple2;
 import scala.Tuple3;
 
@@ -26,9 +27,9 @@ public class Swarm {
 
     private int itNum = 0;
 
-    public void run(Function<Double, Boolean> predicate) throws ExecutionException, InterruptedException {
+    public void run(BiFunction<Integer, Double, Boolean> predicate) throws ExecutionException, InterruptedException {
         this.itNum = 0;
-        while (!predicate.apply(this.globalBestKnowFitness)) {
+        while (!predicate.apply(this.itNum, this.globalBestKnowFitness)) {
             List<Future<Optional<Tuple2<Vector, Double>>>> futures = new LinkedList<>();
             for (var particle : particleList) {
                 particle.setBestKnowSwarmPosition(globalBestKnowPosition);
