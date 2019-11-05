@@ -6,27 +6,23 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
 public class Main {
-    public static void main(String[] args) {
-        final var dimention = 100;
-        Function<Vector, Double> fn2 = v -> (v.get(0) - 71) * (v.get(0) - 71) + (v.get(1) + 21) * (v.get(1) + 21);
-        Function<Vector, Double> schwefel = v -> {
-            return 418.9829*dimention - v.reduce((acc, el) -> acc + el * Math.sin(Math.sqrt(Math.abs(el))));
-        };
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        if(args.length < 3) {
+            System.out.println("First parameter particlesCount\nSecond parameter dimension of Schwefel function\nThird parameter, number of threads");
+            return;
+        }
+        final var particlesCount = Integer.parseInt(args[0]);
+        final var dimension = Integer.parseInt(args[1]);
+        final var threadsCount = Integer.parseInt(args[2]);
+        Function<Vector, Double> schwefel = v -> 418.9829*dimension - v.reduce((acc, el) -> acc + el * Math.sin(Math.sqrt(Math.abs(el))));
         var swarm = new Swarm.builder()
-                .numberOfParticles(100)
-                .numberOfThreads(16)
-                .fitnessFunction(schwefel, dimention)
-                .parametersCallbackFunction(null)
+                .numberOfParticles(particlesCount)
+                .numberOfThreads(threadsCount)
+                .fitnessFunction(schwefel, dimension)
                 .setDomain(ImmutableDomain.builder().lowerBound(-500).higherBound(500).build())
                 .build();
-        try {
-            swarm.run(f -> {
-                return Math.abs(f) < 1e-6;
-            });
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        swarm.run(f -> {
+            return Math.abs(f) < 1e-6;
+        });
     }
 }

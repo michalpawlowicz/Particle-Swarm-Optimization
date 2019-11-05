@@ -48,7 +48,7 @@ public class Swarm {
         if (solution._2 < this.globalBestKnowFitness) {
             this.globalBestKnowFitness = solution._2;
             this.globalBestKnowPosition = solution._1;
-            System.out.println("Iteration: " + this.itNum + " Fitness: " + this.globalBestKnowFitness + " position: " + this.globalBestKnowPosition);
+            System.out.println("Iteration: " + this.itNum + " Fitness: " + this.globalBestKnowFitness);
         }
     }
 
@@ -56,7 +56,6 @@ public class Swarm {
                   final Integer threadsCount,
                   Function<Vector, Double> ff,
                   Integer ffDimension,
-                  BiFunction<Integer, Double, Tuple3<Double, Double, Double>> pf,
                   Domain domain)
     {
         this.executor = Executors.newFixedThreadPool(threadsCount);
@@ -99,18 +98,13 @@ public class Swarm {
             return this;
         }
 
-        public builder parametersCallbackFunction(BiFunction<Integer, Double, Tuple3<Double, Double, Double>> pf) {
-            this.pf = pf;
-            return this;
-        }
-
         public builder setDomain(Domain domain) {
             this.domain = domain;
             return this;
         }
 
         Swarm build() {
-            return new Swarm(this.count, this.threadsCount, this.ff, this.dim, this.pf, this.domain);
+            return new Swarm(this.count, this.threadsCount, this.ff, this.dim, this.domain);
         }
     }
 }
