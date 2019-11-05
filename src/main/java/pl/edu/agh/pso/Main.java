@@ -7,13 +7,13 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        final var dimention = 1000;
+        final var dimention = 100;
         Function<Vector, Double> fn2 = v -> (v.get(0) - 71) * (v.get(0) - 71) + (v.get(1) + 21) * (v.get(1) + 21);
         Function<Vector, Double> schwefel = v -> {
             return 418.9829*dimention - v.reduce((acc, el) -> acc + el * Math.sin(Math.sqrt(Math.abs(el))));
         };
         var swarm = new Swarm.builder()
-                .numberOfParticles(10000)
+                .numberOfParticles(100)
                 .numberOfThreads(16)
                 .fitnessFunction(schwefel, dimention)
                 .parametersCallbackFunction(null)
