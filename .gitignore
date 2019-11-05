@@ -27,3 +27,6 @@ out/
 hs_err_pid*
 
 target/
+
+# swap file from vim
+*.swp
