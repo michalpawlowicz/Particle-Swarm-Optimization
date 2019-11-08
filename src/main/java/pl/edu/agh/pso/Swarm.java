@@ -1,6 +1,7 @@
 package pl.edu.agh.pso;
 
-import scala.Int;
+import lombok.Builder;
+import org.immutables.value.Value;
 import scala.Tuple2;
 import scala.Tuple3;
 
@@ -25,14 +26,14 @@ public class Swarm {
 
     private ExecutorService executor;
 
-    private int itNum = 0;
+    private ParametersContainer parameters;
 
     public void run(BiFunction<Integer, Double, Boolean> predicate) throws ExecutionException, InterruptedException {
-        this.itNum = 0;
-        while (!predicate.apply(this.itNum, this.globalBestKnowFitness)) {
+        var iteration = 0;
+        while (!predicate.apply(iteration, this.globalBestKnowFitness)) {
             List<Future<Optional<Tuple2<Vector, Double>>>> futures = new LinkedList<>();
             for (var particle : particleList) {
-                particle.setBestKnowSwarmPosition(globalBestKnowPosition);
+                particle.setBestKnowSwarmPosition(iteration, globalBestKnowPosition);
             }
             for (var particle : particleList) {
                 futures.add(this.executor.submit(particle));
@@ -40,72 +41,42 @@ public class Swarm {
             for (var result : futures) {
                 result.get().ifPresent(this::updateSwarmsBestSolution);
             }
-            itNum++;
+            iteration++;
         }
         this.executor.shutdownNow();
+        System.out.println("Iteration: " + iteration + " Fitness: " + this.globalBestKnowFitness + "v: " + this.globalBestKnowPosition);
     }
 
     private void updateSwarmsBestSolution(Tuple2<Vector, Double> solution) {
         if (solution._2 < this.globalBestKnowFitness) {
             this.globalBestKnowFitness = solution._2;
             this.globalBestKnowPosition = solution._1;
-            System.out.println("Iteration: " + this.itNum + " Fitness: " + this.globalBestKnowFitness);
         }
     }
 
+    @Builder
     private Swarm(final Integer particlesCount,
                   final Integer threadsCount,
-                  Function<Vector, Double> ff,
-                  Integer ffDimension,
-                  Domain domain)
-    {
+                  final Function<Vector, Double> ff,
+                  final Integer ffDimension,
+                  final Domain domain,
+                  final ParametersContainer parameters) {
         this.executor = Executors.newFixedThreadPool(threadsCount);
         this.particleList = new LinkedList<>();
         this.globalBestKnowPosition = Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound());
         this.globalBestKnowFitness = ff.apply(this.globalBestKnowPosition);
+        this.parameters = parameters;
         IntStream.range(0, particlesCount).forEach(i -> {
-            var particle = new Particle.builder()
-                    .setFf(ff)
-                    .setPosition(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))
-                    .setVelocity(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))
-                    .setDomain(domain)
+            var particle = Particle.builder()
+                    .ff(ff)
+                    .position(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))
+                    .velocity(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))
+                    //.velocity(Vector.random(ffDimension, -1, 1))
+                    .searchDomain(domain)
+                    .parametersContainer(this.parameters)
                     .build();
             this.particleList.add(particle);
             this.updateSwarmsBestSolution(particle.getSolution());
         });
-    }
-
-    public static class builder {
-        private Domain domain;
-        private int count = 100;
-        private int threadsCount = 1;
-        private Function<Vector, Double> ff = null;
-        private Integer dim;
-        private BiFunction<Integer, Double, Tuple3<Double, Double, Double>> pf = null;
-
-        public builder numberOfParticles(Integer count) {
-            this.count = count;
-            return this;
-        }
-
-        public builder numberOfThreads(Integer count) {
-            this.threadsCount = count;
-            return this;
-        }
-
-        public builder fitnessFunction(Function<Vector, Double> ff, Integer vectorDimension) {
-            this.ff = ff;
-            this.dim = vectorDimension;
-            return this;
-        }
-
-        public builder setDomain(Domain domain) {
-            this.domain = domain;
-            return this;
-        }
-
-        Swarm build() {
-            return new Swarm(this.count, this.threadsCount, this.ff, this.dim, this.domain);
-        }
     }
 }

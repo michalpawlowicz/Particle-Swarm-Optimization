@@ -1,9 +1,9 @@
 package pl.edu.agh.pso;
 
+import lombok.Builder;
 import scala.Tuple2;
 
 import java.util.Optional;
-import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Function;
@@ -22,16 +22,17 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
 
     private final Domain searchDomain;
 
+    private int iteration;
+
+    private ParametersContainer parametersContainer;
 
     public Optional<Tuple2<Vector, Double>> iterate() {
-        // @see https://pdfs.semanticscholar.org/a4ad/7500b64d70a2ec84bf57cfc2fedfdf770433.pdf
-        //final var omega = -0.2089;
-        final var omega = 0.8089;
-        final var phi_1 = -0.0787;
-        final var phi_2 = 3.7637;
-        this.updateVelocity(omega, phi_1, phi_2, this.bestKnowSwarmPosition);
+        this.updateVelocity(parametersContainer.getOmega(this.iteration),
+                            parametersContainer.getPhi_1(),
+                            parametersContainer.getPhi_2(),
+                            this.bestKnowSwarmPosition);
         this.updatePosition();
-        if(this.searchDomain.feasible(this.position)) {
+        if (this.searchDomain.feasible(this.position)) {
             final var fitness = this.apply();
             if (fitness < this.bestKnownFitness) {
                 this.bestKnownFitness = fitness;
@@ -46,7 +47,8 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
         return Tuple2.apply(new Vector(this.bestKnownPosition), this.bestKnownFitness);
     }
 
-    public void setBestKnowSwarmPosition(final Vector v) {
+    public void setBestKnowSwarmPosition(final int iteration, final Vector v) {
+        this.iteration = iteration;
         this.bestKnowSwarmPosition = v;
     }
 
@@ -55,8 +57,8 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
     }
 
     private void updateVelocity(final double omega, final double phi_1, final double phi_2, final Vector gBest) {
-        if(!this.position.allMatch(searchDomain::feasible)) {
-            this.velocity.map(d -> 0.004);
+        if (!this.position.allMatch(searchDomain::feasible)) {
+            this.velocity.map(d -> 0.002);
         }
         this.velocity.map((i, vi) -> {
             var rp = ThreadLocalRandom.current().nextDouble();
@@ -69,48 +71,19 @@ public class Particle implements Callable<Optional<Tuple2<Vector, Double>>> {
         this.position.map((i, xi) -> xi + this.velocity.get(i));
     }
 
-    private Particle(Vector position, Vector velocity, Function<Vector, Double> ff, Domain searchDomain) {
+    @Builder
+    public Particle(Vector position, Vector velocity, final Function<Vector, Double> ff, final Domain searchDomain, final ParametersContainer parametersContainer) {
         this.position = position;
         this.velocity = velocity;
         this.ff = ff;
         this.bestKnownFitness = ff.apply(this.position);
         this.bestKnownPosition = new Vector(this.position);
         this.searchDomain = searchDomain;
+        this.parametersContainer = parametersContainer;
     }
 
     @Override
-    public Optional<Tuple2<Vector, Double>> call() throws Exception {
+    public Optional<Tuple2<Vector, Double>> call() {
         return iterate();
-    }
-
-    public static class builder {
-        private Vector position;
-        private Vector velocity;
-        private Function<Vector, Double> ff;
-        private Domain domain;
-
-        public Particle build() {
-            return new Particle(position, velocity, ff, domain);
-        }
-
-        public builder setPosition(Vector v) {
-            this.position = v;
-            return this;
-        }
-
-        public builder setVelocity(Vector v) {
-            this.velocity = v;
-            return this;
-        }
-
-        public builder setFf(Function<Vector, Double> ff) {
-            this.ff = ff;
-            return this;
-        }
-
-        public builder setDomain(Domain domain) {
-            this.domain = domain;
-            return this;
-        }
     }
 }
