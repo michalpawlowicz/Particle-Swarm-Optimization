@@ -13,6 +13,6 @@ public abstract class Domain {
     }
 
     public boolean feasible(double xi) {
-        return xi > getLowerBound() && xi < getHigherBound();
+        return Double.compare(xi, getLowerBound()) > 0 && Double.compare(xi, getHigherBound()) < 0;
     }
 }
