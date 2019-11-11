@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-public class ParticleV2 implements Callable<Optional<Tuple2<Vector, Double>>> {
+class ParticleV2 implements Callable<Optional<Tuple2<Vector, Double>>> {
 
     private static final int NOTIFICATION_PERIOD = 20;
     private static int PARTICLE_COUNT_INFORMED = 10;
@@ -44,15 +44,15 @@ public class ParticleV2 implements Callable<Optional<Tuple2<Vector, Double>>> {
 
     private ParametersContainer parametersContainer;
 
-    public Tuple2<Vector, Double> getSolution() {
+    Tuple2<Vector, Double> getSolution() {
         return Tuple2.apply(new Vector(this.bestKnownPosition), this.bestKnownFitness);
     }
 
-    public Tuple3<Vector, Double, Integer> getSolutionWithIteration() {
+    Tuple3<Vector, Double, Integer> getSolutionWithIteration() {
         return Tuple3.apply(new Vector(this.bestKnownPosition), this.bestKnownFitness, this.bestSolutionIteration);
     }
 
-    public Optional<Tuple3<Vector, Double, Integer>> notifyBestKnowSwarmPosition(final int iteration, Tuple3<Vector, Double, Integer> offeredSolution) {
+    Optional<Tuple3<Vector, Double, Integer>> notifyBestKnowSwarmPosition(final int iteration, Tuple3<Vector, Double, Integer> offeredSolution) {
         if (offeredSolution._2() < this.bestKnownFitness) {
             updateBestKnowPosition(iteration, new Tuple2<>(offeredSolution._1(), offeredSolution._2()));
 //            System.out.println(getSolutionWithIteration().toString());
