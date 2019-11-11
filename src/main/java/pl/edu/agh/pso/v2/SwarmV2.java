@@ -37,7 +37,6 @@ public class SwarmV2 {
         }
 
         this.executor.invokeAll(particleList);
-
         mainThreadLock.lock();
         executor.shutdownNow();
 
@@ -49,6 +48,7 @@ public class SwarmV2 {
         this.finalGlobalBestKnowFitness = solution._2();
         this.iterationOfSolution = solution._3();
         this.mainThreadLock.unlock();
+        executor.shutdownNow();
     }
 
     @Builder
