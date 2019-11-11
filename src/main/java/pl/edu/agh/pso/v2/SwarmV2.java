@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.IntStream;
@@ -29,16 +29,16 @@ public class SwarmV2 {
 
     private int iterationOfSolution;
 
+    private final ReentrantLock mainThreadLock = new ReentrantLock();
+
     public void run() throws InterruptedException {
         for (var particle : particleList) {
             particle.setSwarmV2Supervisor(this);
         }
 
         this.executor.invokeAll(particleList);
-        while (finalGlobalBestKnowPosition == null) {
-            TimeUnit.SECONDS.sleep(10);
-        }
 
+        mainThreadLock.lock();
         executor.shutdownNow();
 
         System.out.println("Iteration: " + this.iterationOfSolution + " Best value: " + this.finalGlobalBestKnowFitness + "v: " + this.finalGlobalBestKnowPosition);
@@ -48,7 +48,7 @@ public class SwarmV2 {
         this.finalGlobalBestKnowPosition = solution._1();
         this.finalGlobalBestKnowFitness = solution._2();
         this.iterationOfSolution = solution._3();
-
+        this.mainThreadLock.unlock();
     }
 
     @Builder
