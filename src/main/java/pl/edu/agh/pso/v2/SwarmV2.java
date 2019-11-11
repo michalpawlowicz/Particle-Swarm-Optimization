@@ -1,7 +1,7 @@
 package pl.edu.agh.pso.v2;
 
-import lombok.Builder;
 import pl.edu.agh.pso.Domain;
+import pl.edu.agh.pso.PSOAlgorithm;
 import pl.edu.agh.pso.ParametersContainer;
 import pl.edu.agh.pso.Vector;
 import scala.Tuple3;
@@ -15,7 +15,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-public class SwarmV2 {
+public class SwarmV2 implements PSOAlgorithm {
 
     private List<ParticleV2> particleList;
 
@@ -31,7 +31,8 @@ public class SwarmV2 {
 
     private final ReentrantLock mainThreadLock = new ReentrantLock();
 
-    public void run() throws InterruptedException {
+    @Override
+    public void launch() throws InterruptedException {
         for (var particle : particleList) {
             particle.setSwarmV2Supervisor(this);
         }
@@ -51,14 +52,13 @@ public class SwarmV2 {
         executor.shutdownNow();
     }
 
-    @Builder
-    private SwarmV2(final Integer particlesCount,
-                    final Integer threadsCount,
-                    final Function<Vector, Double> ff,
-                    final Integer ffDimension,
-                    final Domain domain,
-                    final ParametersContainer parameters,
-                    final BiFunction<Integer, Double, Boolean> endCondition) {
+    public SwarmV2(final Integer particlesCount,
+                   final Integer threadsCount,
+                   final Function<Vector, Double> ff,
+                   final Integer ffDimension,
+                   final Domain domain,
+                   final ParametersContainer parameters,
+                   final BiFunction<Integer, Double, Boolean> endCondition) {
         this.executor = Executors.newFixedThreadPool(threadsCount);
         this.parameters = parameters;
         this.particleList = new LinkedList<>();

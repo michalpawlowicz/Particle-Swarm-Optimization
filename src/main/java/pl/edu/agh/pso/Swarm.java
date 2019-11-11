@@ -1,9 +1,6 @@
 package pl.edu.agh.pso;
 
-import lombok.Builder;
-import org.immutables.value.Value;
 import scala.Tuple2;
-import scala.Tuple3;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +13,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
-public class Swarm {
+public class Swarm implements PSOAlgorithm {
 
     private List<Particle> particleList;
 
@@ -28,9 +25,12 @@ public class Swarm {
 
     private ParametersContainer parameters;
 
-    public void run(BiFunction<Integer, Double, Boolean> predicate) throws ExecutionException, InterruptedException {
+    private BiFunction<Integer, Double, Boolean> endCondition;
+
+    @Override
+    public void launch() throws ExecutionException, InterruptedException {
         var iteration = 0;
-        while (!predicate.apply(iteration, this.globalBestKnowFitness)) {
+        while (!endCondition.apply(iteration, this.globalBestKnowFitness)) {
             List<Future<Optional<Tuple2<Vector, Double>>>> futures = new LinkedList<>();
             for (var particle : particleList) {
                 particle.setBestKnowSwarmPosition(iteration, globalBestKnowPosition);
@@ -54,18 +54,19 @@ public class Swarm {
         }
     }
 
-    @Builder
-    private Swarm(final Integer particlesCount,
-                  final Integer threadsCount,
-                  final Function<Vector, Double> ff,
-                  final Integer ffDimension,
-                  final Domain domain,
-                  final ParametersContainer parameters) {
+    public Swarm(final Integer particlesCount,
+                 final Integer threadsCount,
+                 final Function<Vector, Double> ff,
+                 final Integer ffDimension,
+                 final Domain domain,
+                 final ParametersContainer parameters,
+                 final BiFunction<Integer, Double, Boolean> endCondition) {
         this.executor = Executors.newFixedThreadPool(threadsCount);
         this.particleList = new LinkedList<>();
         this.globalBestKnowPosition = Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound());
         this.globalBestKnowFitness = ff.apply(this.globalBestKnowPosition);
         this.parameters = parameters;
+        this.endCondition = endCondition;
         IntStream.range(0, particlesCount).forEach(i -> {
             var particle = Particle.builder()
                     .ff(ff)

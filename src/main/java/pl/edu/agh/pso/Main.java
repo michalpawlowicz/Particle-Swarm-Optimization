@@ -1,22 +1,28 @@
 package pl.edu.agh.pso;
 
-import pl.edu.agh.pso.benchmark.Ackley;
-import pl.edu.agh.pso.benchmark.Griewank;
-import pl.edu.agh.pso.benchmark.Rosenbrock;
 import pl.edu.agh.pso.benchmark.Schwefel;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
+import java.util.function.BiFunction;
 
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         final int threadsCount;
+        AlgorithmVersion algorithmVersion = AlgorithmVersion.V1;
         if (args.length < 1) {
             System.out.println("Setting threads number to 4");
             threadsCount = 4;
         } else {
             threadsCount = Integer.parseInt(args[2]);
+
         }
+        if (args.length >= 2) {
+            algorithmVersion = AlgorithmVersion.DISTRIBUTED_PSO;
+        }
+
+        System.out.println("Version of algorithm: " + algorithmVersion);
 
         final var particlesCount = 20;
         final var dimension = 100;
@@ -26,11 +32,20 @@ public class Main {
         final var omegaMax = 1.4;
         final var phi_1 = 0.5;
         final var phi_2 = 2.5;
-        var swarm = Swarm.builder()
+
+        BiFunction<Integer, Double, Boolean> endCondition = (i, f) -> {
+            if (i % 1000 == 0) {
+                System.out.println(i + "/" + f);
+            }
+            return (i >= iterMax) || Math.abs(f) < 1e-4;
+        };
+
+        PSOAlgorithm swarm = PSOBuilder.builder()
                 .ff(Schwefel.build())
                 .particlesCount(particlesCount)
                 .threadsCount(threadsCount)
                 .ffDimension(dimension)
+                .endCondition(endCondition)
                 .domain(ImmutableDomain.builder()
                         .lowerBound(-500)
                         .higherBound(500)
@@ -42,12 +57,12 @@ public class Main {
                         .omegaMax(omegaMax)
                         .step((omegaMax - omegaMin) / iterMax)
                         .build())
+                .version(algorithmVersion)
                 .build();
-        swarm.run((i, f) -> {
-            if (i % 1000 == 0) {
-                System.out.println(i + "/" + f);
-            }
-            return (iterMax != 0 && i >= iterMax) || Math.abs(f) < 1e-4;
-        });
+
+        Instant start = Instant.now();
+        swarm.launch();
+        long elapsedTime = Duration.between(start, Instant.now()).toMillis();
+        System.out.println("Elapsed time: " + elapsedTime);
     }
 }
