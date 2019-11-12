@@ -1,11 +1,19 @@
 package pl.edu.agh.pso.akka;
 
 import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
 import akka.actor.Props;
 import pl.edu.agh.pso.akka.messages.ImmutableAcquaintanceMsg;
 import pl.edu.agh.pso.akka.messages.InitMsg;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import scala.collection.JavaConverters;
+import scala.concurrent.JavaConversions$;
 
 public class Supervisor extends AbstractActor {
     private InitData initData;
@@ -32,13 +40,21 @@ public class Supervisor extends AbstractActor {
 
     private void initChildren() {
         IntStream.range(0, initData.particlesCount).forEach(i -> {
-            var actorRef = getContext().actorOf(ParticleAkka.props(initData));
-            var childrenIterator = context().children().iterator();
-            childrenIterator.forall(childRef -> {
-                childRef.tell(ImmutableAcquaintanceMsg.builder().build(), getSelf());
-                return childRef;
-            });
-            actorRef.tell(Constants.START_ALGORITHM, getSelf());
+            getContext().actorOf(ParticleAkka.props(initData));
+        });
+        List<ActorRef> children = new LinkedList<>();
+        getContext().getChildren().forEach(children::add);
+
+        final var random = new Random();
+
+        children.forEach(childRef -> {
+            childRef.tell(ImmutableAcquaintanceMsg.builder()
+                            .addAllAcquaintance(
+                                    children.stream().
+                                            filter(actorRef -> random.nextBoolean())
+                                            .collect(Collectors.toList()))
+                            .build(),
+                    getSelf());
         });
     }
 }
