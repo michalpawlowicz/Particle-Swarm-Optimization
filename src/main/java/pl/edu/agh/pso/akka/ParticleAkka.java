@@ -6,6 +6,7 @@ import pl.edu.agh.pso.Domain;
 import pl.edu.agh.pso.ParametersContainer;
 import pl.edu.agh.pso.Vector;
 import pl.edu.agh.pso.akka.messages.AcquaintanceMsg;
+import pl.edu.agh.pso.akka.messages.InitMsg;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
@@ -59,6 +60,9 @@ class ParticleAkka extends AbstractActor {
                         System.out.println(getSelf().path().toString());
                         trigger();
                     }
+                })
+                .match(InitMsg.class, message -> {
+                    trigger();
                 })
                 .match(AcquaintanceMsg.class, message -> {
                     this.acquaintances = message;
