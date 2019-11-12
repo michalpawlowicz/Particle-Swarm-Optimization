@@ -11,7 +11,6 @@ import java.util.function.Function;
 @Builder
 public class InitData {
     final Integer particlesCount;
-    //    final Integer threadsCount;
     final Function<Vector, Double> ff;
     final Integer ffDimension;
     final Domain domain;
