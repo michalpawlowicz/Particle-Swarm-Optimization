@@ -27,6 +27,7 @@ public class Supervisor extends AbstractActor {
     public Receive createReceive() {
         return receiveBuilder()
                 .match(InitMsg.class, m -> {
+                    System.out.println("Initialize children");
                     initChildren();
                 })
                 .match(Solution.class, message -> {

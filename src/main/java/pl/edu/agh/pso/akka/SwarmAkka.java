@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import pl.edu.agh.pso.PSOAlgorithm;
+import pl.edu.agh.pso.akka.messages.InitMsg;
 
 public class SwarmAkka implements PSOAlgorithm {
 
@@ -17,7 +18,7 @@ public class SwarmAkka implements PSOAlgorithm {
         Props props = Supervisor.props(initData);
         ActorSystem system = ActorSystem.create("dupa");
         ActorRef supervisor = system.actorOf(props, Constants.SUPERVISOR);
-        supervisor.tell(Constants.START_ALGORITHM, null);
+        supervisor.tell(new InitMsg(), null);
 
     }
 }
