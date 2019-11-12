@@ -55,12 +55,6 @@ class ParticleAkka extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(String.class, message -> {
-                    if (message.equals(Constants.START_ALGORITHM)) {
-                        System.out.println(getSelf().path().toString());
-                        trigger();
-                    }
-                })
                 .match(InitMsg.class, message -> {
                     trigger();
                 })
@@ -133,7 +127,7 @@ class ParticleAkka extends AbstractActor {
 
             iteration++;
             if (iteration % NOTIFICATION_PERIOD == 0) {
-                acquaintances.getAcquaintance().forEach(particle -> particle.tell(getSolution(), particle));
+                acquaintances.getAcquaintance().forEach(particle -> particle.tell(getSolution(), getSelf()));
             }
         }
         getContext().getParent().tell(getSolution(), getSelf());

@@ -17,7 +17,7 @@ public class SwarmAkka implements PSOAlgorithm {
     public static void run(InitData initData) {
         Props props = Supervisor.props(initData);
         ActorSystem system = ActorSystem.create("dupa");
-        ActorRef supervisor = system.actorOf(props, Constants.SUPERVISOR);
+        ActorRef supervisor = system.actorOf(Supervisor.props(initData));
         supervisor.tell(new InitMsg(), null);
 
     }

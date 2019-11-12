@@ -36,9 +36,6 @@ public class MainAkka {
         final var phi_2 = 2.5;
 
         BiFunction<Integer, Double, Boolean> endCondition = (i, f) -> {
-            if (i % 1000 == 0) {
-                System.out.println(i + "/" + f);
-            }
             return (i >= iterMax) || Math.abs(f) < 1;
         };
 
