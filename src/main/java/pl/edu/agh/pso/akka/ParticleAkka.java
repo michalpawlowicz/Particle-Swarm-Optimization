@@ -1,12 +1,11 @@
 package pl.edu.agh.pso.akka;
 
 import akka.actor.AbstractActor;
-import akka.actor.ActorRef;
-import akka.actor.ActorSelection;
 import akka.actor.Props;
 import pl.edu.agh.pso.Domain;
 import pl.edu.agh.pso.ParametersContainer;
 import pl.edu.agh.pso.Vector;
+import pl.edu.agh.pso.akka.messages.AcquaintanceMsg;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
@@ -15,7 +14,6 @@ import java.util.function.Function;
 class ParticleAkka extends AbstractActor {
 
     private static final int NOTIFICATION_PERIOD = 20;
-    private static int PARTICLE_COUNT_INFORMED = 10;
 
     private Vector position;
     private Vector velocity;
@@ -33,6 +31,8 @@ class ParticleAkka extends AbstractActor {
     private int iteration;
 
     private ParametersContainer parametersContainer;
+
+    private AcquaintanceMsg acquaintances;
 
     static Props props(InitData initData) {
         return Props.create(ParticleAkka.class, initData);
@@ -59,6 +59,10 @@ class ParticleAkka extends AbstractActor {
                         System.out.println(getSelf().path().toString());
                         trigger();
                     }
+                })
+                .match(AcquaintanceMsg.class, message -> {
+                    this.acquaintances = message;
+                    System.out.println("Acquaintances: " + this.acquaintances);
                 })
                 .match(Solution.class, solution -> {
                     if (isBetterSolution(solution)) {
@@ -125,11 +129,7 @@ class ParticleAkka extends AbstractActor {
 
             iteration++;
             if (iteration % NOTIFICATION_PERIOD == 0) {
-                for (int i = 0; i < PARTICLE_COUNT_INFORMED; i++) {
-                    ActorSelection actorSelection = getContext().getSystem().actorSelection("user" + Constants.WORKER + i);
-                    ActorRef actorRef = actorSelection.anchor();
-                    actorRef.tell(getSolution(), getSelf());
-                }
+                acquaintances.getAcquaintance().forEach(particle -> particle.tell(getSolution(), particle));
             }
         }
         getContext().getParent().tell(getSolution(), getSelf());
