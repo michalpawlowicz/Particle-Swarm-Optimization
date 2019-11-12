@@ -1,0 +1,138 @@
+package pl.edu.agh.pso.akka;
+
+import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
+import akka.actor.ActorSelection;
+import akka.actor.Props;
+import pl.edu.agh.pso.Domain;
+import pl.edu.agh.pso.ParametersContainer;
+import pl.edu.agh.pso.Vector;
+
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
+class ParticleAkka extends AbstractActor {
+
+    private static final int NOTIFICATION_PERIOD = 20;
+    private static int PARTICLE_COUNT_INFORMED = 10;
+
+    private Vector position;
+    private Vector velocity;
+
+    private Vector bestKnownPosition;
+    private double bestKnownFitness;
+    private int bestSolutionIteration = 0;
+
+    private BiFunction<Integer, Double, Boolean> endCondition;
+
+    private final Function<Vector, Double> ff;
+
+    private final Domain searchDomain;
+
+    private int iteration;
+
+    private ParametersContainer parametersContainer;
+
+    static Props props(InitData initData) {
+        return Props.create(ParticleAkka.class, initData);
+    }
+
+    private ParticleAkka(InitData initData) {
+        this.ff = initData.ff;
+        this.position = Vector.random(initData.ffDimension, initData.domain.getLowerBound(), initData.domain.getHigherBound());
+        this.velocity = Vector.random(initData.ffDimension, initData.domain.getLowerBound(), initData.domain.getHigherBound());
+        this.searchDomain = initData.domain;
+        this.parametersContainer = initData.parameters;
+
+        this.bestKnownFitness = ff.apply(this.position);
+        this.bestKnownPosition = new Vector(this.position);
+        this.endCondition = initData.endCondition;
+        System.out.println("Particle initialized: " + this.self().path());
+    }
+
+    @Override
+    public Receive createReceive() {
+        return receiveBuilder()
+                .match(String.class, message -> {
+                    if (message.equals(Constants.START_ALGORITHM)) {
+                        System.out.println(getSelf().path().toString());
+                        trigger();
+                    }
+                })
+                .match(Solution.class, solution -> {
+                    if (isBetterSolution(solution)) {
+                        updateBestKnowSolution(solution);
+                    } else {
+                        //send to others;
+                        getSender().tell(getSolution(), getSelf());
+                    }
+                }).build();
+    }
+
+    private boolean isBetterSolution(Solution solution) {
+        return solution.fitness < this.bestKnownFitness;
+    }
+
+    private Solution getSolution() {
+        return new Solution(this.bestKnownFitness, this.bestSolutionIteration, new Vector(this.bestKnownPosition));
+    }
+
+    private void updateBestKnowSolution(Solution solution) {
+        this.bestSolutionIteration = solution.iteration;
+        this.bestKnownFitness = solution.fitness;
+        this.bestKnownPosition = solution.position;
+    }
+
+    private void updateBestKnowPosition(int iteration, Double fitness, Vector vector) {
+        this.bestSolutionIteration = iteration;
+        this.bestKnownFitness = fitness;
+        this.bestKnownPosition = vector;
+    }
+
+    private Double apply() {
+        return this.ff.apply(this.position);
+    }
+
+    private void updateVelocity(final double omega, final double phi_1, final double phi_2, final Vector gBest) {
+        if (!this.position.allMatch(searchDomain::feasible)) {
+            this.velocity.map(d -> 0.002);
+        }
+        this.velocity.map((i, vi) -> {
+            var rp = ThreadLocalRandom.current().nextDouble();
+            var rg = ThreadLocalRandom.current().nextDouble();
+            return omega * vi + phi_1 * rp * (this.bestKnownPosition.get(i) - this.position.get(i)) + phi_2 * rg * (gBest.get(i) - this.position.get(i));
+        });
+    }
+
+    private void updatePosition() {
+        this.position.map((i, xi) -> xi + this.velocity.get(i));
+    }
+
+    void trigger() {
+        while (!endCondition.apply(iteration, this.bestKnownFitness)) {
+            this.updateVelocity(parametersContainer.getOmega(this.iteration),
+                    parametersContainer.getPhi_1(),
+                    parametersContainer.getPhi_2(),
+                    this.bestKnownPosition);
+            this.updatePosition();
+            if (this.searchDomain.feasible(this.position)) {
+                final var fitness = this.apply();
+                if (fitness < this.bestKnownFitness) {
+                    updateBestKnowPosition(iteration, fitness, new Vector(this.position));
+                }
+            }
+
+            iteration++;
+            if (iteration % NOTIFICATION_PERIOD == 0) {
+                for (int i = 0; i < PARTICLE_COUNT_INFORMED; i++) {
+                    ActorSelection actorSelection = getContext().getSystem().actorSelection("user" + Constants.WORKER + i);
+                    ActorRef actorRef = actorSelection.anchor();
+                    actorRef.tell(getSolution(), getSelf());
+                }
+            }
+        }
+        getContext().getParent().tell(getSolution(), getSelf());
+        getContext().stop(self());
+    }
+}
