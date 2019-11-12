@@ -12,9 +12,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import scala.collection.JavaConverters;
-import scala.concurrent.JavaConversions$;
-
 public class Supervisor extends AbstractActor {
     private InitData initData;
 
@@ -50,11 +47,13 @@ public class Supervisor extends AbstractActor {
         children.forEach(childRef -> {
             childRef.tell(ImmutableAcquaintanceMsg.builder()
                             .addAllAcquaintance(
-                                    children.stream().
-                                            filter(actorRef -> random.nextBoolean())
+                                    children.stream()
+                                            .filter(actorRef -> random.nextBoolean())
                                             .collect(Collectors.toList()))
                             .build(),
                     getSelf());
         });
+
+        children.forEach(childRef -> childRef.tell(new InitMsg(), getSelf()));
     }
 }
