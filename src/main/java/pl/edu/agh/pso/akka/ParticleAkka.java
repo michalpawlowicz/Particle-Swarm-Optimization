@@ -1,13 +1,16 @@
 package pl.edu.agh.pso.akka;
 
 import akka.actor.AbstractActor;
+import akka.actor.ActorRef;
 import akka.actor.Props;
 import pl.edu.agh.pso.Domain;
 import pl.edu.agh.pso.ParametersContainer;
 import pl.edu.agh.pso.Vector;
 import pl.edu.agh.pso.akka.messages.AcquaintanceMsg;
 import pl.edu.agh.pso.akka.messages.InitMsg;
+import pl.edu.agh.pso.akka.messages.Solution;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -33,7 +36,7 @@ class ParticleAkka extends AbstractActor {
 
     private ParametersContainer parametersContainer;
 
-    private AcquaintanceMsg acquaintances;
+    private List<ActorRef> acquaintances;
 
     static Props props(InitData initData) {
         return Props.create(ParticleAkka.class, initData);
@@ -49,19 +52,18 @@ class ParticleAkka extends AbstractActor {
         this.bestKnownFitness = ff.apply(this.position);
         this.bestKnownPosition = new Vector(this.position);
         this.endCondition = initData.endCondition;
-        System.out.println("Particle initialized: " + this.self().path());
+    }
+
+
+    private void unwrapAcquaintances(AcquaintanceMsg msg) {
+        this.acquaintances = msg.getAcquaintance();
     }
 
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(InitMsg.class, message -> {
-                    trigger();
-                })
-                .match(AcquaintanceMsg.class, message -> {
-                    this.acquaintances = message;
-                    System.out.println("Acquaintances: " + this.acquaintances);
-                })
+                .match(InitMsg.class, this::trigger)
+                .match(AcquaintanceMsg.class, this::unwrapAcquaintances)
                 .match(Solution.class, solution -> {
                     if (isBetterSolution(solution)) {
                         updateBestKnowSolution(solution);
@@ -73,7 +75,7 @@ class ParticleAkka extends AbstractActor {
     }
 
     private boolean isBetterSolution(Solution solution) {
-        return solution.fitness < this.bestKnownFitness;
+        return solution.getFitness() < this.bestKnownFitness;
     }
 
     private Solution getSolution() {
@@ -81,9 +83,9 @@ class ParticleAkka extends AbstractActor {
     }
 
     private void updateBestKnowSolution(Solution solution) {
-        this.bestSolutionIteration = solution.iteration;
-        this.bestKnownFitness = solution.fitness;
-        this.bestKnownPosition = solution.position;
+        this.bestSolutionIteration = solution.getIteration();
+        this.bestKnownFitness = solution.getFitness();
+        this.bestKnownPosition = solution.getPosition();
     }
 
     private void updateBestKnowPosition(int iteration, Double fitness, Vector vector) {
@@ -111,7 +113,7 @@ class ParticleAkka extends AbstractActor {
         this.position.map((i, xi) -> xi + this.velocity.get(i));
     }
 
-    void trigger() {
+    void trigger(InitMsg msg) {
         while (!endCondition.apply(iteration, this.bestKnownFitness)) {
             this.updateVelocity(parametersContainer.getOmega(this.iteration),
                     parametersContainer.getPhi_1(),
@@ -127,7 +129,7 @@ class ParticleAkka extends AbstractActor {
 
             iteration++;
             if (iteration % NOTIFICATION_PERIOD == 0) {
-                acquaintances.getAcquaintance().forEach(particle -> particle.tell(getSolution(), getSelf()));
+                acquaintances.forEach(particle -> particle.tell(getSolution(), getSelf()));
             }
         }
         getContext().getParent().tell(getSolution(), getSelf());

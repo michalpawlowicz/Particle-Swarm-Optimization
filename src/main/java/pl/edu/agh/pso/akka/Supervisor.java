@@ -5,6 +5,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import pl.edu.agh.pso.akka.messages.ImmutableAcquaintanceMsg;
 import pl.edu.agh.pso.akka.messages.InitMsg;
+import pl.edu.agh.pso.akka.messages.Solution;
 
 import java.util.LinkedList;
 import java.util.List;
