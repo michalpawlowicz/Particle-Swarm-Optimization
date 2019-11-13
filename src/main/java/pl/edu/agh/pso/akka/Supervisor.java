@@ -5,7 +5,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import pl.edu.agh.pso.akka.messages.ImmutableAcquaintanceMsg;
 import pl.edu.agh.pso.akka.messages.InitMsg;
-import pl.edu.agh.pso.akka.messages.Solution;
+import pl.edu.agh.pso.akka.messages.SolutionContainer;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -27,25 +27,21 @@ public class Supervisor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(InitMsg.class, m -> {
-                    System.out.println("Initialize children");
-                    initChildren();
-                })
-                .match(Solution.class, message -> {
+                .match(InitMsg.class, this::init)
+                .match(SolutionContainer.class, message -> {
                     System.out.println("Received solution: " + message + " ");
-                })
-                .build();
+                }).build();
     }
 
-    private void initChildren() {
+    private void init(InitMsg msg) {
         IntStream.range(0, initData.particlesCount).forEach(i -> {
             getContext().actorOf(ParticleAkka.props(initData));
         });
+
         List<ActorRef> children = new LinkedList<>();
         getContext().getChildren().forEach(children::add);
 
         final var random = new Random();
-
         children.forEach(childRef -> {
             childRef.tell(ImmutableAcquaintanceMsg.builder()
                             .addAllAcquaintance(
