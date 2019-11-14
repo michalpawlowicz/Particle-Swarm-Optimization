@@ -1,35 +1,26 @@
-package pl.edu.agh.pso;
+package pl.edu.agh.pso.akka;
 
-import pl.edu.agh.pso.benchmark.Ackley;
-import pl.edu.agh.pso.benchmark.Griewank;
-import pl.edu.agh.pso.benchmark.Rosenbrock;
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import pl.edu.agh.pso.ImmutableDomain;
+import pl.edu.agh.pso.ImmutableParametersContainer;
+import pl.edu.agh.pso.Swarm;
 import pl.edu.agh.pso.benchmark.Schwefel;
 
-import java.util.concurrent.ExecutionException;
-import java.util.function.Function;
-
 public class Main {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        final int threadsCount;
-        if (args.length < 1) {
-            System.out.println("Setting threads number to 4");
-            threadsCount = 4;
-        } else {
-            threadsCount = Integer.parseInt(args[2]);
-        }
-
+    public static void main(String[] args) {
+        ActorSystem system = ActorSystem.create("pso");
+        ActorRef swarm = system.actorOf(SwarmActor.props());
         final var particlesCount = 4;
         final var dimension = 100;
         final var iterMax = 5e5;
-
         final var omegaMin = 0.4;
         final var omegaMax = 1.4;
         final var phi_1 = 0.5;
         final var phi_2 = 2.5;
-        var swarm = Swarm.builder()
+        var startMsg = ImmutableInit.builder()
                 .ff(Schwefel.build())
                 .particlesCount(particlesCount)
-                .threadsCount(threadsCount)
                 .ffDimension(dimension)
                 .domain(ImmutableDomain.builder()
                         .lowerBound(-500)
@@ -42,12 +33,11 @@ public class Main {
                         .omegaMax(omegaMax)
                         .step((omegaMax - omegaMin) / iterMax)
                         .build())
+                .endCondition((i, f) -> {
+                    return (iterMax != 0 && i >= iterMax) || Math.abs(f) < 1e-4;
+                })
+                .iterationInterval(200)
                 .build();
-        swarm.run((i, f) -> {
-            if (i % 1000 == 0) {
-                System.out.println(i + "/" + f);
-            }
-            return (iterMax != 0 && i >= iterMax) || Math.abs(f) < 1e-4;
-        });
+        swarm.tell(startMsg, null);
     }
 }
