@@ -72,6 +72,8 @@ public class ParticleActor extends AbstractActor {
             // TODO ask others for best and send what you have already
             slave.tell(new Request(this.globalBestKnowPosition, this.iteration), getSelf());
             this.iteration += slaveIterationInterval;
+        } else {
+            // TODO send to SwarmAction information you have finished
         }
     }
 
