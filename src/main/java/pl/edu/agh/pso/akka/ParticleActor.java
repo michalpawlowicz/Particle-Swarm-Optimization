@@ -5,6 +5,7 @@ import akka.actor.ActorRef;
 import akka.actor.Props;
 import pl.edu.agh.pso.AbstractParticle;
 import pl.edu.agh.pso.Vector;
+import pl.edu.agh.pso.akka.message.EndSolution;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -81,6 +82,9 @@ public class ParticleActor extends AbstractActor {
             });
             this.iteration += slaveIterationInterval;
         } else {
+            getContext().getParent().tell(new EndSolution(this.globalBestKnowFitness, this.globalBestKnowPosition), self());
+            getContext().stop(self());
+
             // TODO send to SwarmAction information you have finished
         }
     }

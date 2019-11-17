@@ -7,10 +7,12 @@ import org.immutables.value.Value;
 import pl.edu.agh.pso.Domain;
 import pl.edu.agh.pso.ParametersContainer;
 import pl.edu.agh.pso.Vector;
+import pl.edu.agh.pso.akka.message.EndSolution;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -21,6 +23,12 @@ public class SwarmActor extends AbstractActor {
         return Props.create(SwarmActor.class);
     }
 
+    private BiFunction<Integer, Double, Boolean> endCondition;
+
+    private EndSolution bestKnownSolution;
+
+    private AtomicInteger particlesToBeProcessed;
+
     @Override
     public Receive createReceive() {
         return receiveBuilder()
@@ -28,6 +36,22 @@ public class SwarmActor extends AbstractActor {
                 .match(Acquaintances.AcquaintancesResponseOK.class, ok -> {
                     System.out.println("Starting [" + getSender().path() + "]");
                     sender().tell(new ParticleActor.Start(), getSelf());
+                })
+                .match(EndSolution.class, solution -> {
+                    if (solution.isBetterSolutionThan(bestKnownSolution)) {
+                        bestKnownSolution = solution;
+                        if (endCondition.apply(0, bestKnownSolution.getFitness())) {
+                            getContext().getChildren().forEach(child -> getContext().stop(child));
+                            System.out.println("Final solution: " + bestKnownSolution);
+                        }
+                    }
+                    int counter = particlesToBeProcessed.decrementAndGet();
+
+                    if (counter == 0) {
+                        System.out.println("All particles have done their job, final best solution: " + bestKnownSolution);
+                        getContext().getChildren().forEach(child -> getContext().stop(child));
+                    }
+
                 })
                 .build();
     }
@@ -41,6 +65,9 @@ public class SwarmActor extends AbstractActor {
                       final Integer slaveIterationInterval) {
         System.out.println("SwarmActor initialization");
         System.out.println("Creating ParticleActors [" + particlesCount + "] ...");
+        this.endCondition = endCondition;
+        this.particlesToBeProcessed = new AtomicInteger(particlesCount);
+
         IntStream.range(0, particlesCount).forEach(i -> {
             var particle = Particle.builder()
                     .ff(ff)
