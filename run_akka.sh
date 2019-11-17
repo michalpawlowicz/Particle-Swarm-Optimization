@@ -1,1 +1,1 @@
-java -jar target/pso_akka.jar $1
+java -jar target/pso_akka.jar

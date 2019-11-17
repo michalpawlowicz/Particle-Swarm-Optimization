@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 cpus = 16
 runs = 5
 
-file_list = [("speedup.out", "label", "b", "o")]
+file_list = [("speedup_akka.out", "akka", "b", "o"), ("speedup_synchronous.out", "synchronous", "b", "o")]
 for f, label, color, marker in file_list:
     with open(f, "r") as fd:
         lines = fd.readlines()

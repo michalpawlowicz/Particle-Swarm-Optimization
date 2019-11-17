@@ -27,7 +27,7 @@ public class SwarmActor extends AbstractActor {
 
     private EndSolution bestKnownSolution;
 
-    private AtomicInteger particlesToBeProcessed;
+    private int particlesToBeProcessed;
 
     @Override
     public Receive createReceive() {
@@ -41,19 +41,24 @@ public class SwarmActor extends AbstractActor {
                     if (solution.isBetterSolutionThan(bestKnownSolution)) {
                         bestKnownSolution = solution;
                         if (endCondition.apply(0, bestKnownSolution.getFitness())) {
-                            getContext().getChildren().forEach(child -> getContext().stop(child));
                             System.out.println("Final solution: " + bestKnownSolution);
+                            this.cleanUp();
                         }
                     }
-                    int counter = particlesToBeProcessed.decrementAndGet();
+                    int counter = --particlesToBeProcessed;
 
                     if (counter == 0) {
                         System.out.println("All particles have done their job, final best solution: " + bestKnownSolution);
-                        getContext().getChildren().forEach(child -> getContext().stop(child));
+                        this.cleanUp();
                     }
-
                 })
                 .build();
+    }
+
+    private void cleanUp() {
+        getContext().getChildren().forEach(child -> getContext().stop(child));
+        getContext().stop(getSelf());
+        getContext().getSystem().terminate();
     }
 
     private void init(final Integer particlesCount,
@@ -66,7 +71,7 @@ public class SwarmActor extends AbstractActor {
         System.out.println("SwarmActor initialization");
         System.out.println("Creating ParticleActors [" + particlesCount + "] ...");
         this.endCondition = endCondition;
-        this.particlesToBeProcessed = new AtomicInteger(particlesCount);
+        this.particlesToBeProcessed = particlesCount;
 
         IntStream.range(0, particlesCount).forEach(i -> {
             var particle = Particle.builder()
