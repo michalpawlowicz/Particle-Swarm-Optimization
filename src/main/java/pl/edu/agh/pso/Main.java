@@ -18,7 +18,7 @@ public class Main {
             threadsCount = Integer.parseInt(args[0]);
         }
 
-        final var particlesCount = 4;
+        final var particlesCount = 2;
         final var dimension = 100;
         final var iterMax = 5e5;
 

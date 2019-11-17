@@ -39,7 +39,16 @@ public class ParticleActor extends AbstractActor {
                 .match(Response.class, this::WorkerResponseCallback)
                 .match(Acquaintances.class, this::unwrapAcquaintances)
                 .match(Start.class, this::start)
+                .match(AcquireBestSolutionResponse.class, this::unwrapBestSolution)
+                .match(AcquireBestSolutionRequest.class, solution -> {
+                    var response = new AcquireBestSolutionResponse(new Vector(this.globalBestKnowPosition), this.globalBestKnowFitness);
+                    getSender().tell(response, getSelf());
+                })
                 .build();
+    }
+
+    private void unwrapBestSolution(AcquireBestSolutionResponse response) {
+        updateBestSolution(response.gBest, response.gBestFitness);
     }
 
     private void unwrapAcquaintances(Acquaintances acquaintances) {
@@ -69,8 +78,10 @@ public class ParticleActor extends AbstractActor {
 
     private void delegateWork() {
         if(!endCondition.apply(iteration, globalBestKnowFitness)) {
-            // TODO ask others for best and send what you have already
             slave.tell(new Request(this.globalBestKnowPosition, this.iteration), getSelf());
+            this.acquaintancesList.forEach(actorRef -> {
+                actorRef.tell(new AcquireBestSolutionRequest(), getSelf());
+            });
             this.iteration += slaveIterationInterval;
         } else {
             // TODO send to SwarmAction information you have finished
@@ -122,6 +133,16 @@ public class ParticleActor extends AbstractActor {
         private Vector gBest;
         private double gBestFitness;
         public Response(Vector gBest, double gBestFitness) {
+            this.gBest = gBest;
+            this.gBestFitness = gBestFitness;
+        }
+    }
+
+    public static class AcquireBestSolutionRequest {}
+    public static class AcquireBestSolutionResponse {
+        private Vector gBest;
+        private double gBestFitness;
+        public AcquireBestSolutionResponse(Vector gBest, double gBestFitness) {
             this.gBest = gBest;
             this.gBestFitness = gBestFitness;
         }

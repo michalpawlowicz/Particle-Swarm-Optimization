@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         ActorSystem system = ActorSystem.create("pso");
         ActorRef swarm = system.actorOf(SwarmActor.props());
-        final var particlesCount = 4;
+        final var particlesCount = 20;
         final var dimension = 100;
         final var iterMax = 5e5;
         final var omegaMin = 0.4;
