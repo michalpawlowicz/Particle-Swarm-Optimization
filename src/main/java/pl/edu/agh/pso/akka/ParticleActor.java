@@ -52,14 +52,12 @@ public class ParticleActor extends AbstractActor {
     }
 
     private void unwrapAcquaintances(Acquaintances acquaintances) {
-        System.out.println("[" + getSelf().path() + "Received acquaintances: [" + acquaintances.getAcquaintance().size() + "]");
         this.acquaintancesList = acquaintances.getAcquaintance();
         getSender().tell(new Acquaintances.AcquaintancesResponseOK(), self());
     }
 
 
     private void WorkerResponseCallback(Response response) {
-        System.out.println("[" + getSelf().path() + "Received response");
         updateBestSolution(response.gBest, response.gBestFitness);
         delegateWork();
     }
@@ -72,7 +70,6 @@ public class ParticleActor extends AbstractActor {
     }
 
     private void start(Start start) {
-        System.out.println("[" + getSelf().path() + "] Received start");
         delegateWork();
     }
 
