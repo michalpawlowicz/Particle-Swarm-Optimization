@@ -1,14 +1,14 @@
-package pl.edu.agh.pso.akka.message;
+package pl.edu.agh.pso.akka.messages;
 
 import lombok.Data;
 import pl.edu.agh.pso.Vector;
 
 @Data
-public class EndSolution {
+public class FinalSolution {
     private final double fitness;
     private final Vector position;
 
-    public boolean isBetterSolutionThan(EndSolution otherSolution) {
+    public boolean isBetterSolutionThan(FinalSolution otherSolution) {
         return otherSolution == null || this.fitness < otherSolution.fitness;
     }
 }

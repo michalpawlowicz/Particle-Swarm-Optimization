@@ -1,4 +1,4 @@
-package pl.edu.agh.pso.akka;
+package pl.edu.agh.pso.akka.messages;
 
 import akka.actor.ActorRef;
 import org.immutables.value.Value;

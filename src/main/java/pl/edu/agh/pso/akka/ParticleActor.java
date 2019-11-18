@@ -1,12 +1,13 @@
 package pl.edu.agh.pso.akka;
 
-import akka.actor.AbstractActor;
-import akka.actor.ActorRef;
-import akka.actor.Props;
+import akka.actor.*;
+import akka.japi.pf.DeciderBuilder;
 import pl.edu.agh.pso.AbstractParticle;
 import pl.edu.agh.pso.Vector;
-import pl.edu.agh.pso.akka.message.EndSolution;
+import pl.edu.agh.pso.akka.messages.Acquaintances;
+import pl.edu.agh.pso.akka.messages.FinalSolution;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.function.BiFunction;
 
@@ -37,7 +38,7 @@ public class ParticleActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(Response.class, this::WorkerResponseCallback)
+                .match(SlaveResponse.class, this::WorkerResponseCallback)
                 .match(Acquaintances.class, this::unwrapAcquaintances)
                 .match(Start.class, this::start)
                 .match(AcquireBestSolutionResponse.class, this::unwrapBestSolution)
@@ -58,8 +59,8 @@ public class ParticleActor extends AbstractActor {
     }
 
 
-    private void WorkerResponseCallback(Response response) {
-        updateBestSolution(response.gBest, response.gBestFitness);
+    private void WorkerResponseCallback(SlaveResponse slaveResponse) {
+        updateBestSolution(slaveResponse.gBest, slaveResponse.gBestFitness);
         delegateWork();
     }
 
@@ -75,17 +76,15 @@ public class ParticleActor extends AbstractActor {
     }
 
     private void delegateWork() {
-        if(!endCondition.apply(iteration, globalBestKnowFitness)) {
-            slave.tell(new Request(this.globalBestKnowPosition, this.iteration), getSelf());
+        if (!endCondition.apply(iteration, globalBestKnowFitness)) {
+            slave.tell(new SlaveRequest(this.globalBestKnowPosition, this.iteration), getSelf());
             this.acquaintancesList.forEach(actorRef -> {
                 actorRef.tell(new AcquireBestSolutionRequest(), getSelf());
             });
             this.iteration += slaveIterationInterval;
         } else {
-            getContext().getParent().tell(new EndSolution(this.globalBestKnowFitness, this.globalBestKnowPosition), self());
+            getContext().getParent().tell(new FinalSolution(this.globalBestKnowFitness, this.globalBestKnowPosition), self());
             getContext().stop(self());
-
-            // TODO send to SwarmAction information you have finished
         }
     }
 
@@ -94,6 +93,12 @@ public class ParticleActor extends AbstractActor {
         private AbstractParticle particle;
 
         private final int iterationInterval;
+
+        private static SupervisorStrategy strategy = new OneForOneStrategy(
+                10,
+                Duration.ofMinutes(1),
+                DeciderBuilder.matchAny(o -> (SupervisorStrategy.Directive) SupervisorStrategy.restart())
+                        .build());
 
         public ParticleActorWorker(AbstractParticle particle, int iterationInterval) {
             this.particle = particle;
@@ -107,47 +112,58 @@ public class ParticleActor extends AbstractActor {
         @Override
         public Receive createReceive() {
             return receiveBuilder()
-                    .match(Request.class, this::requestCallback)
+                    .match(SlaveRequest.class, this::requestCallback)
                     .build();
         }
 
-        private void requestCallback(Request gBestSolution) {
-            for(int i = 0; i < this.iterationInterval; ++i) {
+        @Override
+        public SupervisorStrategy supervisorStrategy() {
+            return strategy;
+        }
+
+        private void requestCallback(SlaveRequest gBestSolution) {
+            for (int i = 0; i < this.iterationInterval; ++i) {
                 particle.iterate(i + gBestSolution.startIteration, gBestSolution.gBest);
             }
             var solution = particle.getSolution();
             System.out.println("Solution: " + solution._2);
-            sender().tell(new Response(solution._1, solution._2), getSelf());
+            sender().tell(new SlaveResponse(solution._1, solution._2), getSelf());
         }
     }
 
-    public static class Request {
-        public Vector gBest;
-        public int startIteration;
-        public Request(Vector gBest, int startIteration) {
+    private static class SlaveRequest {
+        private Vector gBest;
+        private int startIteration;
+
+        public SlaveRequest(Vector gBest, int startIteration) {
             this.gBest = gBest;
             this.startIteration = startIteration;
         }
     }
 
-    public static class Response {
+    private static class SlaveResponse {
         private Vector gBest;
         private double gBestFitness;
-        public Response(Vector gBest, double gBestFitness) {
+
+        public SlaveResponse(Vector gBest, double gBestFitness) {
             this.gBest = gBest;
             this.gBestFitness = gBestFitness;
         }
     }
 
-    public static class AcquireBestSolutionRequest {}
-    public static class AcquireBestSolutionResponse {
+    private static class AcquireBestSolutionRequest {
+    }
+
+    private static class AcquireBestSolutionResponse {
         private Vector gBest;
         private double gBestFitness;
+
         public AcquireBestSolutionResponse(Vector gBest, double gBestFitness) {
             this.gBest = gBest;
             this.gBestFitness = gBestFitness;
         }
     }
 
-    public static class Start {}
+    public static class Start {
+    }
 }

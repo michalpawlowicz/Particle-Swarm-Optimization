@@ -7,12 +7,12 @@ import org.immutables.value.Value;
 import pl.edu.agh.pso.Domain;
 import pl.edu.agh.pso.ParametersContainer;
 import pl.edu.agh.pso.Vector;
-import pl.edu.agh.pso.akka.message.EndSolution;
+import pl.edu.agh.pso.akka.messages.Acquaintances;
+import pl.edu.agh.pso.akka.messages.FinalSolution;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -25,7 +25,7 @@ public class SwarmActor extends AbstractActor {
 
     private BiFunction<Integer, Double, Boolean> endCondition;
 
-    private EndSolution bestKnownSolution;
+    private FinalSolution bestKnownSolution;
 
     private int particlesToBeProcessed;
 
@@ -34,15 +34,15 @@ public class SwarmActor extends AbstractActor {
         return receiveBuilder()
                 .match(Init.class, m -> this.init(m.particlesCount(), m.ff(), m.ffDimension(), m.domain(), m.parameters(), m.endCondition(), m.iterationInterval()))
                 .match(Acquaintances.AcquaintancesResponseOK.class, ok -> {
-                    System.out.println("Starting [" + getSender().path() + "]");
                     sender().tell(new ParticleActor.Start(), getSelf());
                 })
-                .match(EndSolution.class, solution -> {
+                .match(FinalSolution.class, solution -> {
                     if (solution.isBetterSolutionThan(bestKnownSolution)) {
                         bestKnownSolution = solution;
                         if (endCondition.apply(0, bestKnownSolution.getFitness())) {
                             System.out.println("Final solution: " + bestKnownSolution);
                             this.cleanUp();
+                            return;
                         }
                     }
                     int counter = --particlesToBeProcessed;
