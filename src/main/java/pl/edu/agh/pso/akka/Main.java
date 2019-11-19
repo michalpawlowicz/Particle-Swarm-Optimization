@@ -7,17 +7,35 @@ import pl.edu.agh.pso.ImmutableParametersContainer;
 import pl.edu.agh.pso.Swarm;
 import pl.edu.agh.pso.benchmark.Schwefel;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Properties;
+
 public class Main {
     public static void main(String[] args) {
-        ActorSystem system = ActorSystem.create("pso");
-        ActorRef swarm = system.actorOf(SwarmActor.props());
-        final var particlesCount = 16;
-        final var dimension = 100;
-        final var iterMax = 5e5;
-        final var omegaMin = 0.4;
-        final var omegaMax = 1.4;
-        final var phi_1 = 0.5;
-        final var phi_2 = 1.5;
+        Properties prop = new Properties();
+        final String propFileName = "app.conf.xml";
+        FileInputStream inputStream;
+        try {
+            inputStream = new FileInputStream(propFileName);
+            prop.loadFromXML(inputStream);
+        } catch (FileNotFoundException e) {
+            System.out.println("app.conf file not found");
+            return;
+        } catch (IOException e) {
+            System.out.println("Could not read property file");
+        }
+
+        var x = prop.getProperty("nodes");
+        final var particlesCount = new BigDecimal(prop.getProperty("particlesCount")).intValue();
+        final var dimension = new BigDecimal(prop.getProperty("dimension")).intValue();
+        final var iterMax = new BigDecimal(prop.getProperty("iterMax")).intValue();
+        final var omegaMin = Double.parseDouble(prop.getProperty("omegaMin"));
+        final var omegaMax = Double.parseDouble(prop.getProperty("omegaMax"));
+        final var phi_1 = Double.parseDouble(prop.getProperty("phi_1"));
+        final var phi_2 = Double.parseDouble(prop.getProperty("phi_2"));
         var startMsg = ImmutableInit.builder()
                 .ff(Schwefel.build())
                 .particlesCount(particlesCount)
@@ -34,10 +52,13 @@ public class Main {
                         .step((omegaMax - omegaMin) / iterMax)
                         .build())
                 .endCondition((i, f) -> {
-                    return (iterMax != 0 && i >= iterMax) || Math.abs(f) < 1e-9;
+                    return (iterMax != 0 && i >= iterMax) || Math.abs(f) < 1e-6;
                 })
                 .iterationInterval(200)
                 .build();
+
+        ActorSystem system = ActorSystem.create("pso");
+        ActorRef swarm = system.actorOf(SwarmActor.props());
         swarm.tell(startMsg, null);
     }
 }

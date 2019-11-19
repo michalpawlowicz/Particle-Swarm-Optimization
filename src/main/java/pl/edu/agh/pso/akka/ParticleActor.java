@@ -97,8 +97,7 @@ public class ParticleActor extends AbstractActor {
         private static SupervisorStrategy strategy = new OneForOneStrategy(
                 10,
                 Duration.ofMinutes(1),
-                DeciderBuilder.matchAny(o -> (SupervisorStrategy.Directive) SupervisorStrategy.restart())
-                        .build());
+                DeciderBuilder.matchAny(o -> (SupervisorStrategy.Directive) SupervisorStrategy.restart()).build());
 
         public ParticleActorWorker(AbstractParticle particle, int iterationInterval) {
             this.particle = particle;
