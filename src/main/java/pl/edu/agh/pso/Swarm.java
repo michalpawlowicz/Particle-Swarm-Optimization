@@ -72,7 +72,6 @@ public class Swarm implements PSOAlgorithm {
                     .ff(ff)
                     .position(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))
                     .velocity(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))
-                    //.velocity(Vector.random(ffDimension, -1, 1))
                     .searchDomain(domain)
                     .parametersContainer(this.parameters)
                     .build();

@@ -15,8 +15,7 @@ public class Main {
             System.out.println("Setting threads number to 4");
             threadsCount = 4;
         } else {
-            threadsCount = Integer.parseInt(args[2]);
-
+            threadsCount = Integer.parseInt(args[0]);
         }
         if (args.length >= 2) {
             algorithmVersion = AlgorithmVersion.DISTRIBUTED_PSO;
