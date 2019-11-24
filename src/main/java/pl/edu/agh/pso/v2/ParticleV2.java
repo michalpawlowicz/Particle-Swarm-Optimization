@@ -55,7 +55,7 @@ class ParticleV2 implements Callable<Optional<Tuple2<Vector, Double>>> {
     Optional<Tuple3<Vector, Double, Integer>> notifyBestKnowSwarmPosition(final int iteration, Tuple3<Vector, Double, Integer> offeredSolution) {
         if (offeredSolution._2() < this.bestKnownFitness) {
             updateBestKnowPosition(iteration, new Tuple2<>(offeredSolution._1(), offeredSolution._2()));
-//            System.out.println(getSolutionWithIteration().toString());
+            System.out.println(offeredSolution._2() + " Iteration: " + offeredSolution._3());
             return Optional.empty();
         } else {
             return Optional.of(getSolutionWithIteration());
