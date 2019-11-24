@@ -8,6 +8,10 @@
     <entry key="omegaMax">1.4</entry>
     <entry key="phi_1">0.5</entry>
     <entry key="phi_2">1.5</entry>
+    <entry key="iterationInterval">200</entry>
+    <entry key="lambda">1e-6</entry>
+    <entry key="lowerBound">-500</entry>
+    <entry key="higherBound">500</entry>
     <entry key="nodes">
     </entry>
 </properties>
