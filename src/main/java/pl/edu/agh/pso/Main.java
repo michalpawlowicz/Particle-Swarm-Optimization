@@ -18,9 +18,9 @@ public class Main {
             threadsCount = Integer.parseInt(args[0]);
         }
 
-        final var particlesCount = 16;
-        final var dimension = 100;
-        final var iterMax = 5e5;
+        final var particlesCount = 192;
+        final var dimension = 4096;
+        final var iterMax = 1e7;
 
         final var omegaMin = 0.4;
         final var omegaMax = 1.4;
@@ -44,9 +44,6 @@ public class Main {
                         .build())
                 .build();
         swarm.run((i, f) -> {
-            if (i % 1000 == 0) {
-                System.out.println(i + "/" + f);
-            }
             return (iterMax != 0 && i >= iterMax) || Math.abs(f) < 1e-6;
         });
     }
