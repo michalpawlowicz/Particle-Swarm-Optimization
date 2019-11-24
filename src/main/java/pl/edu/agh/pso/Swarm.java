@@ -28,8 +28,9 @@ public class Swarm {
 
     private ParametersContainer parameters;
 
+    private int iteration = 0;
+
     public void run(BiFunction<Integer, Double, Boolean> predicate) throws ExecutionException, InterruptedException {
-        var iteration = 0;
         while (!predicate.apply(iteration, this.globalBestKnowFitness)) {
             List<Future<Optional<Tuple2<Vector, Double>>>> futures = new LinkedList<>();
             for (var particle : particleList) {
@@ -51,6 +52,7 @@ public class Swarm {
         if (solution._2 < this.globalBestKnowFitness) {
             this.globalBestKnowFitness = solution._2;
             this.globalBestKnowPosition = solution._1;
+            System.out.println("Fitness[" + this.globalBestKnowFitness +"] Iteration[" + this.iteration + "]");
         }
     }
 
