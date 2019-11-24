@@ -15,10 +15,10 @@ public class Main {
             System.out.println("Setting threads number to 4");
             threadsCount = 4;
         } else {
-            threadsCount = Integer.parseInt(args[2]);
+            threadsCount = Integer.parseInt(args[0]);
         }
 
-        final var particlesCount = 20;
+        final var particlesCount = 16;
         final var dimension = 100;
         final var iterMax = 5e5;
 
@@ -47,7 +47,7 @@ public class Main {
             if (i % 1000 == 0) {
                 System.out.println(i + "/" + f);
             }
-            return (iterMax != 0 && i >= iterMax) || Math.abs(f) < 1e-4;
+            return (iterMax != 0 && i >= iterMax) || Math.abs(f) < 1e-6;
         });
     }
 }
