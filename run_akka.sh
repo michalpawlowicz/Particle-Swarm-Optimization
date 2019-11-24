@@ -1,1 +1,1 @@
-java -jar target/pso_akka.jar
+java -jar -DconfFileName=app.conf.xml target/pso_akka.jar
