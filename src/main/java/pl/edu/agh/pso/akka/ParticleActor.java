@@ -1,6 +1,7 @@
 package pl.edu.agh.pso.akka;
 
 import akka.actor.*;
+import akka.event.Logging;
 import akka.japi.pf.DeciderBuilder;
 import pl.edu.agh.pso.AbstractParticle;
 import pl.edu.agh.pso.Vector;
@@ -68,6 +69,7 @@ public class ParticleActor extends AbstractActor {
         if (fitness < this.globalBestKnowFitness) {
             this.globalBestKnowFitness = fitness;
             this.globalBestKnowPosition = position;
+            Logging.getLogger(getContext().getSystem(), this).info("Fitness: " + this.globalBestKnowFitness + " iteration: " + this.iteration);
         }
     }
 
@@ -125,7 +127,6 @@ public class ParticleActor extends AbstractActor {
                 particle.iterate(i + gBestSolution.startIteration, gBestSolution.gBest);
             }
             var solution = particle.getSolution();
-            System.out.println("Solution: " + solution._2);
             sender().tell(new SlaveResponse(solution._1, solution._2), getSelf());
         }
     }
