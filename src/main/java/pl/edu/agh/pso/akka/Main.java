@@ -4,7 +4,6 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import pl.edu.agh.pso.ImmutableDomain;
 import pl.edu.agh.pso.ImmutableParametersContainer;
-import pl.edu.agh.pso.Swarm;
 import pl.edu.agh.pso.benchmark.Schwefel;
 
 import java.io.FileInputStream;
@@ -14,15 +13,20 @@ import java.math.BigDecimal;
 import java.util.Properties;
 
 public class Main {
+    private static String CONF_FILENAME_PARAM = "confFilename";
+    private static String DEFAULT_CONF_FILENAME = "app.conf.xml";
+
     public static void main(String[] args) {
+
         Properties prop = new Properties();
-        final String propFileName = "app.conf.xml";
+        String propFileName = System.getProperty(CONF_FILENAME_PARAM, DEFAULT_CONF_FILENAME);
+        System.out.println(propFileName);
         FileInputStream inputStream;
         try {
             inputStream = new FileInputStream(propFileName);
             prop.loadFromXML(inputStream);
         } catch (FileNotFoundException e) {
-            System.out.println("app.conf file not found");
+            System.out.println(propFileName + " file not found");
             return;
         } catch (IOException e) {
             System.out.println("Could not read property file");
