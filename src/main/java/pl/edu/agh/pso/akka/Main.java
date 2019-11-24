@@ -4,7 +4,6 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import pl.edu.agh.pso.ImmutableDomain;
 import pl.edu.agh.pso.ImmutableParametersContainer;
-import pl.edu.agh.pso.Swarm;
 import pl.edu.agh.pso.benchmark.Schwefel;
 
 import java.io.FileInputStream;
@@ -36,13 +35,17 @@ public class Main {
         final var omegaMax = Double.parseDouble(prop.getProperty("omegaMax"));
         final var phi_1 = Double.parseDouble(prop.getProperty("phi_1"));
         final var phi_2 = Double.parseDouble(prop.getProperty("phi_2"));
+        final var iterationInterval = Integer.parseInt(prop.getProperty("iterationInterval"));
+        final var lambda = Double.parseDouble(prop.getProperty("lambda"));
+        final var lowerBound = Integer.parseInt(prop.getProperty("lowerBound"));
+        final var higherBound = Integer.parseInt(prop.getProperty("higherBound"));
         var startMsg = ImmutableInit.builder()
                 .ff(Schwefel.build())
                 .particlesCount(particlesCount)
                 .ffDimension(dimension)
                 .domain(ImmutableDomain.builder()
-                        .lowerBound(-500)
-                        .higherBound(500)
+                        .lowerBound(lowerBound)
+                        .higherBound(higherBound)
                         .build())
                 .parameters(ImmutableParametersContainer.builder()
                         .phi_1(phi_1)
@@ -52,9 +55,9 @@ public class Main {
                         .step((omegaMax - omegaMin) / iterMax)
                         .build())
                 .endCondition((i, f) -> {
-                    return (iterMax != 0 && i >= iterMax) || Math.abs(f) < 1e-6;
+                    return (iterMax != 0 && i >= iterMax) || Math.abs(f) < lambda;
                 })
-                .iterationInterval(200)
+                .iterationInterval(iterationInterval)
                 .build();
 
         ActorSystem system = ActorSystem.create("pso");
