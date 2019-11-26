@@ -3,66 +3,64 @@ package pl.edu.agh.pso.akka;
 import akka.actor.*;
 import akka.event.Logging;
 import akka.japi.pf.DeciderBuilder;
+import org.immutables.value.Value;
 import pl.edu.agh.pso.AbstractParticle;
 import pl.edu.agh.pso.Vector;
 import pl.edu.agh.pso.akka.messages.Acquaintances;
 import pl.edu.agh.pso.akka.messages.FinalSolution;
+import scala.Tuple2;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
 
-public class ParticleActor extends AbstractActor {
+public class ParticleActor extends AbstractActorWithTimers {
 
     private Double globalBestKnowFitness;
     private Vector globalBestKnowPosition;
-    private List<ActorRef> acquaintancesList;
     private ActorRef slave;
+    private ActorRef secondSlave;
     private int iteration;
-    private final int slaveIterationInterval;
     private final BiFunction<Integer, Double, Boolean> endCondition;
 
-    public ParticleActor(AbstractParticle particle, final BiFunction<Integer, Double, Boolean> endCondition, final int slaveIterationInterval) {
+    public ParticleActor(AbstractParticle particle, final BiFunction<Integer, Double, Boolean> endCondition) {
         var solution = particle.getSolution();
         this.globalBestKnowPosition = solution._1;
         this.globalBestKnowFitness = solution._2;
-        slave = context().actorOf(ParticleActorWorker.props(particle, slaveIterationInterval));
         this.iteration = 0;
-        this.slaveIterationInterval = slaveIterationInterval;
         this.endCondition = endCondition;
+        slave = context().actorOf(ParticleActorWorker.props(particle));
+        secondSlave = context().actorOf(SlaveWorker.props());
     }
 
-    static Props props(AbstractParticle particle, final BiFunction<Integer, Double, Boolean> endCondition, final int slaveIterationInterval) {
-        return Props.create(ParticleActor.class, particle, endCondition, slaveIterationInterval);
+    static Props props(AbstractParticle particle, final BiFunction<Integer, Double, Boolean> endCondition) {
+        return Props.create(ParticleActor.class, particle, endCondition);
     }
 
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(SlaveResponse.class, this::WorkerResponseCallback)
-                .match(Acquaintances.class, this::unwrapAcquaintances)
+                .match(SlaveResponse.class, slaveResponse -> {
+                    updateBestSolution(slaveResponse.gBest, slaveResponse.gBestFitness);
+                    delegateWork();
+                })
+                .match(Acquaintances.class, acquaintances -> {
+                    this.secondSlave.forward(acquaintances, getContext());
+                })
                 .match(Start.class, this::start)
-                .match(AcquireBestSolutionResponse.class, this::unwrapBestSolution)
+                .match(AcquireBestSolutionResponse.class, response -> {
+                    updateBestSolution(response.gBest, response.gBestFitness);
+                })
                 .match(AcquireBestSolutionRequest.class, solution -> {
                     var response = new AcquireBestSolutionResponse(new Vector(this.globalBestKnowPosition), this.globalBestKnowFitness);
                     getSender().tell(response, getSelf());
                 })
+                .match(TickAcquireBestSolutionRequest.class, tickAcquireBestSolutionRequest -> {
+                    this.secondSlave.tell(new SlaveWorker.AskRequest(), getSelf());
+                })
                 .build();
-    }
-
-    private void unwrapBestSolution(AcquireBestSolutionResponse response) {
-        updateBestSolution(response.gBest, response.gBestFitness);
-    }
-
-    private void unwrapAcquaintances(Acquaintances acquaintances) {
-        this.acquaintancesList = acquaintances.getAcquaintance();
-        getSender().tell(new Acquaintances.AcquaintancesResponseOK(), self());
-    }
-
-
-    private void WorkerResponseCallback(SlaveResponse slaveResponse) {
-        updateBestSolution(slaveResponse.gBest, slaveResponse.gBestFitness);
-        delegateWork();
     }
 
     private void updateBestSolution(Vector position, double fitness) {
@@ -73,17 +71,16 @@ public class ParticleActor extends AbstractActor {
         }
     }
 
+    // Should be called only once!
     private void start(Start start) {
+        final var duration = ThreadLocalRandom.current().nextInt(start.tickTimeBounds()._1, start.tickTimeBounds()._2);
+        getTimers().startTimerWithFixedDelay("TICK_FOR_BEST_SOLUTION", new TickAcquireBestSolutionRequest(), Duration.ofMillis(duration));
         delegateWork();
     }
 
     private void delegateWork() {
         if (!endCondition.apply(iteration, globalBestKnowFitness)) {
-            slave.tell(new SlaveRequest(this.globalBestKnowPosition, this.iteration), getSelf());
-            this.acquaintancesList.forEach(actorRef -> {
-                actorRef.tell(new AcquireBestSolutionRequest(), getSelf());
-            });
-            this.iteration += slaveIterationInterval;
+            slave.tell(new SlaveRequest(this.globalBestKnowPosition, this.iteration++), getSelf());
         } else {
             getContext().getParent().tell(new FinalSolution(this.globalBestKnowFitness, this.globalBestKnowPosition), self());
             getContext().stop(self());
@@ -94,20 +91,17 @@ public class ParticleActor extends AbstractActor {
 
         private AbstractParticle particle;
 
-        private final int iterationInterval;
-
         private static SupervisorStrategy strategy = new OneForOneStrategy(
                 10,
                 Duration.ofMinutes(1),
                 DeciderBuilder.matchAny(o -> (SupervisorStrategy.Directive) SupervisorStrategy.restart()).build());
 
-        public ParticleActorWorker(AbstractParticle particle, int iterationInterval) {
+        public ParticleActorWorker(AbstractParticle particle) {
             this.particle = particle;
-            this.iterationInterval = iterationInterval;
         }
 
-        static Props props(AbstractParticle particle, int iterationInterval) {
-            return Props.create(ParticleActorWorker.class, particle, iterationInterval);
+        static Props props(AbstractParticle particle) {
+            return Props.create(ParticleActorWorker.class, particle);
         }
 
         @Override
@@ -123,21 +117,45 @@ public class ParticleActor extends AbstractActor {
         }
 
         private void requestCallback(SlaveRequest gBestSolution) {
-            for (int i = 0; i < this.iterationInterval; ++i) {
-                particle.iterate(i + gBestSolution.startIteration, gBestSolution.gBest);
-            }
+            particle.iterate(gBestSolution.iteration, gBestSolution.gBest);
             var solution = particle.getSolution();
             sender().tell(new SlaveResponse(solution._1, solution._2), getSelf());
         }
     }
 
+    private static class SlaveWorker extends AbstractActor {
+        private Optional<List<ActorRef>> acquaintancesList;
+
+        static Props props() {
+            return Props.create(SlaveWorker.class);
+        }
+
+        public SlaveWorker() {
+            this.acquaintancesList = Optional.empty();
+        }
+
+        @Override
+        public Receive createReceive() {
+            return receiveBuilder().match(AskRequest.class, ask -> {
+                this.acquaintancesList.ifPresent(list -> list.forEach(actorRef -> {
+                    actorRef.tell(new AcquireBestSolutionRequest(), getSender());
+                }));
+            }).match(Acquaintances.class, acquaintances -> {
+                this.acquaintancesList = Optional.of(acquaintances.getAcquaintance());
+                getSender().tell(new Acquaintances.AcquaintancesResponseOK(), getContext().getParent());
+            }).build();
+        }
+
+        public static class AskRequest {}
+    }
+
     private static class SlaveRequest {
         private Vector gBest;
-        private int startIteration;
+        private int iteration;
 
-        public SlaveRequest(Vector gBest, int startIteration) {
+        public SlaveRequest(Vector gBest, int iteration) {
             this.gBest = gBest;
-            this.startIteration = startIteration;
+            this.iteration = iteration;
         }
     }
 
@@ -151,8 +169,9 @@ public class ParticleActor extends AbstractActor {
         }
     }
 
-    private static class AcquireBestSolutionRequest {
-    }
+    private static class AcquireBestSolutionRequest {}
+
+    private static class TickAcquireBestSolutionRequest {}
 
     private static class AcquireBestSolutionResponse {
         private Vector gBest;
@@ -164,6 +183,8 @@ public class ParticleActor extends AbstractActor {
         }
     }
 
-    public static class Start {
+    @Value.Immutable
+    public static abstract class Start {
+        public abstract Tuple2<Integer, Integer> tickTimeBounds();
     }
 }

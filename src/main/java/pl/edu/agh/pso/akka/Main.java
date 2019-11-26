@@ -5,6 +5,7 @@ import akka.actor.ActorSystem;
 import pl.edu.agh.pso.ImmutableDomain;
 import pl.edu.agh.pso.ImmutableParametersContainer;
 import pl.edu.agh.pso.benchmark.Schwefel;
+import scala.Tuple2;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -40,10 +41,11 @@ public class Main {
         final var omegaMax = Double.parseDouble(prop.getProperty("omegaMax"));
         final var phi_1 = Double.parseDouble(prop.getProperty("phi_1"));
         final var phi_2 = Double.parseDouble(prop.getProperty("phi_2"));
-        final var iterationInterval = Integer.parseInt(prop.getProperty("iterationInterval"));
         final var lambda = Double.parseDouble(prop.getProperty("lambda"));
         final var lowerBound = Integer.parseInt(prop.getProperty("lowerBound"));
         final var higherBound = Integer.parseInt(prop.getProperty("higherBound"));
+        final var lowerTick = Integer.parseInt(prop.getProperty("lowerTick"));
+        final var higherTick = Integer.parseInt(prop.getProperty("higherTick"));
         var startMsg = ImmutableInit.builder()
                 .ff(Schwefel.build())
                 .particlesCount(particlesCount)
@@ -62,7 +64,7 @@ public class Main {
                 .endCondition((i, f) -> {
                     return (iterMax != 0 && i >= iterMax) || Math.abs(f) < lambda;
                 })
-                .iterationInterval(iterationInterval)
+                .tickBounds(new Tuple2<>(lowerTick, higherTick))
                 .build();
 
         ActorSystem system = ActorSystem.create("pso");

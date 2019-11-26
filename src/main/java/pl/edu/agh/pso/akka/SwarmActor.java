@@ -10,6 +10,7 @@ import pl.edu.agh.pso.Vector;
 import pl.edu.agh.pso.akka.messages.Acquaintances;
 import pl.edu.agh.pso.akka.messages.FinalSolution;
 import pl.edu.agh.pso.akka.messages.ImmutableAcquaintances;
+import scala.Tuple2;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -30,12 +31,14 @@ public class SwarmActor extends AbstractActor {
 
     private int particlesToBeProcessed;
 
+    private Tuple2<Integer, Integer> tickBounds;
+
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(Init.class, m -> this.init(m.particlesCount(), m.ff(), m.ffDimension(), m.domain(), m.parameters(), m.endCondition(), m.iterationInterval()))
+                .match(Init.class, m -> this.init(m.particlesCount(), m.ff(), m.ffDimension(), m.domain(), m.parameters(), m.endCondition(), m.tickBounds()))
                 .match(Acquaintances.AcquaintancesResponseOK.class, ok -> {
-                    sender().tell(new ParticleActor.Start(), getSelf());
+                    sender().tell(ImmutableStart.builder().tickTimeBounds(tickBounds).build(), getSelf());
                 })
                 .match(FinalSolution.class, solution -> {
                     if (solution.isBetterSolutionThan(bestKnownSolution)) {
@@ -68,11 +71,13 @@ public class SwarmActor extends AbstractActor {
                       final Domain domain,
                       final ParametersContainer parameters,
                       final BiFunction<Integer, Double, Boolean> endCondition,
-                      final Integer slaveIterationInterval) {
+                      final Tuple2<Integer, Integer> askTickBounds
+    ) {
         System.out.println("SwarmActor initialization");
         System.out.println("Creating ParticleActors [" + particlesCount + "] ...");
         this.endCondition = endCondition;
         this.particlesToBeProcessed = particlesCount;
+        this.tickBounds = askTickBounds;
 
         IntStream.range(0, particlesCount).forEach(i -> {
             var particle = Particle.builder()
@@ -82,7 +87,7 @@ public class SwarmActor extends AbstractActor {
                     .searchDomain(domain)
                     .parametersContainer(parameters)
                     .build();
-            getContext().actorOf(ParticleActor.props(particle, endCondition, slaveIterationInterval));
+            getContext().actorOf(ParticleActor.props(particle, endCondition));
         });
 
         List<ActorRef> children = new LinkedList<>();
@@ -117,6 +122,6 @@ public class SwarmActor extends AbstractActor {
 
         public abstract BiFunction<Integer, Double, Boolean> endCondition();
 
-        public abstract int iterationInterval();
+        public abstract Tuple2<Integer, Integer> tickBounds();
     }
 }
