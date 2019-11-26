@@ -47,13 +47,13 @@ public class Vector {
     public int size() { return this.size; }
 
     public static Vector random(int size, int min, int max) {
-        var v = new Vector(size);
+        Vector v = new Vector(size);
         v.initRandom(min, max);
         return v;
     }
 
     private void initRandom(int min, int max) {
-        var random = new Random();
+        Random random = new Random();
         IntStream.range(0, this.size).forEach(i -> { this.xs[i] = min + (max - min) * random.nextDouble(); });
     }
 

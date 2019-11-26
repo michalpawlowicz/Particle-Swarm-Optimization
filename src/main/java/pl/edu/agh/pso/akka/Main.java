@@ -33,19 +33,19 @@ public class Main {
             System.out.println("Could not read property file");
         }
 
-        final var particlesCount = new BigDecimal(prop.getProperty("particlesCount")).intValue();
-        final var dimension = new BigDecimal(prop.getProperty("dimension")).intValue();
-        final var iterMax = new BigDecimal(prop.getProperty("iterMax")).intValue();
-        final var omegaMin = Double.parseDouble(prop.getProperty("omegaMin"));
-        final var omegaMax = Double.parseDouble(prop.getProperty("omegaMax"));
-        final var phi_1 = Double.parseDouble(prop.getProperty("phi_1"));
-        final var phi_2 = Double.parseDouble(prop.getProperty("phi_2"));
-        final var lambda = Double.parseDouble(prop.getProperty("lambda"));
-        final var lowerBound = Integer.parseInt(prop.getProperty("lowerBound"));
-        final var higherBound = Integer.parseInt(prop.getProperty("higherBound"));
-        final var lowerTick = Integer.parseInt(prop.getProperty("lowerTick"));
-        final var higherTick = Integer.parseInt(prop.getProperty("higherTick"));
-        var startMsg = ImmutableInit.builder()
+        final int particlesCount = new BigDecimal(prop.getProperty("particlesCount")).intValue();
+        final int dimension = new BigDecimal(prop.getProperty("dimension")).intValue();
+        final int iterMax = new BigDecimal(prop.getProperty("iterMax")).intValue();
+        final double omegaMin = Double.parseDouble(prop.getProperty("omegaMin"));
+        final double omegaMax = Double.parseDouble(prop.getProperty("omegaMax"));
+        final double phi_1 = Double.parseDouble(prop.getProperty("phi_1"));
+        final double phi_2 = Double.parseDouble(prop.getProperty("phi_2"));
+        final double lambda = Double.parseDouble(prop.getProperty("lambda"));
+        final int lowerBound = Integer.parseInt(prop.getProperty("lowerBound"));
+        final int higherBound = Integer.parseInt(prop.getProperty("higherBound"));
+        final int lowerTick = Integer.parseInt(prop.getProperty("lowerTick"));
+        final int higherTick = Integer.parseInt(prop.getProperty("higherTick"));
+        SwarmActor.Init startMsg = ImmutableInit.builder()
                 .ff(Schwefel.build())
                 .particlesCount(particlesCount)
                 .ffDimension(dimension)

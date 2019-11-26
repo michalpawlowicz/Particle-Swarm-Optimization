@@ -18,15 +18,15 @@ public class Main {
             threadsCount = Integer.parseInt(args[0]);
         }
 
-        final var particlesCount = 192;
-        final var dimension = 4096;
-        final var iterMax = 1e7;
+        final int particlesCount = 192;
+        final int dimension = 4096;
+        final int iterMax = 1000000;
 
-        final var omegaMin = 0.4;
-        final var omegaMax = 1.4;
-        final var phi_1 = 0.5;
-        final var phi_2 = 2.5;
-        var swarm = Swarm.builder()
+        final double omegaMin = 0.4;
+        final double omegaMax = 1.8;
+        final double phi_1 = 0.5;
+        final double phi_2 = 2.5;
+        Swarm swarm = Swarm.builder()
                 .ff(Schwefel.build())
                 .particlesCount(particlesCount)
                 .threadsCount(threadsCount)

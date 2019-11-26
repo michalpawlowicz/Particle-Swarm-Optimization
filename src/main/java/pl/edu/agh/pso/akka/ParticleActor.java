@@ -26,7 +26,7 @@ public class ParticleActor extends AbstractActorWithTimers {
     private final BiFunction<Integer, Double, Boolean> endCondition;
 
     public ParticleActor(AbstractParticle particle, final BiFunction<Integer, Double, Boolean> endCondition) {
-        var solution = particle.getSolution();
+        Tuple2<Vector, Double> solution = particle.getSolution();
         this.globalBestKnowPosition = solution._1;
         this.globalBestKnowFitness = solution._2;
         this.iteration = 0;
@@ -50,7 +50,7 @@ public class ParticleActor extends AbstractActorWithTimers {
                     this.secondSlave.forward(acquaintances, getContext());
                 })
                 .match(Start.class, start -> {
-                    final var duration = ThreadLocalRandom.current().nextInt(start.tickTimeBounds()._1, start.tickTimeBounds()._2);
+                    final int duration = ThreadLocalRandom.current().nextInt(start.tickTimeBounds()._1, start.tickTimeBounds()._2);
                     getTimers().startTimerWithFixedDelay("TICK_FOR_BEST_SOLUTION", new TickAcquireBestSolutionRequest(), Duration.ofMillis(duration));
                     delegateWork();
                 })
@@ -58,7 +58,7 @@ public class ParticleActor extends AbstractActorWithTimers {
                     updateBestSolution(response.gBest, response.gBestFitness);
                 })
                 .match(AcquireBestSolutionRequest.class, solution -> {
-                    var response = new AcquireBestSolutionResponse(new Vector(this.globalBestKnowPosition), this.globalBestKnowFitness);
+                    AcquireBestSolutionResponse response = new AcquireBestSolutionResponse(new Vector(this.globalBestKnowPosition), this.globalBestKnowFitness);
                     getSender().tell(response, getSelf());
                 })
                 .match(TickAcquireBestSolutionRequest.class, tickAcquireBestSolutionRequest -> {
@@ -106,7 +106,7 @@ public class ParticleActor extends AbstractActorWithTimers {
             return receiveBuilder()
                     .match(SlaveRequest.class, slaveRequest -> {
                         particle.iterate(slaveRequest.iteration, slaveRequest.gBest);
-                        var solution = particle.getSolution();
+                        Tuple2<Vector, Double> solution = particle.getSolution();
                         sender().tell(new SlaveResponse(solution._1, solution._2), getSelf());
                     })
                     .build();

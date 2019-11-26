@@ -80,7 +80,7 @@ public class SwarmActor extends AbstractActor {
         this.tickBounds = askTickBounds;
 
         IntStream.range(0, particlesCount).forEach(i -> {
-            var particle = Particle.builder()
+            Particle particle = Particle.builder()
                     .ff(ff)
                     .position(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))
                     .velocity(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))
@@ -95,9 +95,9 @@ public class SwarmActor extends AbstractActor {
         System.out.println("Children list size: " + children.size());
 
         System.out.println("Setting acquaintances ...");
-        final var random = new Random();
+        final Random random = new Random();
         children.forEach(childRef -> {
-            var accs = ImmutableAcquaintances.builder()
+            Acquaintances accs = ImmutableAcquaintances.builder()
                                     .addAllAcquaintance(children.stream()
                                     .filter(actorRef -> random.nextBoolean())
                                     .collect(Collectors.toList()))

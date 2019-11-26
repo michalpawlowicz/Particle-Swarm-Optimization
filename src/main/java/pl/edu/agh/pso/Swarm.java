@@ -33,13 +33,13 @@ public class Swarm {
     public void run(BiFunction<Integer, Double, Boolean> predicate) throws ExecutionException, InterruptedException {
         while (!predicate.apply(iteration, this.globalBestKnowFitness)) {
             List<Future<Optional<Tuple2<Vector, Double>>>> futures = new LinkedList<>();
-            for (var particle : particleList) {
+            for (Particle particle : particleList) {
                 particle.setBestKnowSwarmPosition(iteration, globalBestKnowPosition);
             }
-            for (var particle : particleList) {
+            for (Particle particle : particleList) {
                 futures.add(this.executor.submit(particle));
             }
-            for (var result : futures) {
+            for (Future<Optional<Tuple2<Vector, Double>>> result : futures) {
                 result.get().ifPresent(this::updateSwarmsBestSolution);
             }
             iteration++;
@@ -69,7 +69,7 @@ public class Swarm {
         this.globalBestKnowFitness = ff.apply(this.globalBestKnowPosition);
         this.parameters = parameters;
         IntStream.range(0, particlesCount).forEach(i -> {
-            var particle = Particle.builder()
+            Particle particle = Particle.builder()
                     .ff(ff)
                     .position(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))
                     .velocity(Vector.random(ffDimension, domain.getLowerBound(), domain.getHigherBound()))

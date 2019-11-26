@@ -30,8 +30,8 @@ public class AbstractParticle {
             this.velocity.map(d -> 0.002);
         }
         this.velocity.map((i, vi) -> {
-            var rp = ThreadLocalRandom.current().nextDouble();
-            var rg = ThreadLocalRandom.current().nextDouble();
+            final double rp = ThreadLocalRandom.current().nextDouble();
+            final double rg = ThreadLocalRandom.current().nextDouble();
             return omega * vi + phi_1 * rp * (this.bestKnownPosition.get(i) - this.position.get(i)) + phi_2 * rg * (gBest.get(i) - this.position.get(i));
         });
     }
@@ -48,7 +48,7 @@ public class AbstractParticle {
         this.updateVelocity(parametersContainer.getOmega(iteration), parametersContainer.getPhi_1(), parametersContainer.getPhi_2(), gBest);
         this.updatePosition();
         if (this.searchDomain.feasible(this.position)) {
-            final var fitness = this.apply();
+            final double fitness = this.apply();
             if (fitness < this.bestKnownFitness) {
                 this.bestKnownFitness = fitness;
                 this.bestKnownPosition = new Vector(this.position);
