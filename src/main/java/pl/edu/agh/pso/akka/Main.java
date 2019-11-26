@@ -33,7 +33,6 @@ public class Main {
             System.out.println("Could not read property file");
         }
 
-        var x = prop.getProperty("nodes");
         final var particlesCount = new BigDecimal(prop.getProperty("particlesCount")).intValue();
         final var dimension = new BigDecimal(prop.getProperty("dimension")).intValue();
         final var iterMax = new BigDecimal(prop.getProperty("iterMax")).intValue();
