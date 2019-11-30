@@ -71,7 +71,7 @@ public class ParticleActor extends AbstractActorWithTimers {
         if (fitness < this.globalBestKnowFitness) {
             this.globalBestKnowFitness = fitness;
             this.globalBestKnowPosition = position;
-            Logging.getLogger(getContext().getSystem(), this).info("Fitness[" + this.globalBestKnowFitness + "] Iteration[" + this.iteration + "]");
+            //Logging.getLogger(getContext().getSystem(), this).info("Fitness[" + this.globalBestKnowFitness + "] Iteration[" + this.iteration + "]");
         }
     }
 
