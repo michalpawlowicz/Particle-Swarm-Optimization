@@ -19,8 +19,8 @@ public class Main {
         }
 
         final int particlesCount = 128;
-        final int dimension = 1024;
-        final int iterMax = 50000;
+        final int dimension = 512;
+        final int iterMax = 30000;
 
         final double omegaMin = 0.4;
         final double omegaMax = 1.8;
