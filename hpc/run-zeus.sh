@@ -1,17 +1,21 @@
 CPUS=$(seq 1 24)
 RUNS=$(seq 1 10)
-IMPLS=(run_akka.sh)
+IMPLS=(seq.sh akka.sh)
+
+rm -f benchmarks
+mkdir benchmarks
 
 echo "> Running"
 for cpus in ${CPUS}; do
     for run in ${RUNS}; do
         for impl in ${IMPLS[*]}; do
-            echo "Scheduling CPUS=$cpus IMPL=$impl"
+            echo "Scheduling CPUS=$cpus IMPL=$impl RUN=$run"
             sbatch --cpus-per-task=${cpus} \
                    -t 5:0:0 \
                    -p plgrid \
-                   -o "report-zeus-$cpus-$impl.out" \
-                   -e "error-zeus-$cpus-$impl.out" \
+                   -J "pso-$cpus-$impl-$run" \
+                   -o "benchmarks/report-zeus-$cpus-$impl.out" \
+                   -e "benchmarks/error-zeus-$cpus-$impl.out" \
                    ./${impl}
         done
     done
