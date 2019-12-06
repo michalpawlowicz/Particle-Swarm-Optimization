@@ -17,7 +17,7 @@ import pl.edu.agh.pso.ImmutableDomain;
 
 public class Main {
 
-    private static String CONF_FILENAME_PARAM = "confFilename";
+    private static String CONF_FILENAME_PARAM = "confFileName";
     private static String DEFAULT_CONF_FILENAME = "app.conf.xml";
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
