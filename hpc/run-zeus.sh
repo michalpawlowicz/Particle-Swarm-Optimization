@@ -16,9 +16,9 @@ for config in ${CONFS[*]}; do
 		    sbatch --cpus-per-task=${cpus} \
 			   -t 5:0:0 \
 			   -p plgrid \
-			   -J "pso-$cpus-$impl-$run" \
-			   -o "benchmarks/report-zeus-$cpus-$impl-$run.out" \
-			   -e "benchmarks/error-zeus-$cpus-$impl-$run.out" \
+			   -J "pso-$cpus-$impl-$config-$run" \
+			   -o "benchmarks/report-zeus-$cpus-$impl-$config-$run.out" \
+			   -e "benchmarks/error-zeus-$cpus-$impl-$config-$run.out" \
 			   --export=CONFIG="configs/${config}.xml",RUN=${run} \
 			   ./${impl}
 		done
