@@ -2,7 +2,7 @@ CPUS=$(seq 1 24)
 RUNS=$(seq 1 10)
 IMPLS=(seq.sh akka.sh)
 
-rm -f benchmarks
+rm -rf benchmarks
 mkdir benchmarks
 
 echo "> Running"
