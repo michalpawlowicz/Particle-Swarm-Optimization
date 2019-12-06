@@ -19,7 +19,7 @@ for config in ${CONFS[*]}; do
 			   -J "pso-$cpus-$impl-$config-$run" \
 			   -o "benchmarks/report-zeus-$cpus-$impl-$config-$run.out" \
 			   -e "benchmarks/error-zeus-$cpus-$impl-$config-$run.out" \
-			   --export=CONFIG="configs/${config}.xml",RUN=${run} \
+			   --export=ALL,CONFIG=configs/${config}.xml,RUN=${run} \
 			   ./${impl}
 		done
 	    done
