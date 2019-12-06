@@ -17,8 +17,8 @@ for config in ${CONFS[*]}; do
 			   -t 5:0:0 \
 			   -p plgrid \
 			   -J "pso-$cpus-$impl-$run" \
-			   -o "benchmarks/report-zeus-$cpus-$impl.out" \
-			   -e "benchmarks/error-zeus-$cpus-$impl.out" \
+			   -o "benchmarks/report-zeus-$cpus-$impl-$run.out" \
+			   -e "benchmarks/error-zeus-$cpus-$impl-$run.out" \
 			   --export=CONFIG="configs/${config}.xml"
 			   ./${impl}
 		done
