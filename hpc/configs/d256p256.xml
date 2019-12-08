@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <entry key="particlesCount">256</entry>
-    <entry key="dimension">1024</entry>
+    <entry key="dimension">256</entry>
     <entry key="iterMax">2e4</entry>
     <entry key="omegaMin">0.4</entry>
     <entry key="omegaMax">1.8</entry>

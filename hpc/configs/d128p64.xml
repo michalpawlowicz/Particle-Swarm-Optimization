@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-    <entry key="particlesCount">128</entry>
-    <entry key="dimension">512</entry>
+    <entry key="particlesCount">256</entry>
+    <entry key="dimension">64</entry>
     <entry key="iterMax">2e4</entry>
     <entry key="omegaMin">0.4</entry>
     <entry key="omegaMax">1.8</entry>
