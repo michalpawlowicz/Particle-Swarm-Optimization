@@ -1,0 +1,6 @@
+./run_akka.sh: line 7:  8565 Unicestwiony            java -DconfFileName=$1 -jar target/pso_akka.jar
+
+real	7m47.789s
+user	22m21.212s
+sys	0m44.353s
+slurmstepd: error: Exceeded step memory limit at some point.
