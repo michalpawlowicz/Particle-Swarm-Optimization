@@ -1,9 +1,7 @@
 CPUS=$(seq 1 24)
 RUNS=$(seq 1 10)
 IMPLS=(seq.sh akka.sh)
-#CONFS=(d1024p128 d1024p192 d1024p256 d1024p64 d512p128 d512p192 d512p256 d512p64)
-#CONFS=(d512p128 d512p192 d512p256)
-CONFS=(d50p128 d50p192 d50p256 d50p64 d30p128 d30p192 d30p256 d30p64)
+CONFS=(d100p512 d100p256 d50p192 d100p128)
 
 rm -rf benchmarks
 mkdir benchmarks
