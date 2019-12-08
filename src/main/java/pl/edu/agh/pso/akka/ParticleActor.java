@@ -136,6 +136,7 @@ public class ParticleActor extends AbstractActorWithTimers {
                 }));
             }).match(Acquaintances.class, acquaintances -> {
                 this.acquaintancesList = Optional.of(acquaintances.getAcquaintance());
+                Logging.getLogger(getContext().getSystem(), this).info("Acquaintances size = " + acquaintances.getAcquaintance().size());
                 getSender().tell(new Acquaintances.AcquaintancesResponseOK(), getContext().getParent());
             }).build();
         }

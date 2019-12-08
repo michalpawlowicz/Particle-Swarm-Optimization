@@ -52,7 +52,7 @@ public class Swarm {
         if (solution._2 < this.globalBestKnowFitness) {
             this.globalBestKnowFitness = solution._2;
             this.globalBestKnowPosition = solution._1;
-            //System.out.println("Fitness[" + this.globalBestKnowFitness +"] Iteration[" + this.iteration + "]");
+            System.out.println("Fitness[" + this.globalBestKnowFitness +"] Iteration[" + this.iteration + "]");
         }
     }
 
