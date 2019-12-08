@@ -1,0 +1,8 @@
+> Akka implementation for 1 cpus with hpc/configs/d512p192.xml configuration, run=10
+> Running with hpc/configs/d512p192.xml configuration
+hpc/configs/d512p192.xml
+SwarmActor initialization
+Creating ParticleActors [192] ...
+Children list size: 192
+Setting acquaintances ...
+Init done
