@@ -50,8 +50,6 @@ public class ParticleActor extends AbstractActorWithTimers {
                     this.secondSlave.forward(acquaintances, getContext());
                 })
                 .match(Start.class, start -> {
-                    final int duration = ThreadLocalRandom.current().nextInt(start.tickTimeBounds()._1, start.tickTimeBounds()._2);
-                    getTimers().startTimerWithFixedDelay("TICK_FOR_BEST_SOLUTION", new TickAcquireBestSolutionRequest(), Duration.ofMillis(duration));
                     delegateWork();
                 })
                 .match(AcquireBestSolutionResponse.class, response -> {
@@ -77,6 +75,7 @@ public class ParticleActor extends AbstractActorWithTimers {
 
     private void delegateWork() {
         if (!endCondition.apply(iteration, globalBestKnowFitness)) {
+            this.secondSlave.tell(new SlaveWorker.AskRequest(), getSelf());
             slave.tell(new SlaveRequest(this.globalBestKnowPosition, this.iteration++), getSelf());
         } else {
             getContext().getParent().tell(new FinalSolution(this.globalBestKnowFitness, this.globalBestKnowPosition), self());

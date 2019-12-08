@@ -2,6 +2,7 @@ package pl.edu.agh.pso;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
 import java.util.function.DoubleBinaryOperator;
 import java.util.function.DoublePredicate;
@@ -53,8 +54,7 @@ public class Vector {
     }
 
     private void initRandom(int min, int max) {
-        Random random = new Random();
-        IntStream.range(0, this.size).forEach(i -> { this.xs[i] = min + (max - min) * random.nextDouble(); });
+        IntStream.range(0, this.size).forEach(i -> { this.xs[i] = min + (max - min) * ThreadLocalRandom.current().nextDouble(); });
     }
 
     private Vector(int size) {
