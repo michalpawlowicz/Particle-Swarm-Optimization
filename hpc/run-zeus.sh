@@ -20,6 +20,7 @@ for config in ${CONFS[*]}; do
 			   -o "benchmarks/report-zeus-$cpus-$impl-$config-$run.out" \
 			   -e "benchmarks/error-zeus-$cpus-$impl-$config-$run.out" \
 			   --export=ALL,CONFIG=hpc/configs/${config}.xml,RUN=${run} \
+               --mem-per-cpu=15360 \
 			   ./${impl}
 		done
 	    done
