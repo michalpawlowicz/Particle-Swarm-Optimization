@@ -1,2 +1,0 @@
-slurmstepd: error: *** JOB 5835706 ON n1046-amd CANCELLED AT 2019-12-08T16:08:03 ***
-slurmstepd: error: Exceeded step memory limit at some point.
