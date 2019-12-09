@@ -1,0 +1,297 @@
+> Akka implementation for 1 cpus with hpc/configs/d128p256.xml configuration, run=1
+> Running with hpc/configs/d128p256.xml configuration
+hpc/configs/d128p256.xml
+SwarmActor initialization
+Creating ParticleActors [256] ...
+Children list size: 256
+Setting acquaintances ...
+[INFO] [12/08/2019 23:16:10.221] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$+/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.242] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$+b/$b] Acquaintances size = 133
+[INFO] [12/08/2019 23:16:10.243] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$+c/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.245] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$+d/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.246] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$0/$b] Acquaintances size = 121
+[INFO] [12/08/2019 23:16:10.247] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$0b/$b] Acquaintances size = 138
+[INFO] [12/08/2019 23:16:10.248] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$0c/$b] Acquaintances size = 115
+[INFO] [12/08/2019 23:16:10.249] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$0d/$b] Acquaintances size = 133
+[INFO] [12/08/2019 23:16:10.250] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$1/$b] Acquaintances size = 136
+[INFO] [12/08/2019 23:16:10.251] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$1b/$b] Acquaintances size = 120
+[INFO] [12/08/2019 23:16:10.252] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$1c/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.253] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$1d/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.253] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$2/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.254] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$2b/$b] Acquaintances size = 116
+[INFO] [12/08/2019 23:16:10.254] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$2c/$b] Acquaintances size = 115
+[INFO] [12/08/2019 23:16:10.259] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$2d/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.260] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$3/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.263] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$3b/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.264] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$3c/$b] Acquaintances size = 120
+[INFO] [12/08/2019 23:16:10.264] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$3d/$b] Acquaintances size = 145
+[INFO] [12/08/2019 23:16:10.265] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$4/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.267] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$4b/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.269] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$4c/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.271] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$4d/$b] Acquaintances size = 135
+[INFO] [12/08/2019 23:16:10.272] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$5/$b] Acquaintances size = 146
+[INFO] [12/08/2019 23:16:10.273] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$5b/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.275] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$5c/$b] Acquaintances size = 133
+[INFO] [12/08/2019 23:16:10.276] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$5d/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.280] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$6/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.283] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$6b/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.284] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$6c/$b] Acquaintances size = 121
+[INFO] [12/08/2019 23:16:10.286] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$6d/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.287] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$7/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.290] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$7b/$b] Acquaintances size = 135
+[INFO] [12/08/2019 23:16:10.291] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$7c/$b] Acquaintances size = 141
+[INFO] [12/08/2019 23:16:10.291] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$7d/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.301] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$8/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.327] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$8b/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.328] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$8c/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.329] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$8d/$b] Acquaintances size = 142
+[INFO] [12/08/2019 23:16:10.330] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$9/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.331] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$9b/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.332] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$9c/$b] Acquaintances size = 145
+[INFO] [12/08/2019 23:16:10.333] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$9d/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.333] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$A/$b] Acquaintances size = 135
+[INFO] [12/08/2019 23:16:10.334] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Ab/$b] Acquaintances size = 117
+[INFO] [12/08/2019 23:16:10.334] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Ac/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.335] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Ad/$b] Acquaintances size = 136
+[INFO] [12/08/2019 23:16:10.336] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$B/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.336] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Bb/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.337] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$Bc/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.370] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Bd/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.373] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$C/$b] Acquaintances size = 121
+[INFO] [12/08/2019 23:16:10.382] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Cb/$b] Acquaintances size = 142
+[INFO] [12/08/2019 23:16:10.384] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Cc/$b] Acquaintances size = 119
+[INFO] [12/08/2019 23:16:10.386] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Cd/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.388] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$D/$b] Acquaintances size = 140
+[INFO] [12/08/2019 23:16:10.406] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Db/$b] Acquaintances size = 137
+[INFO] [12/08/2019 23:16:10.408] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Dc/$b] Acquaintances size = 120
+[INFO] [12/08/2019 23:16:10.409] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$Dd/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.412] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Eb/$b] Acquaintances size = 136
+[INFO] [12/08/2019 23:16:10.414] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$E/$b] Acquaintances size = 135
+[INFO] [12/08/2019 23:16:10.416] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Ec/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.417] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Ed/$b] Acquaintances size = 137
+[INFO] [12/08/2019 23:16:10.421] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$F/$b] Acquaintances size = 136
+[INFO] [12/08/2019 23:16:10.428] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Fb/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.430] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$Fc/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.432] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$Fd/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.433] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$G/$b] Acquaintances size = 118
+[INFO] [12/08/2019 23:16:10.435] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Gb/$b] Acquaintances size = 143
+[INFO] [12/08/2019 23:16:10.437] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Gc/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.447] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Gd/$b] Acquaintances size = 145
+[INFO] [12/08/2019 23:16:10.449] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$H/$b] Acquaintances size = 128
+[INFO] [12/08/2019 23:16:10.451] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Hb/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.451] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Hc/$b] Acquaintances size = 152
+[INFO] [12/08/2019 23:16:10.459] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Hd/$b] Acquaintances size = 147
+[INFO] [12/08/2019 23:16:10.461] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$I/$b] Acquaintances size = 136
+[INFO] [12/08/2019 23:16:10.463] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Ib/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.465] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Ic/$b] Acquaintances size = 118
+[INFO] [12/08/2019 23:16:10.466] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Id/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.468] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$J/$b] Acquaintances size = 117
+[INFO] [12/08/2019 23:16:10.470] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Jb/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.473] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Jc/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.475] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Jd/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.476] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$K/$b] Acquaintances size = 121
+[INFO] [12/08/2019 23:16:10.478] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Kb/$b] Acquaintances size = 141
+[INFO] [12/08/2019 23:16:10.480] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Kc/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.487] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Kd/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.497] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$L/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.499] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Lb/$b] Acquaintances size = 155
+[INFO] [12/08/2019 23:16:10.501] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Lc/$b] Acquaintances size = 119
+[INFO] [12/08/2019 23:16:10.502] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Ld/$b] Acquaintances size = 133
+[INFO] [12/08/2019 23:16:10.504] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$M/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.506] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Mb/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.508] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Mc/$b] Acquaintances size = 136
+[INFO] [12/08/2019 23:16:10.508] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Md/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.510] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$N/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.512] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Nb/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.515] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Nc/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.516] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Nd/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.517] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$O/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.520] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Ob/$b] Acquaintances size = 140
+[INFO] [12/08/2019 23:16:10.529] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Oc/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.540] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Od/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.542] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$P/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.543] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Pb/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.545] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Pc/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.546] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$Pd/$b] Acquaintances size = 118
+[INFO] [12/08/2019 23:16:10.548] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$Q/$b] Acquaintances size = 119
+[INFO] [12/08/2019 23:16:10.550] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Qb/$b] Acquaintances size = 115
+[INFO] [12/08/2019 23:16:10.551] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Qc/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.553] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Qd/$b] Acquaintances size = 135
+[INFO] [12/08/2019 23:16:10.554] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$R/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.556] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Rb/$b] Acquaintances size = 139
+[INFO] [12/08/2019 23:16:10.558] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Rc/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.559] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Rd/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.561] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$S/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.563] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Sb/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.564] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Sc/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.567] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Sd/$b] Acquaintances size = 117
+[INFO] [12/08/2019 23:16:10.568] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$T/$b] Acquaintances size = 133
+[INFO] [12/08/2019 23:16:10.569] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$Tb/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.570] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Tc/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.572] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$Td/$b] Acquaintances size = 150
+[INFO] [12/08/2019 23:16:10.580] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$U/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.590] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Ub/$b] Acquaintances size = 135
+[INFO] [12/08/2019 23:16:10.593] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Uc/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.595] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Ud/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.597] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$V/$b] Acquaintances size = 110
+[INFO] [12/08/2019 23:16:10.598] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Vb/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.600] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Vc/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.602] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Vd/$b] Acquaintances size = 135
+[INFO] [12/08/2019 23:16:10.603] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$W/$b] Acquaintances size = 128
+[INFO] [12/08/2019 23:16:10.604] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Wb/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.605] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Wc/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.607] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Wd/$b] Acquaintances size = 128
+[INFO] [12/08/2019 23:16:10.608] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$X/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.610] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Xb/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.612] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Xc/$b] Acquaintances size = 119
+[INFO] [12/08/2019 23:16:10.613] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Xd/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.620] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Y/$b] Acquaintances size = 141
+[INFO] [12/08/2019 23:16:10.622] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$Yb/$b] Acquaintances size = 128
+[INFO] [12/08/2019 23:16:10.624] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$Yc/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.633] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Yd/$b] Acquaintances size = 142
+[INFO] [12/08/2019 23:16:10.633] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Z/$b] Acquaintances size = 112
+[INFO] [12/08/2019 23:16:10.640] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Zc/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.641] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$Zd/$b] Acquaintances size = 138
+[INFO] [12/08/2019 23:16:10.641] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$a/$b] Acquaintances size = 116
+[INFO] [12/08/2019 23:16:10.642] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$ab/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.644] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$ad/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.644] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$ac/$b] Acquaintances size = 138
+[INFO] [12/08/2019 23:16:10.645] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$b/$b] Acquaintances size = 140
+[INFO] [12/08/2019 23:16:10.645] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$bb/$b] Acquaintances size = 136
+[INFO] [12/08/2019 23:16:10.645] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$bc/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.645] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$bd/$b] Acquaintances size = 146
+[INFO] [12/08/2019 23:16:10.646] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$c/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.646] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$cb/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.646] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$cc/$b] Acquaintances size = 138
+[INFO] [12/08/2019 23:16:10.647] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$cd/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.647] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$d/$b] Acquaintances size = 115
+[INFO] [12/08/2019 23:16:10.647] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$db/$b] Acquaintances size = 120
+[INFO] [12/08/2019 23:16:10.648] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$dd/$b] Acquaintances size = 138
+[INFO] [12/08/2019 23:16:10.649] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$Zb/$b] Acquaintances size = 128
+[INFO] [12/08/2019 23:16:10.648] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$dc/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.667] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$e/$b] Acquaintances size = 121
+[INFO] [12/08/2019 23:16:10.669] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$eb/$b] Acquaintances size = 144
+[INFO] [12/08/2019 23:16:10.671] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$ec/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.672] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$ed/$b] Acquaintances size = 122
+[INFO] [12/08/2019 23:16:10.672] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$f/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.675] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$fb/$b] Acquaintances size = 113
+[INFO] [12/08/2019 23:16:10.676] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$fc/$b] Acquaintances size = 119
+[INFO] [12/08/2019 23:16:10.678] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$fd/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.679] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$g/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.690] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$gb/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.692] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$gc/$b] Acquaintances size = 128
+[INFO] [12/08/2019 23:16:10.693] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$gd/$b] Acquaintances size = 117
+[INFO] [12/08/2019 23:16:10.696] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$hb/$b] Acquaintances size = 135
+[INFO] [12/08/2019 23:16:10.698] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$h/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.700] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$hc/$b] Acquaintances size = 113
+[INFO] [12/08/2019 23:16:10.701] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$hd/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.710] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$i/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.713] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$ib/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.715] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$ic/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.717] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$id/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.718] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$j/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.721] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$jb/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.724] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$jc/$b] Acquaintances size = 133
+[INFO] [12/08/2019 23:16:10.726] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$jd/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.726] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$k/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.728] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$kb/$b] Acquaintances size = 133
+[INFO] [12/08/2019 23:16:10.730] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$kc/$b] Acquaintances size = 145
+[INFO] [12/08/2019 23:16:10.732] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$kd/$b] Acquaintances size = 147
+[INFO] [12/08/2019 23:16:10.735] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$l/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.737] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$lb/$b] Acquaintances size = 115
+[INFO] [12/08/2019 23:16:10.738] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$lc/$b] Acquaintances size = 112
+[INFO] [12/08/2019 23:16:10.747] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$ld/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.749] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$m/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.750] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$mb/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.752] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$mc/$b] Acquaintances size = 121
+[INFO] [12/08/2019 23:16:10.753] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$md/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.754] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$n/$b] Acquaintances size = 138
+[INFO] [12/08/2019 23:16:10.760] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$nb/$b] Acquaintances size = 119
+[INFO] [12/08/2019 23:16:10.762] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$nc/$b] Acquaintances size = 137
+[INFO] [12/08/2019 23:16:10.764] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$o/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.765] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$nd/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.766] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$ob/$b] Acquaintances size = 113
+[INFO] [12/08/2019 23:16:10.767] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$oc/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.768] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$od/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.769] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$p/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.770] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$pb/$b] Acquaintances size = 139
+[INFO] [12/08/2019 23:16:10.772] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$pc/$b] Acquaintances size = 121
+[INFO] [12/08/2019 23:16:10.773] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$pd/$b] Acquaintances size = 133
+[INFO] [12/08/2019 23:16:10.774] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$q/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.776] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$qb/$b] Acquaintances size = 128
+[INFO] [12/08/2019 23:16:10.777] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$qc/$b] Acquaintances size = 136
+[INFO] [12/08/2019 23:16:10.779] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$qd/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.780] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$r/$b] Acquaintances size = 133
+[INFO] [12/08/2019 23:16:10.789] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$rb/$b] Acquaintances size = 141
+[INFO] [12/08/2019 23:16:10.791] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$rc/$b] Acquaintances size = 139
+[INFO] [12/08/2019 23:16:10.793] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$rd/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.794] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$s/$b] Acquaintances size = 125
+[INFO] [12/08/2019 23:16:10.794] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$sb/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.796] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$sc/$b] Acquaintances size = 119
+[INFO] [12/08/2019 23:16:10.797] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$sd/$b] Acquaintances size = 128
+[INFO] [12/08/2019 23:16:10.807] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$t/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.810] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$tb/$b] Acquaintances size = 136
+[INFO] [12/08/2019 23:16:10.811] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$tc/$b] Acquaintances size = 121
+[INFO] [12/08/2019 23:16:10.813] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$td/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.815] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$u/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.817] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$ub/$b] Acquaintances size = 138
+[INFO] [12/08/2019 23:16:10.819] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$uc/$b] Acquaintances size = 124
+[INFO] [12/08/2019 23:16:10.821] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$ud/$b] Acquaintances size = 119
+[INFO] [12/08/2019 23:16:10.823] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$v/$b] Acquaintances size = 130
+[INFO] [12/08/2019 23:16:10.826] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$vc/$b] Acquaintances size = 119
+[INFO] [12/08/2019 23:16:10.826] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$vb/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.828] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$vd/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.830] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$w/$b] Acquaintances size = 117
+[INFO] [12/08/2019 23:16:10.832] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$wb/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.834] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$wc/$b] Acquaintances size = 137
+[INFO] [12/08/2019 23:16:10.834] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$wd/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.837] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$x/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.848] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$xb/$b] Acquaintances size = 128
+[INFO] [12/08/2019 23:16:10.859] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$xc/$b] Acquaintances size = 134
+[INFO] [12/08/2019 23:16:10.862] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$xd/$b] Acquaintances size = 132
+[INFO] [12/08/2019 23:16:10.863] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$y/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.865] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$yb/$b] Acquaintances size = 126
+[INFO] [12/08/2019 23:16:10.867] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$yc/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.869] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$yd/$b] Acquaintances size = 138
+[INFO] [12/08/2019 23:16:10.871] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$z/$b] Acquaintances size = 127
+[INFO] [12/08/2019 23:16:10.873] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$zc/$b] Acquaintances size = 131
+[INFO] [12/08/2019 23:16:10.874] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$zb/$b] Acquaintances size = 108
+[INFO] [12/08/2019 23:16:10.883] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$zd/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.886] [pso-akka.actor.default-dispatcher-13] [akka://pso/user/$a/$~/$b] Acquaintances size = 129
+[INFO] [12/08/2019 23:16:10.887] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$~b/$b] Acquaintances size = 123
+[INFO] [12/08/2019 23:16:10.890] [pso-akka.actor.default-dispatcher-12] [akka://pso/user/$a/$~d/$b] Acquaintances size = 118
+[INFO] [12/08/2019 23:16:10.893] [pso-akka.actor.default-dispatcher-9] [akka://pso/user/$a/$~c/$b] Acquaintances size = 127
+Init done
+[INFO] [12/09/2019 00:12:34.057] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionResponse] from Actor[akka://pso/user/$a/$Kb#844190048] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [1] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:12:34.057] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Ad#589676553] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [2] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:12:34.057] [pso-akka.actor.default-dispatcher-11] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionResponse] from Actor[akka://pso/user/$a/$+c#-1920416506] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [3] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:12:34.687] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionResponse] from Actor[akka://pso/user/$a/$ld#872561384] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [4] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:12:34.687] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$kb#1707391278] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [5] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:12:34.687] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionResponse] from Actor[akka://pso/user/$a/$D#-1472669141] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [6] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:12:34.687] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionResponse] from Actor[akka://pso/user/$a/$M#465075643] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [7] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:12:34.687] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$mb#-558866543] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [8] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:12:34.687] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Pb#68809043] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [9] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:12:35.077] [pso-akka.actor.default-dispatcher-7] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$t#1462308093] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [10] dead letters encountered, no more dead letters will be logged in next [5.000 min]. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.149] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$zb] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$ob#145398354] to Actor[akka://pso/user/$a/$zb#1427909435] was not delivered. [375078] dead letters encountered, of which 375067 were not logged. The counter will be reset now. If this is not an expected behavior then Actor[akka://pso/user/$a/$zb#1427909435] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.149] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$~d] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$ob#145398354] to Actor[akka://pso/user/$a/$~d#1937592652] was not delivered. [1] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$~d#1937592652] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.149] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$V] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Yd#1793744184] to Actor[akka://pso/user/$a/$V#1638537589] was not delivered. [2] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$V#1638537589] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.149] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$a] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Yd#1793744184] to Actor[akka://pso/user/$a/$a#-1912154006] was not delivered. [3] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$a#-1912154006] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.149] [pso-akka.actor.default-dispatcher-8] [akka://pso/user/$a/$lb] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Yd#1793744184] to Actor[akka://pso/user/$a/$lb#-414688464] was not delivered. [4] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$lb#-414688464] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.150] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$V] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$4c#-1243634978] to Actor[akka://pso/user/$a/$V#1638537589] was not delivered. [5] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$V#1638537589] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.151] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$lb] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$4c#-1243634978] to Actor[akka://pso/user/$a/$lb#-414688464] was not delivered. [6] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$lb#-414688464] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.151] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$sc] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$4c#-1243634978] to Actor[akka://pso/user/$a/$sc#-729225525] was not delivered. [7] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$sc#-729225525] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.152] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$zb] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$4c#-1243634978] to Actor[akka://pso/user/$a/$zb#1427909435] was not delivered. [8] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$zb#1427909435] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.152] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Md#334221175] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [9] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:17:35.154] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$a] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Md#334221175] to Actor[akka://pso/user/$a/$a#-1912154006] was not delivered. [10] dead letters encountered, no more dead letters will be logged in next [5.000 min]. If this is not an expected behavior then Actor[akka://pso/user/$a/$a#-1912154006] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.074] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$~d] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$ub#-1893657317] to Actor[akka://pso/user/$a/$~d#1937592652] was not delivered. [444740] dead letters encountered, of which 444729 were not logged. The counter will be reset now. If this is not an expected behavior then Actor[akka://pso/user/$a/$~d#1937592652] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.074] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$0c] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Ud#1690855313] to Actor[akka://pso/user/$a/$0c#-160979224] was not delivered. [1] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$0c#-160979224] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.074] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$fb] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Ud#1690855313] to Actor[akka://pso/user/$a/$fb#1184732984] was not delivered. [2] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$fb#1184732984] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.074] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$gd] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Ud#1690855313] to Actor[akka://pso/user/$a/$gd#-606174490] was not delivered. [3] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$gd#-606174490] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.074] [pso-akka.actor.default-dispatcher-10] [akka://pso/user/$a/$lb] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Ud#1690855313] to Actor[akka://pso/user/$a/$lb#-414688464] was not delivered. [4] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$lb#-414688464] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.079] [pso-akka.actor.default-dispatcher-6] [akka://pso/user/$a/$~d] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$Ud#1690855313] to Actor[akka://pso/user/$a/$~d#1937592652] was not delivered. [5] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$~d#1937592652] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.079] [pso-akka.actor.default-dispatcher-6] [akka://pso/user/$a/$gd] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$ob#145398354] to Actor[akka://pso/user/$a/$gd#-606174490] was not delivered. [6] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$gd#-606174490] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.079] [pso-akka.actor.default-dispatcher-6] [akka://pso/user/$a/$s] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$ob#145398354] to Actor[akka://pso/user/$a/$s#-517180003] was not delivered. [7] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$s#-517180003] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.079] [pso-akka.actor.default-dispatcher-6] [akka://pso/user/$a/$zb] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$ob#145398354] to Actor[akka://pso/user/$a/$zb#1427909435] was not delivered. [8] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$zb#1427909435] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.079] [pso-akka.actor.default-dispatcher-6] [akka://pso/user/$a/$~d] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$ob#145398354] to Actor[akka://pso/user/$a/$~d#1937592652] was not delivered. [9] dead letters encountered. If this is not an expected behavior then Actor[akka://pso/user/$a/$~d#1937592652] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+[INFO] [12/09/2019 00:22:42.080] [pso-akka.actor.default-dispatcher-6] [akka://pso/user/$a/$fb] Message [pl.edu.agh.pso.akka.ParticleActor$AcquireBestSolutionRequest] from Actor[akka://pso/user/$a/$7d#-587641707] to Actor[akka://pso/user/$a/$fb#1184732984] was not delivered. [10] dead letters encountered, no more dead letters will be logged in next [5.000 min]. If this is not an expected behavior then Actor[akka://pso/user/$a/$fb#1184732984] may have terminated unexpectedly. This logging can be turned off or adjusted with configuration settings 'akka.log-dead-letters' and 'akka.log-dead-letters-during-shutdown'.
+All particles have done their job, final best solution: FinalSolution(fitness=2849.0512840670344, position=Vector{xs=[421.3521206749273, -302.4594699274861, -302.20831003868415, 420.9624672768318, 421.20922003409515, 421.2579460299587, 420.8209004494741, 420.9301620804044, -499.99987461569526, 420.9606190532716, 421.1694745357831, 421.0138121280077, 421.37191365927686, 421.11694294227374, 420.9822251225311, 421.12135868122544, 421.20010571732183, 420.9275903257523, 421.110663623145, 421.0336278245427, 421.0621253260183, 420.57256348054113, 421.04914330919615, -302.68682533044193, 420.64831963172577, 421.0770493614519, -302.330030326409, 421.19427837368397, 421.10256206986713, 420.9497287198051, 421.07983292365606, 421.20072864913215, -302.34781124772667, 420.97658471952496, 421.43810891735916, 421.3392663689806, 421.2663086067284, 421.0599642357419, 421.20419708004965, 421.0121153495636, 421.0269157417884, 421.0174373037339, -302.8565523025527, 421.03379428530553, 421.24006711189986, 420.8637644456149, 420.90674029370587, 420.94589253539414, 420.8427290551073, 421.1235115787869, 420.8552490862342, -302.34569359564085, 420.86663249296475, 421.31039237552704, 420.8558737495185, -302.48435222243404, 420.68689272238055, -302.6091495853608, 421.1244308110878, 420.84963293766333, 420.9344694183887, 421.3122555607051, 421.24331013217653, 420.74140117449036, -302.5643059594847, -302.4910439712339, 420.9598566996277, -499.9999973120218, 420.98896785416076, 421.0044155785786, 420.84473964927224, 420.99906367401104, 420.86807788259443, 420.8580777567638, 420.91874424693935, 421.0118646252589, 421.0242163896324, -302.46437389515893, -499.99997629438354, 421.1354407795691, 421.1880278578782, -302.50786355901204, 421.25100957440173, 421.1313315477657, 421.1911279001226, 420.9642694351317, 421.1406527167594, 420.6674043996565, 420.97742952225144, 421.226750527711, 420.9611906197925, 420.9000015758314, 420.7336222072513, -302.51103911538104, 421.2158132253515, 420.99878437552576, 420.911356619565, -499.9999928364022, 421.1514538900556, 421.0525225203539, 421.18892662567305, 420.89927220465546, 421.0666729128686, 420.91647730504195, 421.01860297397303, 420.7938113806476, 421.16960032072467, 421.02515177972873, -302.3708761277532, 420.98423548341253, 421.05090147142147, 421.1374236632734, 420.78858273681504, 421.0884930826918, 420.8497615350668, 420.85885455181005, 420.9979508228625, 420.9177253599406, 421.0586164284713, 421.0867175475536, -302.538197618028, 420.80398022026105, 420.9219242335345, 421.05199246145384, 420.8434953956166, 421.0638899872059, 420.9118892241832, 420.7319756330359]})

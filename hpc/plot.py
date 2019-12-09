@@ -3,7 +3,7 @@ import os
 from collections import defaultdict
 import matplotlib.pyplot as plt
 
-benchmarks=["benchmarks/d50p256"]
+benchmarks=["benchmarks/d128p256"]
 
 #error-zeus-4-akka.sh-d512p64-8.out
 #user\t3m40.341s\n', 'sys\t0m10.272s\n']
@@ -43,6 +43,7 @@ for dirp in benchmarks:
 
     # PLOT
     for (impl, label) in [(akka, "akka"), (seq, "seq")]:
+        print(label)
         Y = []
         for (cpus, l) in impl:
             Y.append(sum(l) / len(l))
