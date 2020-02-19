@@ -23,7 +23,6 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
     case _: Start => {
       println("Start working")
       iterationRequest()
-      //informationRequest()
     }
     case msg: IterateResponse => {
       if(msg.solution.isDefined) {
