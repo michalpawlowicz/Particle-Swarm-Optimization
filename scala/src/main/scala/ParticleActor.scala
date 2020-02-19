@@ -41,6 +41,12 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
         // signal end of work
       }
     }
+    case msg: Information => {
+      if(msg.fitness < gBestFitness) {
+        gBestFitness = msg.fitness
+        gBestSolution = msg.solution
+      }
+    }
     case _ => println("ParticleActor huh?")
   }
 

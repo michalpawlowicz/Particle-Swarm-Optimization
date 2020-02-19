@@ -22,7 +22,9 @@ class SwarmActor extends Actor {
 
     println("Sending acquaintances to particles")
 
-    actors.foreach(particleActor => { particleActor ! new InitAcquaintances(List()) })
+    val random = scala.util.Random
+
+    actors.foreach(particleActor => { particleActor ! new InitAcquaintances(actors.filter(_ => random.nextBoolean()).toList) })
   }
 
   override def receive: Receive = {
