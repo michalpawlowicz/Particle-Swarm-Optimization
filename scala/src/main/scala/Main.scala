@@ -10,7 +10,7 @@ object Main extends App {
 
   val omegaMax : Double = 1.8
   val omegaMin : Double = 0.1
-  val parameters : Parameters = new Parameters(0.4, 5.8, 0.5, 1.5, (omegaMax - omegaMin) / iterMax)
+  val parameters : Parameters = new Parameters(omegaMin, omegaMax, 0.5, 1.5, (omegaMax - omegaMin) / iterMax)
 
   val system = ActorSystem("HelloSystem")
   val swarm = system.actorOf(Props(new SwarmActor(particlesCount, fn, endCondition, domain, parameters, dimension)))
