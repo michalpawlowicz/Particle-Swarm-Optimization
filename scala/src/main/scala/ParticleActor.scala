@@ -26,7 +26,6 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
       informationRequest()
     }
     case msg: IterateResponse => {
-      println("Got response from worker")
       if(msg.solution.isDefined) {
         if(msg.solution.get._2 < gBestFitness) {
           gBestFitness = msg.solution.get._2
@@ -46,7 +45,7 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
   }
 
   def informationRequest(): Unit = {
-    communicationActor ! new InformOthers()
+    communicationActor ! new InformOthers(this.gBestSolution, this.gBestFitness)
   }
   def iterationRequest(): Unit = {
     workerActor ! new IterateRequest(this.iteration, this.gBestSolution)

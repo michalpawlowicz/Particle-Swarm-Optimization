@@ -14,7 +14,7 @@ class SwarmActor extends Actor {
 
     println("Swarm initialization")
 
-    val actors = for (actorIndex <- 0 until particlesCount) yield
+    val actors = for (_ <- 0 until particlesCount) yield
       context.actorOf(Props(
         new ParticleActor(
           endCondition,

@@ -8,9 +8,8 @@ class CommunicationActor() extends Actor {
       this.acquaintances = Some(msg.acquaintances)
       sender().tell(new InitAcquaintancesResponse(true), context.parent)
     }
-    case _: InformOthers => {
-      println("Inform others")
-      this.acquaintances.map(acquaintances => acquaintances.foreach(particleRef => particleRef ! new Information()))
+    case msg: InformOthers => {
+      this.acquaintances.map(acquaintances => acquaintances.foreach(particleRef => particleRef ! new Information(msg.solution, msg.fitness)))
     }
     case _ => println("SlaveActor huh?")
   }

@@ -3,8 +3,8 @@ import scala.util.Random
 
 object Particle {
   val random: Random.type = scala.util.Random
-  def randomVector(dimension : Int): Vector[Double] = {
-    (for (_ <- 0 until dimension) yield random.nextDouble()).toVector
+  def randomVector(dimension : Int, lower : Int, higher : Int): Vector[Double] = {
+    (for (_ <- 0 until dimension) yield lower + (higher - lower) * random.nextDouble()).toVector
   }
 }
 
@@ -30,8 +30,8 @@ class Particle(val fn : Vector[Double] => Double,
     this(domain,
       parameters,
       fn,
-      Particle.randomVector(dimension),
-      Particle.randomVector(dimension))
+      Particle.randomVector(dimension, domain.lowerBound, domain.higherBound),
+      Particle.randomVector(dimension, domain.lowerBound, domain.higherBound))
   }
 
   def apply() : Double = {
@@ -40,7 +40,7 @@ class Particle(val fn : Vector[Double] => Double,
 
   def updateVelocity(gBest : Vector[Double], omega : Double, phi_1 : Double, phi_2 : Double): Unit = {
     if(!domain.feasible(position)) {
-      this.position = this.position.map(d => 0.002)
+      this.velocity = this.velocity.map(d => 0.002)
     } else {
       this.velocity = this.bestKnownPosition
         .lazyZip {

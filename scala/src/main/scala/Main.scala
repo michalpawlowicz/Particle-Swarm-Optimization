@@ -1,8 +1,8 @@
 import akka.actor.{ActorSystem, Props}
 
 object Main extends App {
-  val particlesCount = 2
-  val dimension = 512
+  val particlesCount = 20
+  val dimension = 32
   val iterMax = 3e4
   val fn = (v: Vector[Double]) => 418.9829 * dimension - v.reduce((acc, vi) => acc + vi * scala.math.sin(scala.math.sqrt(scala.math.abs(vi))))
   val endCondition = (iteration : Int, fitness : Double) => iteration > iterMax
