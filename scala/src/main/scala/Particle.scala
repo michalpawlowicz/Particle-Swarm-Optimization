@@ -41,17 +41,16 @@ class Particle(val fn : Vector[Double] => Double,
   def updateVelocity(gBest : Vector[Double], omega : Double, phi_1 : Double, phi_2 : Double): Unit = {
     if(!domain.feasible(position)) {
       this.velocity = this.velocity.map(d => 0.002)
-    } else {
-      this.velocity = this.bestKnownPosition
-        .lazyZip {
-          this.position
-        }
-        .lazyZip(this.velocity)
-        .lazyZip(gBest)
-        .map((bestKnownPosition, position, velocity, gBest) => {
-          omega * velocity + phi_1 * random.nextDouble() * (bestKnownPosition - position) + phi_2 * random.nextDouble() * (gBest - position)
-        })
     }
+    this.velocity = this.bestKnownPosition
+      .lazyZip {
+        this.position
+      }
+      .lazyZip(this.velocity)
+      .lazyZip(gBest)
+      .map((bestKnownPosition, position, velocity, gBest) => {
+        omega * velocity + phi_1 * random.nextDouble() * (bestKnownPosition - position) + phi_2 * random.nextDouble() * (gBest - position)
+      })
   }
 
   def updatePosition(): Unit = {
