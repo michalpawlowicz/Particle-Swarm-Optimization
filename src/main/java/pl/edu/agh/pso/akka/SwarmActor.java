@@ -10,6 +10,7 @@ import pl.edu.agh.pso.Vector;
 import pl.edu.agh.pso.akka.messages.Acquaintances;
 import pl.edu.agh.pso.akka.messages.FinalSolution;
 import pl.edu.agh.pso.akka.messages.ImmutableAcquaintances;
+import pl.edu.agh.pso.akka.ImmutableStart;
 import scala.Tuple2;
 
 import java.util.LinkedList;

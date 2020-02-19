@@ -13,14 +13,13 @@ import scala.Tuple2;
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
 
 public class ParticleActor extends AbstractActorWithTimers {
 
     private Double globalBestKnowFitness;
     private Vector globalBestKnowPosition;
-    private ActorRef slave;
+    private ActorRef worker;
     private ActorRef secondSlave;
     private int iteration;
     private final BiFunction<Integer, Double, Boolean> endCondition;
@@ -31,7 +30,7 @@ public class ParticleActor extends AbstractActorWithTimers {
         this.globalBestKnowFitness = solution._2;
         this.iteration = 0;
         this.endCondition = endCondition;
-        slave = context().actorOf(ParticleActorWorker.props(particle));
+        worker = context().actorOf(ParticleActorWorker.props(particle));
         secondSlave = context().actorOf(SlaveWorker.props());
     }
 
@@ -42,14 +41,14 @@ public class ParticleActor extends AbstractActorWithTimers {
     @Override
     public Receive createReceive() {
         return receiveBuilder()
-                .match(SlaveResponse.class, slaveResponse -> {
-                    updateBestSolution(slaveResponse.gBest, slaveResponse.gBestFitness);
-                    delegateWork();
-                })
                 .match(Acquaintances.class, acquaintances -> {
                     this.secondSlave.forward(acquaintances, getContext());
                 })
                 .match(Start.class, start -> {
+                    delegateWork();
+                })
+                .match(SlaveResponse.class, slaveResponse -> {
+                    updateBestSolution(slaveResponse.gBest, slaveResponse.gBestFitness);
                     delegateWork();
                 })
                 .match(AcquireBestSolutionResponse.class, response -> {
@@ -58,9 +57,6 @@ public class ParticleActor extends AbstractActorWithTimers {
                 .match(AcquireBestSolutionRequest.class, solution -> {
                     AcquireBestSolutionResponse response = new AcquireBestSolutionResponse(new Vector(this.globalBestKnowPosition), this.globalBestKnowFitness);
                     getSender().tell(response, getSelf());
-                })
-                .match(TickAcquireBestSolutionRequest.class, tickAcquireBestSolutionRequest -> {
-                    this.secondSlave.tell(new SlaveWorker.AskRequest(), getSelf());
                 })
                 .build();
     }
@@ -76,7 +72,7 @@ public class ParticleActor extends AbstractActorWithTimers {
     private void delegateWork() {
         if (!endCondition.apply(iteration, globalBestKnowFitness)) {
             this.secondSlave.tell(new SlaveWorker.AskRequest(), getSelf());
-            slave.tell(new SlaveRequest(this.globalBestKnowPosition, this.iteration++), getSelf());
+            worker.tell(new SlaveRequest(this.globalBestKnowPosition, this.iteration++), getSelf());
         } else {
             getContext().getParent().tell(new FinalSolution(this.globalBestKnowFitness, this.globalBestKnowPosition), self());
             getContext().stop(self());
@@ -165,8 +161,6 @@ public class ParticleActor extends AbstractActorWithTimers {
     }
 
     private static class AcquireBestSolutionRequest {}
-
-    private static class TickAcquireBestSolutionRequest {}
 
     private static class AcquireBestSolutionResponse {
         private Vector gBest;

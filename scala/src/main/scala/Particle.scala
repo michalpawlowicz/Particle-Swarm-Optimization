@@ -1,6 +1,13 @@
 import scala.collection.immutable.Vector
 import scala.util.Random
 
+object Particle {
+  val random: Random.type = scala.util.Random
+  def randomVector(dimension : Int): Vector[Double] = {
+    (for (_ <- 0 until dimension) yield random.nextDouble()).toVector
+  }
+}
+
 class Particle(val fn : Vector[Double] => Double,
                val domain : Domain,
                val parameters: Parameters,
@@ -23,12 +30,8 @@ class Particle(val fn : Vector[Double] => Double,
     this(domain,
       parameters,
       fn,
-      randomVector(dimension),
-      randomVector(dimension))
-  }
-
-  def randomVector(dimension : Int): Vector[Double] = {
-    (for (_ <- 0 until dimension) yield random.nextDouble()).toVector
+      Particle.randomVector(dimension),
+      Particle.randomVector(dimension))
   }
 
   def apply() : Double = {

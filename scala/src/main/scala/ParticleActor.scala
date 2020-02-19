@@ -3,13 +3,15 @@ import akka.actor.{Actor, ActorRef, Props}
 import scala.collection.immutable.Vector
 
 class ParticleActor(val endCondition : (Int, Double) => Boolean,
-                    var gBestSolution : Vector[Double]) extends Actor {
+                    var gBestSolution : Vector[Double],
+                    var gBestFitness : Double) extends Actor {
 
   private val communicationActor : ActorRef = context.actorOf(Props[CommunicationActor])
-  private var workerActor : ActorRef = null
+  private var workerActor : ActorRef = _
+  private var iteration = 0
 
   def this(endCondition : (Int, Double) => Boolean, particle: Particle) = {
-    this(endCondition, particle.position)
+    this(endCondition, particle.position, particle.apply())
     this.workerActor = context.actorOf(Props(new WorkerActor(particle)));
   }
 
@@ -26,10 +28,15 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
     case msg: IterateResponse => {
       println("Got response from worker")
       if(msg.solution.isDefined) {
-        // update best solution
-        informationRequest()
+        if(msg.solution.get._2 < gBestFitness) {
+          gBestFitness = msg.solution.get._2
+          gBestSolution = msg.solution.get._1
+          println("New best solution: " + gBestFitness)
+          informationRequest() // Inform others about new best solution
+        }
       }
-      if (!endCondition(0, )) {
+      if (!endCondition(iteration, gBestFitness)) {
+        iteration = iteration + 1
         iterationRequest()
       } else {
         // signal end of work
@@ -42,6 +49,6 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
     communicationActor ! new InformOthers()
   }
   def iterationRequest(): Unit = {
-    workerActor ! new IterateRequest()
+    workerActor ! new IterateRequest(this.iteration, this.gBestSolution)
   }
 }
