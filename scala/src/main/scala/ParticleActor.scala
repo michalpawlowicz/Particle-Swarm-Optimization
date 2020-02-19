@@ -23,7 +23,7 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
     case _: Start => {
       println("Start working")
       iterationRequest()
-      informationRequest()
+      //informationRequest()
     }
     case msg: IterateResponse => {
       if(msg.solution.isDefined) {
@@ -39,12 +39,14 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
         iterationRequest()
       } else {
         // signal end of work
+        println("END")
       }
     }
     case msg: Information => {
       if(msg.fitness < gBestFitness) {
         gBestFitness = msg.fitness
         gBestSolution = msg.solution
+        //informationRequest()
       }
     }
     case _ => println("ParticleActor huh?")

@@ -1,7 +1,6 @@
 import akka.actor.{Actor, ActorRef, Props}
 
 class SwarmActor extends Actor {
-
   val actors : List[ActorRef] = null;
 
   def this(particlesCount : Int,
