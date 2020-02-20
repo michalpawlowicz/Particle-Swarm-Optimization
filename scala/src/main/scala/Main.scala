@@ -1,16 +1,28 @@
+import java.io.{File, FileNotFoundException}
+import java.util.Properties
+
 import akka.actor.{ActorSystem, Props}
+import com.typesafe.config.ConfigFactory
+
+import scala.io.Source
 
 object Main extends App {
-  val particlesCount = 32
-  val dimension = 128
-  val iterMax = 3e5
+
+  val config = ConfigFactory.parseFile(new File("application.properties"))
+
+  val particlesCount=config.getString("particlesCount").toInt
+  val dimension=config.getString("dimension").toInt
+  val iterMax=config.getString("iterMax").toDouble.toInt
+  val omegaMin=config.getString("omegaMin").toDouble
+  val omegaMax=config.getString("omegaMax").toDouble
+  val phi_1=config.getString("phi_1").toDouble
+  val phi_2=config.getString("phi_2").toDouble
+
   val fn = (v: Vector[Double]) => 418.9829 * dimension - v.map(vi => vi * scala.math.sin(scala.math.sqrt(scala.math.abs(vi)))).sum
   val endCondition = (iteration : Int, fitness : Double) => iteration > iterMax
   val domain : Domain = new Domain(-500, 500)
 
-  val omegaMax : Double = 1.8
-  val omegaMin : Double = 0.1
-  val parameters : Parameters = new Parameters(omegaMin, omegaMax, 0.4, 1.8, (omegaMax - omegaMin) / iterMax)
+  val parameters : Parameters = new Parameters(omegaMin, omegaMax, phi_1, phi_2, (omegaMax - omegaMin) / iterMax)
 
   val system = ActorSystem("HelloSystem")
   val swarm = system.actorOf(Props(new SwarmActor(particlesCount, fn, endCondition, domain, parameters, dimension)))
