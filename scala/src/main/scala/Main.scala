@@ -8,7 +8,10 @@ import scala.io.Source
 
 object Main extends App {
 
-  val config = ConfigFactory.parseFile(new File("application.properties"))
+  val fileName = System.getProperty("confAppName")
+
+  println("Loaded configuration: " +  fileName)
+  val config = ConfigFactory.parseFile(new File(fileName))
 
   val graph = config.getString("graph")
   val particlesCount=config.getString("particlesCount").toInt
