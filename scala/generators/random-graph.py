@@ -1,8 +1,6 @@
 from networkx import nx
 import sys
 
-
-"""
 if __name__ == "__main__":
     if len(sys.argv) != 3:
         print("Number of nodes")
@@ -16,5 +14,3 @@ if __name__ == "__main__":
         for n in l:
             print("{} ".format(n), end='')
         print("")
-
-"""
