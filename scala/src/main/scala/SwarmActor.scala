@@ -21,9 +21,16 @@ class SwarmActor extends Actor {
 
     println("Sending acquaintances to particles")
 
-    val random = scala.util.Random
-
-    actors.foreach(particleActor => { particleActor ! new InitAcquaintances(actors.filter(_ => random.nextBoolean()).toList) })
+    GraphParser.parse("/Users/michal/devel/repos/Particle-Swarm-Optymization-Scala/example.graph").lazyZip(actors)
+        .foreach((representation, particleActor) => {
+          particleActor ! new InitAcquaintances(
+            actors.lazyZip(actors.indices).filter(
+              (_, index) => {
+                representation.contains(index)
+              }
+            ).map(p => p._1).toList
+          )
+        })
   }
 
   override def receive: Receive = {
