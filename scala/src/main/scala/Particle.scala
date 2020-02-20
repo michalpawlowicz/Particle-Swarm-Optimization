@@ -16,7 +16,7 @@ class Particle(val fn : Vector[Double] => Double,
                var bestKnownPosition : Vector[Double],
                var bestKnownFitness : Double) {
 
-  val random: Random.type = scala.util.Random
+  val random = new scala.util.Random()
 
   def this(domain : Domain,
            parameters : Parameters,
