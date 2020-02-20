@@ -37,15 +37,17 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
         iteration = iteration + 1
         iterationRequest()
       } else {
-        // signal end of work
         println("END")
+        context.stop(communicationActor)
+        context.stop(workerActor)
+        context.parent ! new FinalSolution(new Information(this.gBestSolution, this.gBestFitness))
+        context.stop(self)
       }
     }
     case msg: Information => {
       if(msg.fitness < gBestFitness) {
         gBestFitness = msg.fitness
         gBestSolution = msg.solution
-        //informationRequest()
       }
     }
     case _ => println("ParticleActor huh?")

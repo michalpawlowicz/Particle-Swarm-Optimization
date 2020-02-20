@@ -1,7 +1,11 @@
+import java.util.concurrent.atomic.AtomicInteger
+
 import akka.actor.{Actor, ActorRef, Props}
 
-class SwarmActor extends Actor {
-  val actors : List[ActorRef] = null;
+class SwarmActor(val particlesCount: Int) extends Actor {
+  val actors: List[ActorRef] = null;
+  var finalSolution: FinalSolution = new FinalSolution(new Information(null, Double.MaxValue));
+  var receivedFinalInformation: AtomicInteger = new AtomicInteger()
 
   def this(graph : String,
            particlesCount : Int,
@@ -9,8 +13,8 @@ class SwarmActor extends Actor {
            endCondition : (Int, Double) => Boolean,
            domain: Domain,
            parameters: Parameters,
-           dimension : Int) {
-    this()
+           dimension: Int) {
+    this(particlesCount)
 
     println("Swarm initialization")
 
@@ -38,6 +42,20 @@ class SwarmActor extends Actor {
     case initAcquaintancesResponse: InitAcquaintancesResponse => {
       if (initAcquaintancesResponse.response) {
         sender() ! new Start()
+      }
+    }
+
+    case msg: FinalSolution => {
+      println("Received Final Solution:", msg.information.fitness)
+      val receivedMessages = receivedFinalInformation.addAndGet(1);
+
+      if (msg.information.fitness < this.finalSolution.information.fitness) {
+        this.finalSolution = msg
+      }
+
+      if (receivedMessages == this.particlesCount) {
+        context.stop(self)
+        context.system.terminate()
       }
     }
     case _ => println("SwarmActor huh?")

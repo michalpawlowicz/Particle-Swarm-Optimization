@@ -1,0 +1,1 @@
+sbt clean assembly ; dir=testV2; mkdir $dir; for i in {1..8}; do { time python3 run.py $i; }  2>${dir}/time_${i} ; done ; python3 plot_speedup.py $dir
