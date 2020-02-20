@@ -3,7 +3,8 @@ import akka.actor.{Actor, ActorRef, Props}
 class SwarmActor extends Actor {
   val actors : List[ActorRef] = null;
 
-  def this(particlesCount : Int,
+  def this(graph : String,
+           particlesCount : Int,
            fn : Vector[Double] => Double,
            endCondition : (Int, Double) => Boolean,
            domain: Domain,
@@ -21,7 +22,7 @@ class SwarmActor extends Actor {
 
     println("Sending acquaintances to particles")
 
-    GraphParser.parse("/Users/michal/devel/repos/Particle-Swarm-Optymization-Scala/example.graph").lazyZip(actors)
+    GraphParser.parse(graph).lazyZip(actors)
         .foreach((representation, particleActor) => {
           particleActor ! new InitAcquaintances(
             actors.lazyZip(actors.indices).filter(

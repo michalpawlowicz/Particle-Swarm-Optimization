@@ -10,6 +10,7 @@ object Main extends App {
 
   val config = ConfigFactory.parseFile(new File("application.properties"))
 
+  val graph = config.getString("graph")
   val particlesCount=config.getString("particlesCount").toInt
   val dimension=config.getString("dimension").toInt
   val iterMax=config.getString("iterMax").toDouble.toInt
@@ -25,5 +26,5 @@ object Main extends App {
   val parameters : Parameters = new Parameters(omegaMin, omegaMax, phi_1, phi_2, (omegaMax - omegaMin) / iterMax)
 
   val system = ActorSystem("HelloSystem")
-  val swarm = system.actorOf(Props(new SwarmActor(particlesCount, fn, endCondition, domain, parameters, dimension)))
+  val swarm = system.actorOf(Props(new SwarmActor(graph, particlesCount, fn, endCondition, domain, parameters, dimension)))
 }
