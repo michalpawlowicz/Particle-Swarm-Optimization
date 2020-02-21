@@ -21,6 +21,8 @@
 
 * Implementacja w Scala + Akka
 
+## Zbieżność fitnessu dla funkcji Schwefel'a (dimension = 4096)
+* Porównanie dla różnych reprezentacji oraz dla wersji sekwencyjnej
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/fitness.png?raw=true)
 
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/speedup_final.png?raw=true)
