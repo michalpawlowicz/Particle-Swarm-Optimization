@@ -19,6 +19,8 @@
 * Random geometric graph
 ![alt text](https://networkx.github.io/documentation/networkx-1.9/_images/random_geometric_graph.png)
 
+* Random regural graph
+
 * Implementacja w Scala + Akka
 
 ## Zbieżność fitnessu dla funkcji Schwefel'a (dimension = 4096)
