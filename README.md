@@ -11,6 +11,9 @@
 * Barabási–Albert model
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Barabasi_albert_graph.svg/1920px-Barabasi_albert_graph.svg.png)
 
+* Erdős–Rényi model
+![alt text](https://www.researchgate.net/profile/Mikayel_Poghosyan/publication/330369123/figure/fig4/AS:715020707045386@1547485629921/Tree-graph-of-Erdos-Renyi-model-for-large-number-of-nodes.ppm)
+
 
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/fitness.png?raw=true)
 
@@ -27,3 +30,6 @@
 
 [5] Barabási–Albert model
 https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model
+
+[6] Erdős–Rényi model
+https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model
