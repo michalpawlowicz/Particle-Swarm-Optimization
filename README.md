@@ -45,3 +45,5 @@ https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model
 https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model
 
 [7] Jeong Han Kim and Van H. Vu, Generating random regular graphs, Proceedings of the thirty-fifth ACM symposium on Theory of computing, San Diego, CA, USA, pp 213–222, 2003. http://portal.acm.org/citation.cfm?id=780542.780576
+
+[8]	Gilbert, Random Graphs, Ann. Math. Stat., 30, 1141 (1959).
