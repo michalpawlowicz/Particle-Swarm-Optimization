@@ -2,8 +2,12 @@ import java.util.concurrent.atomic.AtomicInteger
 
 import akka.actor.{Actor, ActorRef, Props}
 
+import scala.collection.immutable.{HashMap, ListMap}
+import scala.collection.mutable
+
 class SwarmActor(val particlesCount: Int) extends Actor {
-  val actors: List[ActorRef] = null;
+  val actors: List[ActorRef] = null
+  var valuesByIteration: Map[Int, Double] = new ListMap()
   var finalSolution: FinalSolution = new FinalSolution(new Information(null, Double.MaxValue));
   var receivedFinalInformation: AtomicInteger = new AtomicInteger()
 
@@ -55,7 +59,17 @@ class SwarmActor(val particlesCount: Int) extends Actor {
 
       if (receivedMessages == this.particlesCount) {
         context.stop(self)
+
+        val result = ListMap(valuesByIteration.toSeq.sortBy(_._1):_*)
+        result.foreach((p) => println(p._1 + " "+ p._2))
         context.system.terminate()
+      }
+    }
+
+    case msg: Statistics => {
+      val value =  valuesByIteration.get(msg.iteration)
+      if(value.getOrElse(Double.MaxValue) > msg.fitness){
+        valuesByIteration += (msg.iteration -> msg.fitness)
       }
     }
     case _ => println("SwarmActor huh?")

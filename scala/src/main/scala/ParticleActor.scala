@@ -32,6 +32,11 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
           informationRequest() // Inform others about new best solution
         }
       }
+
+//      if(iteration %100 == 0){
+        context.parent ! new Statistics(iteration, gBestFitness)
+//      }
+
       if (!endCondition(iteration, gBestFitness)) {
         iteration = iteration + 1
         iterationRequest()
