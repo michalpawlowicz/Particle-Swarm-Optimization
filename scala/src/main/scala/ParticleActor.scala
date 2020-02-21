@@ -21,7 +21,6 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
       this.communicationActor.forward(msg)
     }
     case _: Start => {
-      println("Start working")
       iterationRequest()
     }
     case msg: IterateResponse => {
