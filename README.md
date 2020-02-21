@@ -36,3 +36,6 @@ https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model
 
 [6] Erdős–Rényi model
 https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model
+
+[7] Random regular graph
+https://en.wikipedia.org/wiki/Random_regular_graph
