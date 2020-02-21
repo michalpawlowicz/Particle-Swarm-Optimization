@@ -14,6 +14,9 @@
 * Erdős–Rényi model
 ![alt text](https://www.researchgate.net/profile/Mikayel_Poghosyan/publication/330369123/figure/fig4/AS:715020707045386@1547485629921/Tree-graph-of-Erdos-Renyi-model-for-large-number-of-nodes.ppm)
 
+* Random geometric graph
+(https://media.springernature.com/original/springer-static/image/chp%3A10.1007%2F978-3-319-20565-6_9/MediaObjects/330379_1_En_9_Fig6_HTML.gif)
+
 
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/fitness.png?raw=true)
 
