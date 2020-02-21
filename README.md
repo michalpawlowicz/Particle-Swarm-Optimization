@@ -7,6 +7,11 @@
 ## Implementacja wersji rozproszonej
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/PSO_Flow.png?raw=true)
 
+## Rodzaje połączeń pomiędzy aktorami
+* Barabási–Albert model
+![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Barabasi_albert_graph.svg/1920px-Barabasi_albert_graph.svg.png)
+
+
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/fitness.png?raw=true)
 
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/speedup_final.png?raw=true)
@@ -19,3 +24,6 @@
 [3] A Comprehensive Review of Swarm Optimization Algorithms Mohd Nadhir Ab Wahab https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4436220/pdf/pone.0122827.pdf
 
 [4] Double Flight-Modes Particle Swarm Optimization Wang Yong, 1 Li Jing-yang, 1 and Li Chun-lei 2 https://www.researchgate.net/publication/275459702_Double_Flight-Modes_Particle_Swarm_Optimization
+
+[5] Barabási–Albert model
+https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model
