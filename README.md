@@ -19,6 +19,7 @@
 * Random geometric graph
 ![alt text](https://networkx.github.io/documentation/networkx-1.9/_images/random_geometric_graph.png)
 
+* Implementacja w Scala + Akka
 
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/fitness.png?raw=true)
 
