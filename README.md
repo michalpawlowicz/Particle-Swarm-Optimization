@@ -1,6 +1,5 @@
 # Particle-Swarm-Optimization
 
-# Particle-Swarm-Optimization
 ## Implementacja wersji synchronicznej
 * Wzorowany na [1]. Model Master-Slave, jeden wątek zajmuje się agregacją informacji od pozostałych agentów.
 * Kiedy particle wyleci poza domene problemu? -> [2] Ustawiamy v na bliskie zero i pozwalamy mu wrócić
