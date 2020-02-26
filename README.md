@@ -20,12 +20,13 @@ Problem with particle leaving the problem's domain we tackled it with setting pa
 
 * Implementacja w Scala + Akka
 
-## Zbieżność fitnessu dla funkcji Schwefel'a (dimension = 4096)
+## Coverage for Schwefel function, dimension = 4096
 * Porównanie dla różnych reprezentacji oraz dla wersji sekwencyjnej
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/fitness.png?raw=true)
 
-## Speedup dla różnych reprezentacji
-
+## Speedup
+* Schwefel function, dimension 4096
+* 32 particles
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/speedup_final.png?raw=true)
 
 
