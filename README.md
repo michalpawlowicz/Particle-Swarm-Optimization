@@ -4,6 +4,8 @@ This repository is an attempt to implement **fully-decentralized PSO algorithm**
 
 ## Contents
 1. [Introduction](#introduction)
+1. [License](#license)
+1. [References](#references)
 
 ## Introduction <a name="introduction"></a>
 
@@ -32,11 +34,11 @@ Problem with particle **leaving the problem's domain** we tackled it with settin
 
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/speedup_final.png?raw=true)
 
-## License
+## License <a name="license"></a>
 
 This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
 
-## References
+## References <a name="references"></a>
 
 [1] A Parallel Particle Swarm Optimization Algorithm Accelerated by Asynchronous Evaluations, https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20050182658.pdf
 
