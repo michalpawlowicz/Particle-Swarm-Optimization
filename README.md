@@ -18,15 +18,6 @@ Problem with particle leaving the problem's domain we tackled it with setting pa
 ## Rodzaje połączeń pomiędzy aktorami
 * Particle komunikują się na podstawie predefiniowanego grafu, wybraliśmy grafy które wydawały nam się dobre oraz które reprezentują sieci społecznościowe
 
-* Barabási–Albert model
-![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Barabasi_albert_graph.svg/1920px-Barabasi_albert_graph.svg.png)
-
-* Erdős–Rényi model
-![alt text](https://www.researchgate.net/profile/Mikayel_Poghosyan/publication/330369123/figure/fig4/AS:715020707045386@1547485629921/Tree-graph-of-Erdos-Renyi-model-for-large-number-of-nodes.ppm)
-
-* Random geometric graph
-![alt text](https://networkx.github.io/documentation/networkx-1.9/_images/random_geometric_graph.png)
-
 * Implementacja w Scala + Akka
 
 ## Zbieżność fitnessu dla funkcji Schwefel'a (dimension = 4096)
