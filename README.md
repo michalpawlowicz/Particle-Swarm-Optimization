@@ -1,5 +1,10 @@
 # Particle-Swarm-Optimization
 
+This repository is a attempt to implement PSO algorithm and compare it to naively paralized version it terms of it speedup on multicore machines and it's convergence.
+Out  multi-agent system implemented in Scala+Akka is compered to Java implementation of paralized version as desribed in [1]
+
+The idea is to minimize the required communication between given particles, but still keet relatively good performance in terms of loss function converagence. This is achieved by desribing the problem as problem of diffusion of information or diffusion of infection in social networks, then graphs with best properties, shortest times of diffusion and minimal number of edges can be used as agent's adjacency matrix.
+
 ## Implementacja wersji synchronicznej
 * Wzorowany na [1]. Model Master-Slave, jeden wątek zajmuje się agregacją informacji od pozostałych agentów.
 * Kiedy particle wyleci poza domene problemu? -> [2] Ustawiamy v na bliskie zero i pozwalamy mu wrócić
@@ -37,12 +42,3 @@
 [3] A Comprehensive Review of Swarm Optimization Algorithms Mohd Nadhir Ab Wahab https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4436220/pdf/pone.0122827.pdf
 
 [4] Double Flight-Modes Particle Swarm Optimization Wang Yong, 1 Li Jing-yang, 1 and Li Chun-lei 2 https://www.researchgate.net/publication/275459702_Double_Flight-Modes_Particle_Swarm_Optimization
-
-[5] Barabási–Albert model
-https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model
-
-[6] Erdős–Rényi model
-https://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model
-
-[7] Random regular graph
-https://en.wikipedia.org/wiki/Random_regular_graph
