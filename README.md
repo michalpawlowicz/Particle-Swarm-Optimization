@@ -10,7 +10,7 @@ We intend to go further and **fully decentralize** the PSO algorithm.
 
 The idea is to minimize the required communication between given particles, but still keep relatively good performance in terms of loss function convergence. This is achieved by describing the problem as the problem of **information diffusion** or **diffusion of infection** in social networks, then graphs with best properties, shortest times of diffusion or a minimal number of edges can be used as agent's adjacency matrix. 
 
-Problem with particle leaving the problem's domain we tackled it with setting particle velocity to value near zero and letting the particle turn back to feasible solution domain [2].
+Problem with particle **leaving the problem's domain** we tackled it with setting particle velocity to value near zero and letting the particle turn back to feasible solution domain as described in [2].
 
 ## Implementacja wersji rozproszonej
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/PSO_Flow.png?raw=true)
