@@ -17,7 +17,6 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
 
   override def receive: Receive = {
     case msg: InitAcquaintances => {
-//      println("Received acquaintances")
       this.communicationActor.forward(msg)
     }
     case _: Start => {
@@ -28,7 +27,6 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
         if(msg.solution.get._2 < gBestFitness) {
           gBestFitness = msg.solution.get._2
           gBestSolution = msg.solution.get._1
-//          println("New best solution: " + gBestFitness)
           informationRequest() // Inform others about new best solution
         }
       }
@@ -36,7 +34,6 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
         iteration = iteration + 1
         iterationRequest()
       } else {
-        println("END")
         context.stop(communicationActor)
         context.stop(workerActor)
         context.parent ! new FinalSolution(new Information(this.gBestSolution, this.gBestFitness))

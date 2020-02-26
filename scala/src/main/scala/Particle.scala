@@ -62,9 +62,6 @@ class Particle(val fn : Vector[Double] => Double,
     this.updatePosition()
     if(this.domain.feasible(this.position)) {
       val fitness = this.apply()
-      if (fitness < 0) {
-        println(this.position)
-      }
       if(fitness < this.bestKnownFitness) {
         this.bestKnownPosition = this.position
         this.bestKnownFitness = fitness

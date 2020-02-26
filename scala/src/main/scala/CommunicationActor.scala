@@ -4,7 +4,6 @@ class CommunicationActor() extends Actor {
   var acquaintances : Option[List[ActorRef]] = None
   override def receive: Receive = {
     case msg: InitAcquaintances => {
-//      println("Acquaintances saved: " + msg.acquaintances.size)
       this.acquaintances = Some(msg.acquaintances)
       sender().tell(new InitAcquaintancesResponse(true), context.parent)
     }

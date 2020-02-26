@@ -16,15 +16,11 @@ class SwarmActor(val particlesCount: Int) extends Actor {
            dimension: Int) {
     this(particlesCount)
 
-    println("Swarm initialization")
-
     val actors = for (_ <- 0 until particlesCount) yield
       context.actorOf(Props(
         new ParticleActor(
           endCondition,
           new Particle(dimension, domain, parameters, fn))))
-
-    println("Sending acquaintances to particles")
 
     GraphParser.parse(graph).lazyZip(actors)
         .foreach((representation, particleActor) => {
@@ -46,7 +42,6 @@ class SwarmActor(val particlesCount: Int) extends Actor {
     }
 
     case msg: FinalSolution => {
-      println("Received Final Solution:", msg.information.fitness)
       val receivedMessages = receivedFinalInformation.addAndGet(1);
 
       if (msg.information.fitness < this.finalSolution.information.fitness) {
