@@ -1,6 +1,8 @@
 # Particle-Swarm-Optimization
 
-This repository is an attempt to implement the PSO algorithm and compare it to a naively parallelized version it terms of it speedup on multicore machines and it's convergence. Out multi-agent system implemented in Scala+Akka is compered to Java implementation of parallelized version as described in [1]
+This repository is an attempt to implement the PSO algorithm and compare it to a naively parallelized version it terms of it speedup on multicore machines and it's convergence. 
+
+Out multi-agent system implemented in Scala+Akka is compered to Java implementation of parallelized version as described in [1]
 
 The idea is to minimize the required communication between given particles, but still keet relatively good performance in terms of loss function convergence. This is achieved by describing the problem as the problem of information diffusion or diffusion of infection in social networks, then graphs with best properties, shortest times of diffusion or a minimal number of edges can be used as agent's adjacency matrix.
 
