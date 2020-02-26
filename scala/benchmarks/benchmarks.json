@@ -2,9 +2,13 @@
   "outdir" : "benchmark-output",
   "maxcpus" : 16,
   "runs" : 5,
+  "iterMax" : 3e4,
+  "omegaMin" : 0.4,
+  "omegaMax" : 1.8,
+  "phi_1" : 0.7,
+  "phi_2" : 1.5,
   "benchmarks": [
     {
-      "benchmark-name" : "schwefel",
       "particles" : 32,
       "generator" : "barabasi-albert",
       "generator-argv" : [5],
@@ -12,15 +16,13 @@
       "dimension" : 4096
     },
     {
-      "benchmark-name" : "schwefel",
       "particles" : 32,
-      "generator" : "random_regular",
+      "generator" : "random-regular",
       "generator-argv" : [7],
       "function" : "schwefel",
       "dimension" : 4096
     },
     {
-      "benchmark-name" : "schwefel",
       "generator" : "random",
       "particles" : 32,
       "generator-argv" : [64],
@@ -28,23 +30,20 @@
       "dimension" : 4096
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "random_geometric",
+      "generator" : "random-geometric",
       "generator-argv" : [0.35],
       "particles" : 32,
       "dimension" : 4096,
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "erdos_renyi",
+      "generator" : "erdos-renyi",
       "generator-argv" : [0.25],
       "particles" : 32,
       "dimension" : 4096,
       "function" : "schwefel"
     },
-        {
-      "benchmark-name" : "schwefel",
+    {
       "generator" : "barabasi-albert",
       "generator-argv" : [5],
       "particles" : 64,
@@ -52,15 +51,13 @@
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "random_regular",
+      "generator" : "random-regular",
       "generator-argv" : [10],
       "particles" : 64,
       "dimension" : 4096,
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
       "generator" : "random",
       "generator-argv" : [128],
       "particles" : 64,
@@ -68,23 +65,20 @@
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "random_geometric",
+      "generator" : "random-geometric",
       "generator-argv" : [0.35],
       "particles" : 64,
       "dimension" : 4096,
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "erdos_renyi",
+      "generator" : "erdos-renyi",
       "generator-argv" : [0.25],
       "particles" : 64,
       "dimension" : 4096,
       "function" : "schwefel"
     },
-        {
-      "benchmark-name" : "schwefel",
+    {
       "generator" : "barabasi-albert",
       "generator-argv" : [5],
       "particles" : 32,
@@ -92,15 +86,13 @@
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "random_regular",
+      "generator" : "random-regular",
       "generator-argv" : [7],
       "particles" : 32,
       "dimension" : 8192,
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
       "generator" : "random",
       "generator-argv" : [64],
       "particles" : 32,
@@ -108,23 +100,20 @@
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "random_geometric",
+      "generator" : "random-geometric",
       "generator-argv" : [0.35],
       "particles" : 32,
       "dimension" : 8192,
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "erdos_renyi",
+      "generator" : "erdos-renyi",
       "generator-argv" : [0.25],
       "particles" : 32,
       "dimension" : 8192,
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
       "generator" : "barabasi-albert",
       "generator-argv" : [5],
       "particles" : 64,
@@ -132,15 +121,13 @@
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "random_regular",
+      "generator" : "random-regular",
       "generator-argv" : [10],
       "particles" : 64,
       "dimension" : 8192,
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
       "generator" : "random",
       "generator-argv" : [128],
       "particles" : 64,
@@ -148,16 +135,14 @@
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "random_geometric",
+      "generator" : "random-geometric",
       "generator-argv" : [0.35],
       "particles" : 64,
       "dimension" : 8192,
       "function" : "schwefel"
     },
     {
-      "benchmark-name" : "schwefel",
-      "generator" : "erdos_renyi",
+      "generator" : "erdos-renyi",
       "generator-argv" : [0.25],
       "particles" : 64,
       "dimension" : 8192,
