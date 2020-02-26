@@ -4,13 +4,13 @@ This repository is an attempt to implement the PSO algorithm and compare it to a
 
 ## Introduction
 
-Out multi-agent system implemented in Scala+Akka is compered to Java implementation of parallelized version as described in [1]
+Out multi-agent system implemented in Scala+Akka is compered to Java implementation of a parallelized version as described in [1]. It is asynchronous master-slave implementation, where one thread is supposed to aggregate information, pass the best global solution to other workers and collect solutions from others. This solution is faster than a multi-core sequential algorithm because a particle may start next iteration with a little older best know solution which leads to lock-free implementation.
 
-The idea is to minimize the required communication between given particles, but still keep relatively good performance in terms of loss function convergence. This is achieved by describing the problem as the problem of information diffusion or diffusion of infection in social networks, then graphs with best properties, shortest times of diffusion or a minimal number of edges can be used as agent's adjacency matrix.
+We intend to go further and fully decentralize the PSO algorithm.
 
-## Implementacja wersji synchronicznej
-* Wzorowany na [1]. Model Master-Slave, jeden wątek zajmuje się agregacją informacji od pozostałych agentów.
-* Kiedy particle wyleci poza domene problemu? -> [2] Ustawiamy v na bliskie zero i pozwalamy mu wrócić
+The idea is to minimize the required communication between given particles, but still keep relatively good performance in terms of loss function convergence. This is achieved by describing the problem as the problem of information diffusion or diffusion of infection in social networks, then graphs with best properties, shortest times of diffusion or a minimal number of edges can be used as agent's adjacency matrix. 
+
+Problem with particle leaving the problem's domain we tackled it with setting particle velocity to value near zero and letting the particle turn back to feasible solution domain [2].
 
 ## Implementacja wersji rozproszonej
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/PSO_Flow.png?raw=true)
