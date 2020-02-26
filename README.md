@@ -1,6 +1,6 @@
 # Multi Agent Particle Swarm Optimization
 
-This repository is an attempt to implement the PSO algorithm and compare it to a naively parallelized version it terms of it speedup on multicore machines and it's convergence. 
+This repository is an attempt to implement fully-decentralized PSO algorithm and compare it to a naively parallelized version it terms of it speedup on multicore machines and it's convergence. 
 
 ## Introduction
 
