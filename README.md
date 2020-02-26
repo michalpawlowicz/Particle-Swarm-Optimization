@@ -4,8 +4,10 @@ This repository is an attempt to implement **fully-decentralized PSO algorithm**
 
 ## Contents
 1. [Introduction](#introduction)
-1. [License](#license)
-1. [References](#references)
+2. [Coverage](#coverage)
+3. [Speedup](#speedup)
+4. [License](#license)
+5. [References](#references)
 
 ## Introduction <a name="introduction"></a>
 
@@ -25,10 +27,10 @@ Problem with particle **leaving the problem's domain** we tackled it with settin
 
 * Implementacja w Scala + Akka
 
-## Coverage for Schwefel function, dimension = 4096
+## Coverage for Schwefel function, dimension = 4096 <a name="coverage"></a>
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/fitness.png?raw=true)
 
-## Speedup
+## Speedup <a name="speedup"></a>
 * Schwefel function, dimension 4096
 * 32 particles
 
