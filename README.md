@@ -27,6 +27,7 @@ Problem with particle leaving the problem's domain we tackled it with setting pa
 ## Speedup
 * Schwefel function, dimension 4096
 * 32 particles
+
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/speedup_final.png?raw=true)
 
 
