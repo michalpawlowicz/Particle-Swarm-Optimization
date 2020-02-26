@@ -19,9 +19,6 @@ The idea is to minimize the required communication between given particles, but 
 
 Problem with particle **leaving the problem's domain** we tackled it with setting particle velocity to value near zero and letting the particle turn back to feasible solution domain as described in [2].
 
-## Decentralized implementation
-![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/PSO_Flow.png?raw=true)
-
 ## Coverage for Schwefel function, dimension = 4096 <a name="coverage"></a>
 ![alt text](https://github.com/michalpawlowicz/Particle-Swarm-Optimization/blob/experimental/scala/scala/outs/32_4096/fitness.png?raw=true)
 
