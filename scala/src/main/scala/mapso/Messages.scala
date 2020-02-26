@@ -1,3 +1,5 @@
+package mapso
+
 import akka.actor.ActorRef
 
 import scala.collection.immutable.Vector

@@ -1,3 +1,5 @@
+package mapso
+
 import akka.actor.{Actor, ActorRef, Props}
 
 import scala.collection.immutable.Vector
@@ -16,18 +18,14 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
   }
 
   override def receive: Receive = {
-    case msg: InitAcquaintances => {
-      this.communicationActor.forward(msg)
-    }
-    case _: Start => {
-      iterationRequest()
-    }
+    case msg: InitAcquaintances => this.communicationActor.forward(msg)
+    case _: Start => iterationRequest()
     case msg: IterateResponse => {
       if(msg.solution.isDefined) {
         if(msg.solution.get._2 < gBestFitness) {
           gBestFitness = msg.solution.get._2
           gBestSolution = msg.solution.get._1
-          informationRequest() // Inform others about new best solution
+          informationRequest()
         }
       }
       if (!endCondition(iteration, gBestFitness)) {
@@ -40,12 +38,11 @@ class ParticleActor(val endCondition : (Int, Double) => Boolean,
         context.stop(self)
       }
     }
-    case msg: Information => {
+    case msg: Information =>
       if(msg.fitness < gBestFitness) {
         gBestFitness = msg.fitness
         gBestSolution = msg.solution
       }
-    }
     case _ => println("ParticleActor huh?")
   }
 

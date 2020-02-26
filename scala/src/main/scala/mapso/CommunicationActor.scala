@@ -1,3 +1,5 @@
+package mapso
+
 import akka.actor.{Actor, ActorRef}
 
 class CommunicationActor() extends Actor {

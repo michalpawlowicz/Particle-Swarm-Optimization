@@ -1,3 +1,5 @@
+package mapso
+
 import scala.collection.immutable.Vector
 
 class Domain(val lowerBound : Int, val higherBound : Int) {

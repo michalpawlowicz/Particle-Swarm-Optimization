@@ -1,4 +1,5 @@
-import scala.collection.immutable.Vector
+package mapso
+
 import scala.util.Random
 
 object Particle {

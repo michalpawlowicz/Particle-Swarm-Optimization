@@ -1,10 +1,8 @@
-import java.io.{File, FileNotFoundException}
-import java.util.Properties
+import java.io.File
 
 import akka.actor.{ActorSystem, Props}
 import com.typesafe.config.ConfigFactory
-
-import scala.io.Source
+import mapso.{Domain, Parameters, SwarmActor}
 
 object Main extends App {
 
@@ -29,5 +27,5 @@ object Main extends App {
   val parameters : Parameters = new Parameters(omegaMin, omegaMax, phi_1, phi_2, (omegaMax - omegaMin) / iterMax)
 
   val system = ActorSystem("HelloSystem")
-  val swarm = system.actorOf(Props(new SwarmActor(graph, particlesCount, fn, endCondition, domain, parameters, dimension)))
+  val swarm = system.actorOf(Props(new SwarmActor(GraphParser.parse(graph), particlesCount, fn, endCondition, domain, parameters, dimension)))
 }

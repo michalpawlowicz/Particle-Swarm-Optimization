@@ -1,5 +1,6 @@
-import java.util.concurrent.atomic.AtomicInteger
+package mapso
 
+import java.util.concurrent.atomic.AtomicInteger
 import akka.actor.{Actor, ActorRef, Props}
 
 class SwarmActor(val particlesCount: Int) extends Actor {
@@ -7,7 +8,7 @@ class SwarmActor(val particlesCount: Int) extends Actor {
   var finalSolution: FinalSolution = new FinalSolution(new Information(null, Double.MaxValue));
   var receivedFinalInformation: AtomicInteger = new AtomicInteger()
 
-  def this(graph : String,
+  def this(graph : Array[Array[Int]],
            particlesCount : Int,
            fn : Vector[Double] => Double,
            endCondition : (Int, Double) => Boolean,
@@ -22,16 +23,16 @@ class SwarmActor(val particlesCount: Int) extends Actor {
           endCondition,
           new Particle(dimension, domain, parameters, fn))))
 
-    GraphParser.parse(graph).lazyZip(actors)
-        .foreach((representation, particleActor) => {
-          particleActor ! new InitAcquaintances(
-            actors.lazyZip(actors.indices).filter(
-              (_, index) => {
-                representation.contains(index)
-              }
-            ).map(p => p._1).toList
-          )
-        })
+    graph.lazyZip(actors)
+      .foreach((representation, particleActor) => {
+        particleActor ! new InitAcquaintances(
+          actors.lazyZip(actors.indices).filter(
+            (_, index) => {
+              representation.contains(index)
+            }
+          ).map(p => p._1).toList
+        )
+      })
   }
 
   override def receive: Receive = {
