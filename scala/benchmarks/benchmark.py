@@ -1,4 +1,5 @@
 import json
+import sys
 import multiprocessing as mp
 import os
 import shutil
@@ -12,7 +13,7 @@ def worker(cpus, runs, return_array):
     avgs = []
     for _ in range(runs):
         start = time.process_time()
-        os.system("java -jar -DconfAppName={} ../target/scala-2.13/Particle-Swarm-Optymization-Scala-assembly-0.1.jar".format(conf_name))
+        os.system("java -jar -DconfAppName={0} benchmarks-proj/target/scala-2.13/Multi-Agent-Particle-Swarm-Optymization-Benchmark-assembly-0.1.jar".format(conf_name))
         end = time.process_time()
         avgs.append(end - start)
     return_array=[np.mean(avgs), np.std(avgs), np.max(avgs), np.min(avgs)]
@@ -36,7 +37,7 @@ os.mkdir(outdir)
 
 if os.path.isdir("results"):
     print("WARNING! Don't override results/ folder")
-    os.exit(1)
+    sys.exit(1)
 os.mkdir("results/")
 
 for benchmark in benchmarks:
@@ -64,8 +65,8 @@ for benchmark in benchmarks:
         print(cmd)
         os.system(cmd)
 
-    for cpus in [range(0, i) for i in range(0, maccpus)]:
-        manager = multiprocessing.Manager()
+    for cpus in [range(0, i) for i in range(0, maxcpus)]:
+        manager = mp.Manager()
         return_array = manager.array()
         d = dict(cpus=cpus, runs=runs, return_array=return_array)
         p = mp.Process(target=worker, kwargs=d)
