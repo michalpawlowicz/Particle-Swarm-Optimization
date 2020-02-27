@@ -6,8 +6,9 @@ import shutil
 from pathlib import Path
 import psutil
 import numpy as np
+import time
 
-def worker(cpus, runs, return_array):
+def worker(cpus, runs, return_dict):
     proc = psutil.Process()
     proc.cpu_affinity(cpus)
     avgs = []
@@ -16,7 +17,7 @@ def worker(cpus, runs, return_array):
         os.system("java -jar -DconfAppName={0} benchmarks-proj/target/scala-2.13/Multi-Agent-Particle-Swarm-Optymization-Benchmark-assembly-0.1.jar".format(conf_name))
         end = time.process_time()
         avgs.append(end - start)
-    return_array=[np.mean(avgs), np.std(avgs), np.max(avgs), np.min(avgs)]
+    return_dict["return_array"]=[np.mean(avgs), np.std(avgs), np.max(avgs), np.min(avgs)]
 
 with open("benchmarks.json") as fp:
     b = json.loads("".join(fp.readlines()))
@@ -67,11 +68,11 @@ for benchmark in benchmarks:
 
     for cpus in [range(0, i) for i in range(0, maxcpus)]:
         manager = mp.Manager()
-        return_array = manager.array()
-        d = dict(cpus=cpus, runs=runs, return_array=return_array)
+        return_dict = manager.dict()
+        d = dict(cpus=cpus, runs=runs, return_dict=return_dict)
         p = mp.Process(target=worker, kwargs=d)
         p.start()
         p.join()
         resultpath = "results/{0}-{1}-{2}-{3}.benchmark".format(generator, particles, function, dim) 
         with open(resultpath, 'w+') as runres:
-            runres.write("cpus: {0} results: {1}".format(len(cpus), return_array))
+            runres.write("cpus: {0} results: {1}".format(len(cpus), return_dict["return_array"]))
