@@ -15,5 +15,4 @@ lazy val mapso_benchmark = (project in file("benchmarks/benchmarks-proj/"))
     name := "Multi-Agent-Particle-Swarm-Optymization-Benchmark",
     libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.6.3",
     libraryDependencies += "com.typesafe" % "config" % "1.3.3",
-    // libraryDependencies += mapso,
   ).aggregate(mapso).dependsOn(mapso)
