@@ -1,2 +1,4 @@
 # created by benchmark script
 benchmark-output/
+*/target/
+*/__pycache__/
