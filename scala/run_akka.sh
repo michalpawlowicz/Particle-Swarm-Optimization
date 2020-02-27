@@ -1,1 +1,0 @@
-java -jar target/scala-2.13/Particle-Swarm-Optymization-Scala-assembly-0.1.jar
