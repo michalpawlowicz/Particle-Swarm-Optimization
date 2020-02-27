@@ -8,7 +8,7 @@ lazy val mapso = (project in file("."))
     libraryDependencies += "com.typesafe" % "config" % "1.3.3"
   )
 
-lazy val mapso_benchmark = (project in file("."))
+lazy val mapso_benchmark = (project in file("benchmarks/benchmarks-proj/"))
   .settings(
     name := "Multi-Agent-Particle-Swarm-Optymization-Benchmark"
     libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.6.3"
