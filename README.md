@@ -11,7 +11,7 @@ This repository is an attempt to implement **fully-decentralized PSO algorithm**
 
 ## Introduction <a name="introduction"></a>
 
-Out multi-agent system implemented in **Scala and Akka** is compered to Java implementation of a parallelized version as described in [1]. It is asynchronous master-slave implementation, where one thread is supposed to aggregate information, pass the best global solution to other workers and collect solutions from others. This solution is faster than a multi-core sequential algorithm because a particle may start next iteration with a little older best know solution which leads to lock-free implementation.
+Out multi-agent system implemented in **Scala and Akka** is compered to Java implementation of a parallelized version as described in [[1]](#1). It is asynchronous master-slave implementation, where one thread is supposed to aggregate information, pass the best global solution to other workers and collect solutions from others. This solution is faster than a multi-core sequential algorithm because a particle may start next iteration with a little older best know solution which leads to lock-free implementation.
 
 We intend to go further and **fully decentralize** the PSO algorithm.
 
