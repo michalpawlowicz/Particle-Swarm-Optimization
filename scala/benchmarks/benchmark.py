@@ -11,13 +11,13 @@ import time
 def worker(cpus, runs, return_dict):
     print("Starting test with {0} cpus, runs number {1}".format(cpus, runs))
     proc = psutil.Process()
-    #proc.cpu_affinity(cpus)
+    proc.cpu_affinity(cpus)
     avgs = []
     for run in range(runs):
         print("   -> Run number {}".format(run))
-        start = time.process_time()
+        start = time.time()
         os.system("java -jar -DconfAppName={0} benchmarks-proj/target/scala-2.13/Multi-Agent-Particle-Swarm-Optymization-Benchmark-assembly-0.1.jar > /dev/null".format("benchmark-output/bench.prop"))
-        end = time.process_time()
+        end = time.time()
         avgs.append(end - start)
         print("   -> Run number {} finished".format(run))
     return_dict["return_array"]=[np.mean(avgs), np.std(avgs), np.max(avgs), np.min(avgs)]
