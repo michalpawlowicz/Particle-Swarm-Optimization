@@ -16,7 +16,7 @@ def worker(cpus, runs, return_dict):
     for run in range(runs):
         print("   -> Run number {}".format(run))
         start = time.time()
-        os.system("java -jar -DconfAppName={0} benchmarks-proj/target/scala-2.13/Multi-Agent-Particle-Swarm-Optymization-Benchmark-assembly-0.1.jar > /dev/null".format("benchmark-output/bench.prop"))
+        os.system("java -jar -DconfAppName={0} benchmarks-proj/target/scala-2.13/Multi-Agent-Particle-Swarm-Optymization-Benchmark-assembly-0.1.jar".format("benchmark-output/bench.prop"))
         end = time.time()
         avgs.append(end - start)
         print("   -> Run number {} finished".format(run))
